@@ -1,0 +1,6 @@
+<h1>Welcome</h1>
+
+<h2>Your Spaces</h2>
+<% @spaces.each do |space| %>
+  <li><%= link_to space.name, space %></li>
+<% end %>

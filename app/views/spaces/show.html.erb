@@ -1,0 +1,7 @@
+<h1><%= @space.name %></h1>
+
+<h2>Members</h2>
+
+<% @space.memberships.each do |membership| %>
+  <li><%= membership.name %></li>
+<% end %>

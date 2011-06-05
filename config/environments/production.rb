@@ -47,3 +47,5 @@ Coworkers::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
+
+Coworkers::Conf = OpenStruct.new app_id: '', app_secret: ''

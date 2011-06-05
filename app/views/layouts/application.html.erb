@@ -7,6 +7,15 @@
   <%= csrf_meta_tag %>
 </head>
 <body>
+  
+  
+  <navigation>
+    <%= link_to 'Home', root_path %>
+    <% if current_user %>
+      <%= link_to 'Account', account_path %>
+    <% end %>
+  </navigation>
+
 
 <%= yield %>
 

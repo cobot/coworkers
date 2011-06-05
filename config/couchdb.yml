@@ -1,4 +1,6 @@
 development:
   database: coworkers_development
+  validation_framework: :active_model
 test:
   database: coworkers_test
+  validation_framework: :active_model

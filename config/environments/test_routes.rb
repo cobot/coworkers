@@ -1,0 +1,1 @@
+match '/oauth2/authorize' => redirect('http://www.example.com/auth/callback'), via: :get

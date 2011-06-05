@@ -1,3 +1,5 @@
+require 'ostruct'
+
 Coworkers::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb
 
@@ -33,3 +35,5 @@ Coworkers::Application.configure do
   # Print deprecation notices to the stderr
   config.active_support.deprecation = :stderr
 end
+
+Coworkers::Conf = OpenStruct.new app_id: '1', app_secret: '1'

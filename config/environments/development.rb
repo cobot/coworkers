@@ -24,3 +24,4 @@ Coworkers::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 end
 
+Coworkers::Conf = OpenStruct.new app_id: '1', app_secret: '1'

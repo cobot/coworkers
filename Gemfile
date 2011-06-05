@@ -12,9 +12,9 @@ group :development do
 end
 
 group :test do
-  gem 'cucumber-rails'
-  gem 'capybara'
-  gem 'fakeweb', require: false
+  gem 'cucumber-rails', '0.5.0'
+  gem 'capybara', '1.0.0.beta1'
+  gem 'webmock'
   gem 'timecop'
   gem 'launchy'
   gem 'database_cleaner'
