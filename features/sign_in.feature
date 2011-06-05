@@ -20,3 +20,10 @@ Scenario: sign in
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe"
   When I sign in
   Then "Joe Doe" should be listed as a member of the space "co.up" once
+
+Scenario: sign in as space admin, existing space
+  Given a space "co.up"
+    And "co.up" has a member "Joe Doe"
+    And on cobot I'm an admin of the space "co.up"
+  When I sign in
+  Then "Joe Doe" should be listed as a member of the space "co.up"
