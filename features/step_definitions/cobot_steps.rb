@@ -11,7 +11,8 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"$/ d
         space_url: "https://www.cobot.me/api/spaces/#{space_id}",
         url: "https://#{space_id}.cobot.me/api/memberships/#{membership_id}"
       }
-    ]
+    ],
+    login: member_name
   }.to_json)
   
   WebMock.stub_request(:get, "https://www.cobot.me/api/spaces/#{space_id}?oauth_token=").to_return(body: {
@@ -20,6 +21,7 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"$/ d
   }.to_json)
   
   WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships/#{membership_id}?oauth_token=").to_return(body: {
+    id: member_name.gsub(/\W+/, '_'),
     address: {
       name: member_name
     }

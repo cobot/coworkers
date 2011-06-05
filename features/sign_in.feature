@@ -13,3 +13,10 @@ Scenario: sign up, space already exists
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe"
   When I sign in
   Then "Joe Doe" should be listed as a member of the space "co.up"
+
+Scenario: sign in
+  Given a space "co.up"
+    And "co.up" has a member "Joe Doe"
+    And on cobot I'm a member of the space "co.up" with the name "Joe Doe"
+  When I sign in
+  Then "Joe Doe" should be listed as a member of the space "co.up" once

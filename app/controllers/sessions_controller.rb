@@ -18,22 +18,27 @@ class SessionsController < ApplicationController
   private
   
   def sign_up(user_attributes)
-    user = create_user user_attributes
+    user = find_or_create_user user_attributes
     create_memberships user, user_attributes["memberships"]
     user
   end
   
-  def create_user(user_attributes)
-    user = User.new(login: user_attributes["login"])
-    db.save user
+  def find_or_create_user(user_attributes)
+    unless user = db.first(User.by_login(user_attributes["login"]))
+      user = User.new(login: user_attributes["login"])
+      db.save user
+    end
     user
   end
   
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
-      db.save Membership.new user_id: user.id,
-        space_id: find_or_create_space(membership_attributes['space_url']).id,
-        name: access_token.get(membership_attributes['url'])['address']['name']
+      membership_details = access_token.get(membership_attributes['url'])
+      unless db.load membership_details['id']
+        db.save Membership.new user_id: user.id, id: membership_details['id'],
+          space_id: find_or_create_space(membership_attributes['space_url']).id,
+          name: membership_details['address']['name']
+      end
     end
   end
   
