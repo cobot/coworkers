@@ -8,8 +8,8 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"$/ d
   WebMock.stub_request(:get, 'https://www.cobot.me/api/user?oauth_token=').to_return(body: {
     memberships: [
       {
-        space_url: "https://www.cobot.me/api/spaces/#{space_id}",
-        url: "https://#{space_id}.cobot.me/api/memberships/#{membership_id}"
+        space_link: "https://www.cobot.me/api/spaces/#{space_id}",
+        link: "https://#{space_id}.cobot.me/api/memberships/#{membership_id}"
       }
     ],
     login: member_name

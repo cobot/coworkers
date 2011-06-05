@@ -33,10 +33,10 @@ class SessionsController < ApplicationController
   
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
-      membership_details = access_token.get(membership_attributes['url'])
+      membership_details = access_token.get(membership_attributes['link'])
       unless db.load membership_details['id']
         db.save Membership.new user_id: user.id, id: membership_details['id'],
-          space_id: find_or_create_space(membership_attributes['space_url']).id,
+          space_id: find_or_create_space(membership_attributes['space_link']).id,
           name: membership_details['address']['name']
       end
     end
