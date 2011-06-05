@@ -1,0 +1,4 @@
+development:
+  database: coworkers_development
+test:
+  database: coworkers_test
