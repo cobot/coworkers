@@ -48,4 +48,6 @@ Coworkers::Application.configure do
   config.active_support.deprecation = :notify
 end
 
-Coworkers::Conf = OpenStruct.new app_id: '', app_secret: ''
+Coworkers::Conf = OpenStruct.new app_id: ENV['COBOT_APP_ID'],
+  app_secret: ENV['COBOT_APP_SECRET'],
+  app_site: 'https://www.cobot.me'

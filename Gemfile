@@ -10,6 +10,7 @@ gem 'simple_form'
 
 group :development do
   gem 'rspec-rails'
+  gem 'heroku'
 end
 
 group :test do
