@@ -3,5 +3,5 @@
 <h2>Members</h2>
 
 <% @space.memberships.each do |membership| %>
-  <li class="membership"><%= membership.name %></li>
+  <li class="membership"><%= link_to membership.name, [@space, membership] %></li>
 <% end %>

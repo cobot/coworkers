@@ -7,4 +7,8 @@ class Membership
   
   view :by_user_id, key: :user_id
   view :by_space_id, key: :space_id
+  
+  def user
+    database.load user_id
+  end
 end

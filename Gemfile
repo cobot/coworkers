@@ -6,6 +6,7 @@ gem 'actionmailer'
 gem 'activemodel'
 gem 'couch_potato'
 gem 'oauth2'
+gem 'simple_form'
 
 group :development do
   gem 'rspec-rails'

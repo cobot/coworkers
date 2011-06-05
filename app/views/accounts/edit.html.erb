@@ -1,0 +1,12 @@
+<h1>Edit Profile</h1>
+
+<%= simple_form_for @user, url: account_path do |f| %>
+  <%= f.input :website, placeholder: 'http://...' %>
+  <%= f.input :profession %>
+  <%= f.input :industry %>
+  <%= f.input :bio, as: :text %>
+  <%= f.input :skills, as: :text %>
+  <%= f.input :messenger_type, collection: ['Skype', 'Twitter', 'Jabber']  %>
+  <%= f.input :messenger_account %>
+  <%= f.submit 'Update Profile', disable_with: 'Saving...' %>
+<% end %>

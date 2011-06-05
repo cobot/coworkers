@@ -3,18 +3,20 @@
 <head>
   <title>Coworkers</title>
   <%= stylesheet_link_tag :all %>
-  <%= javascript_include_tag :defaults %>
+  <%= javascript_include_tag 'jquery', 'rails', 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  
-  
   <navigation>
     <%= link_to 'Home', root_path %>
     <% if current_user %>
       <%= link_to 'Account', account_path %>
+      <%= link_to 'Edit Profile', edit_account_path %>
     <% end %>
   </navigation>
+  <% if flash[:notice] %>
+    <p class="flash notice"><%= flash[:notice] %></p>
+  <% end %>
 
 
 <%= yield %>
