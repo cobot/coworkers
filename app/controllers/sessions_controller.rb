@@ -54,7 +54,7 @@ class SessionsController < ApplicationController
   def client
     OAuth2::Client.new(Coworkers::Conf.app_id,
       Coworkers::Conf.app_secret,
-      site: 'https://www.cobot.me',
+      site: Coworkers::Conf.app_site,
       parse_json: true,
       authorize_path: '/oauth2/authorize',
       access_token_path: '/oauth2/access_token'
