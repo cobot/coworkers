@@ -32,14 +32,17 @@ class SessionsController < ApplicationController
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
       db.save Membership.new user_id: user.id,
-        space_id: create_space(membership_attributes['space_url']).id,
+        space_id: find_or_create_space(membership_attributes['space_url']).id,
         name: access_token.get(membership_attributes['url'])['address']['name']
     end
   end
   
-  def create_space(space_url)
-    space = Space.new name: access_token.get(space_url)['name']
-    db.save space
+  def find_or_create_space(space_url)
+    space_attributes = access_token.get(space_url)
+    unless space = db.load(space_attributes['id'])
+      space = Space.new name: space_attributes['name'], id: space_attributes['id']
+      db.save space
+    end
     space
   end
   

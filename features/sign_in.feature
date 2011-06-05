@@ -1,6 +1,6 @@
 Feature: Sign in
   In order to get access to my space
-  As a visitor
+  As a coworker
   I want to sign in
 
 Scenario: sign up as member, space doesn't exist yet
