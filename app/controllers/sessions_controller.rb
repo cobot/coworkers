@@ -20,7 +20,14 @@ class SessionsController < ApplicationController
   def sign_up(user_attributes)
     user = find_or_create_user user_attributes
     create_memberships user, user_attributes["memberships"]
+    create_spaces user_attributes['admin_of'].map{|admin_of| admin_of['space_link']}
     user
+  end
+  
+  def create_spaces(links)
+    links.each do |link|
+      find_or_create_space link
+    end
   end
   
   def find_or_create_user(user_attributes)

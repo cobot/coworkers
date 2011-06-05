@@ -27,3 +27,8 @@ Scenario: sign in as space admin, existing space
     And on cobot I'm an admin of the space "co.up"
   When I sign in
   Then "Joe Doe" should be listed as a member of the space "co.up"
+
+Scenario: sign in as space admin, space doesn't exist yet
+  Given on cobot I'm an admin of the space "co.up"
+  When I sign in
+  Then I should have "co.up" in my list of spaces
