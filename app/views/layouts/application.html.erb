@@ -8,10 +8,11 @@
 </head>
 <body>
   <navigation>
-    <%= link_to 'Home', root_path %>
     <% if current_user %>
       <%= link_to 'Account', account_path %>
       <%= link_to 'Edit Profile', edit_account_path %>
+    <% else %>
+      <%= link_to 'Home', root_path %>
     <% end %>
   </navigation>
   <% if flash[:notice] %>
