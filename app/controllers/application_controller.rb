@@ -24,4 +24,8 @@ class ApplicationController < ActionController::Base
   def db
     @db ||= CouchPotato.database
   end
+  
+  def not_allowed
+    render file: Rails.root.join('public', '403.html'), layout: false, status: 403
+  end
 end

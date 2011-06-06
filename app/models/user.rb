@@ -14,4 +14,8 @@ class User
   property :messenger_account
   
   view :by_login, key: :login
+  
+  def admin_of?(space)
+    admin_of.include?(space.id)
+  end
 end

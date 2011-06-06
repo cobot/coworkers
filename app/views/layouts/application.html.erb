@@ -11,6 +11,7 @@
     <% if current_user %>
       <%= link_to 'Account', account_path %>
       <%= link_to 'Edit Profile', edit_account_path %>
+      <%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
       <%= link_to 'Sign out', session_path, method: :delete %>
     <% else %>
       <%= link_to 'Home', root_path %>
