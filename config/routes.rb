@@ -8,6 +8,7 @@ Coworkers::Application.routes.draw do
   resources :spaces, only: :show do
     resources :memberships, only: :show
   end
+  resource :session, only: :destroy
   
   if (path = Rails.root.join('config', 'environments', "#{Rails.env}_routes.rb")).exist?
     eval File.read(path)
