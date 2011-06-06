@@ -6,7 +6,7 @@
   <% [:website, :bio, :profession, :industry, :skills].each do |attribute| %>
     <% if @user.send("#{attribute}?") %>
       <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-      <dd class="<%= attribute %>"><%= @user.send(attribute) %></dd>
+      <dd class="<%= attribute %>"><%= auto_link @user.send(attribute).to_s %></dd>
     <% end %>
   <% end %>
   <% if @user.messenger_account? && @user.messenger_type? %>
@@ -15,15 +15,19 @@
   <% end %>
 </dl>
 
-<h2><%= @space.name %> information</h2>
+<% if @membership.answers.any? %>
+  <h2><%= @space.name %> information</h2>
 
-<dl>
-  <% @membership.answers.each do |answer| %>
-    <% if answer.text? %>
-      <dt class="question"><%= answer.question %></dt>
-      <dd class="answer"><%= answer.text %></dd>
+  <dl>
+    <% @membership.answers.each do |answer| %>
+      <% if answer.text? %>
+        <dt class="question"><%= answer.question %></dt>
+        <dd class="answer"><%= answer.text %></dd>
+      <% end %>
     <% end %>
-  <% end %>
-</dl>
+  </dl>
+<% elsif @membership.user == current_user && @space.questions.any? %>
+  <p>Please <%= link_to 'add more information', edit_space_profile_path(@space) %></p>
+<% end %>
 
 <p><%= link_to 'back', @space %></p>

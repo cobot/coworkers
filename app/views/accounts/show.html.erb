@@ -1,5 +1,7 @@
 <h1>Welcome</h1>
 
+<p>Please <%= link_to 'update your profile information', edit_account_path %>.</p>
+
 <h2>Your Spaces</h2>
 <% @spaces.each do |space| %>
   <li class="space"><%= link_to space.name, space %></li>

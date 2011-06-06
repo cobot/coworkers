@@ -24,7 +24,8 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"$/ d
     id: member_name.gsub(/\W+/, '_'),
     address: {
       name: member_name
-    }
+    },
+    confirmed_at: '2010-01-01'
   }.to_json)
 end
 
