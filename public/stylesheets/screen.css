@@ -25,6 +25,10 @@ body {
   margin-bottom: 20px;
 }
 
+.header a, .header a:visited {
+  color: #AAA;
+}
+
 .footer {
   font-size: 0.9em;
   color: #AAA;
