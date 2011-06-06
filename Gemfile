@@ -7,6 +7,7 @@ gem 'activemodel'
 gem 'couch_potato'
 gem 'oauth2'
 gem 'simple_form'
+gem 'hoptoad_notifier'
 
 group :development do
   gem 'rspec-rails'

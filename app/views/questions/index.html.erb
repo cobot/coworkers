@@ -1,0 +1,23 @@
+<h1>Manage Member Profiles</h1>
+
+<p>Here you can add additional fields to the member profiles of your space.</p>
+
+<%= simple_form_for @question, url: [@space, @question] do |f| %>
+  <%= f.input :text %>
+  <%= f.input :type, collection: {'Short Text' => 'short_text', 'Long Text' => 'long_text'}, prompt: false %>
+  <%= f.submit 'Add Field' %>
+<% end %>
+
+
+<% if @questions.any? %>
+  <h2>Questions</h2>
+
+  <ol>
+    <% @questions.each do |question| %>
+      <li>
+        <%= question.text %>
+        <%= link_to 'remove', [@space, question], method: 'delete', confirm: 'Really remove that question?' %>
+      </li>
+    <% end %>
+  </ol>
+<% end %>

@@ -2,25 +2,31 @@
 <html>
 <head>
   <title>Coworkers</title>
-  <%= stylesheet_link_tag :all %>
+  <%= stylesheet_link_tag 'screen' %>
   <%= javascript_include_tag 'jquery', 'rails', 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
-  <navigation>
-    <% if current_user %>
-      <%= link_to 'Account', account_path %>
-      <%= link_to 'Edit Profile', edit_account_path %>
-    <% else %>
-      <%= link_to 'Home', root_path %>
+  <div class="container">
+    <div class="header">coworkers – a member directory for coworking spaces powered by <a href="http://cobot.me">cobot</a></div>
+    <navigation>
+      <% if current_user %>
+        <%= link_to 'Account', account_path %>
+        <%= link_to 'Edit Profile', edit_account_path %>
+        <%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
+        <%= link_to 'Sign out', session_path, method: :delete %>
+      <% else %>
+        <%= link_to 'Home', root_path %>
+      <% end %>
+    </navigation>
+    <% if flash[:notice] %>
+      <p class="flash notice"><%= flash[:notice] %></p>
     <% end %>
-  </navigation>
-  <% if flash[:notice] %>
-    <p class="flash notice"><%= flash[:notice] %></p>
-  <% end %>
-
-
-<%= yield %>
-
+    <%= yield %>
+    <div class="footer">
+      <p class="right">This software is <a href="http://github.com/cobot/coworkers">open source</a>.</p>
+      <p>&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></p>
+    </div>
+  </div>
 </body>
 </html>

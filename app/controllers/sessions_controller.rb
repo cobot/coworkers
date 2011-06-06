@@ -15,6 +15,11 @@ class SessionsController < ApplicationController
     redirect_to account_path
   end
   
+  def destroy
+    session[:user_id] = nil
+    redirect_to root_path
+  end
+  
   private
   
   def sign_up(user_attributes)
@@ -41,7 +46,7 @@ class SessionsController < ApplicationController
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
       membership_details = access_token.get(membership_attributes['link'])
-      unless db.load membership_details['id']
+      unless membership_details['confirmed_at'].nil? || membership_details['canceled_to'] || db.load(membership_details['id'])
         db.save Membership.new user_id: user.id, id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
           name: membership_details['address']['name']
@@ -61,7 +66,12 @@ class SessionsController < ApplicationController
   def client
     OAuth2::Client.new(Coworkers::Conf.app_id,
       Coworkers::Conf.app_secret,
-      site: Coworkers::Conf.app_site,
+      site: {
+         url: Coworkers::Conf.app_site,
+         ssl: {
+           verify: false
+         }
+      },
       parse_json: true,
       authorize_path: '/oauth2/authorize',
       access_token_path: '/oauth2/access_token'

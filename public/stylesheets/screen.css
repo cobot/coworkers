@@ -1,0 +1,76 @@
+.container {
+  margin: auto;
+  width: 960px;
+  background: white;
+  padding: 20px;
+}
+
+body {
+  background: #eee;
+}
+
+.flash.notice {
+  color: darkgreen;
+  background: #CFB;
+  padding: 5px;
+  position: absolute;
+  top: 50px;
+  left: 500px;
+  
+}
+
+.header {
+  font-size: 1.5em;
+  color: #AAA;
+  margin-bottom: 20px;
+}
+
+.header a, .header a:visited {
+  color: #AAA;
+}
+
+.footer {
+  font-size: 0.9em;
+  color: #AAA;
+  margin-top: 50px;
+  padding-top: 10px;
+  margin-bottom: 0px;
+  border-top: 1px solid #eee;
+}
+
+.footer a, .footer a:visited {
+  color: #999;
+}
+
+navigation a {
+  display: inline-block;
+  color: #333;
+  padding: 5px;
+  margin-right: 20px;
+}
+
+h1 {
+  font-size: 1.5em;
+}
+
+h2 {
+  font-size: 1.3em;
+}
+
+.right {
+  float: right;
+}
+
+form label {
+  display: inline-block;
+  width: 170px;
+}
+
+form textarea {
+  height: 100px;
+  width: 300px;
+}
+
+form input.string {
+  width: 300px;
+}

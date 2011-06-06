@@ -7,7 +7,10 @@ Coworkers::Application.routes.draw do
   resource :account, only: [:show, :edit, :update]
   resources :spaces, only: :show do
     resources :memberships, only: :show
+    resources :questions, only: [:index, :create, :destroy]
+    resource :profile, only: [:edit, :update]
   end
+  resource :session, only: :destroy
   
   if (path = Rails.root.join('config', 'environments', "#{Rails.env}_routes.rb")).exist?
     eval File.read(path)
