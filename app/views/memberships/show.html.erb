@@ -6,7 +6,7 @@
   <% [:website, :bio, :profession, :industry, :skills].each do |attribute| %>
     <% if @user.send("#{attribute}?") %>
       <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-      <dd class="<%= attribute %>"><%= auto_link @user.send(attribute).to_s %></dd>
+      <dd class="<%= attribute %>"><%== auto_link h(@user.send(attribute).to_s) %></dd>
     <% end %>
   <% end %>
   <% if @user.messenger_account? && @user.messenger_type? %>
