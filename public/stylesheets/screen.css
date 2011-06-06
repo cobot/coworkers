@@ -57,6 +57,10 @@ h2 {
   font-size: 1.3em;
 }
 
+.right {
+  float: right;
+}
+
 form label {
   display: inline-block;
   width: 170px;

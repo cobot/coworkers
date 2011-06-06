@@ -23,7 +23,10 @@
       <p class="flash notice"><%= flash[:notice] %></p>
     <% end %>
     <%= yield %>
-    <div class="footer">&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></div>
+    <div class="footer">
+      <p class="right">This software is <a href="http://github.com/cobot/coworkers">open source</a>.</p>
+      <p>&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></p>
+    </div>
   </div>
 </body>
 </html>
