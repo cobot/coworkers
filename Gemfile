@@ -8,6 +8,7 @@ gem 'couch_potato'
 gem 'oauth2'
 gem 'simple_form'
 gem 'hoptoad_notifier'
+gem 'param_protected'
 
 group :development do
   gem 'rspec-rails'
