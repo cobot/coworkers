@@ -37,7 +37,7 @@ class SessionsController < ApplicationController
   
   def find_or_create_user(user_attributes)
     unless user = db.first(User.by_login(user_attributes["login"]))
-      user = User.new(login: user_attributes["login"], admin_of: user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']})
+      user = User.new(login: user_attributes["login"], email: user_attributes["email"], admin_of: user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']})
       db.save user
     end
     user

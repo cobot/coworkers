@@ -9,7 +9,10 @@
 <body>
   <div class="container">
 		<div class="header">
-    	<a href="/" title="">coworkers</a>
+			<% if current_user %>
+				<%= image_tag user_image_url(current_user, 32, request.ssl?) %>
+			<% end %>
+    	<%= link_to 'Coworkers', root_path %>
     	<navigation>
       	<% if current_user %>
         	<%= link_to 'Account', account_path %>

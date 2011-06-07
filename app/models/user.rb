@@ -2,6 +2,7 @@ class User
   include CouchPotato::Persistence
   
   property :login
+  property :email
   property :admin_of, default: [] # space ids
 
   # profile information
