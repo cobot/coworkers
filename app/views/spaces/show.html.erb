@@ -6,6 +6,21 @@
 
 <h2>Members</h2>
 
-<% @space.memberships.each do |membership| %>
-  <li class="membership"><%= link_to membership.name, [@space, membership] %></li>
-<% end %>
+<table class="memberships">
+	<thead>
+		<tr>
+			<th>Photo</th>
+			<th>Name</th>
+			<th>Profession</th>
+		</tr>
+	</head>
+	<tbody>
+	<% @space.memberships.each do |membership| %>
+		<tr>
+			<td><%= link_to image_tag(user_image_url(membership.user, 48), class: :member_image), [@space, membership], title: membership.name %></td>
+			<td><%= link_to membership.name, [@space, membership] %></td>
+			<td><%= membership.user.profession %>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
