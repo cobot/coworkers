@@ -8,17 +8,19 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">coworkers – a member directory for coworking spaces powered by <a href="http://cobot.me">cobot</a></div>
-    <navigation>
-      <% if current_user %>
-        <%= link_to 'Account', account_path %>
-        <%= link_to 'Edit Profile', edit_account_path %>
-        <%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
-        <%= link_to 'Sign out', session_path, method: :delete %>
-      <% else %>
-        <%= link_to 'Home', root_path %>
-      <% end %>
-    </navigation>
+		<div class="header">
+    	<a href="/" title="">coworkers</a>
+    	<navigation>
+      	<% if current_user %>
+        	<%= link_to 'Account', account_path %>
+        	<%= link_to 'Edit Profile', edit_account_path %>
+        	<%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
+        	<%= link_to 'Sign out', session_path, method: :delete %>
+      	<% else %>
+        	<%= link_to 'Home', root_path %>
+      	<% end %>
+    	</navigation>
+		</div>
     <% if flash[:notice] %>
       <p class="flash notice"><%= flash[:notice] %></p>
     <% end %>

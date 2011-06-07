@@ -1,12 +1,17 @@
 .container {
   margin: auto;
   width: 960px;
-  background: white;
-  padding: 20px;
+  padding: 0px 20px;
+}
+
+navigation {
+	width:100%;
+	background:#fff;
 }
 
 body {
   background: #eee;
+	margin:0px;
 }
 
 .flash.notice {
@@ -20,13 +25,19 @@ body {
 }
 
 .header {
-  font-size: 1.5em;
+	padding: 3px 5px 5px 5px;
+	font-size: 0.8333em;
   color: #AAA;
   margin-bottom: 20px;
+	background:#fff;
+	border-radius: 0 0 1em 1em;
+	-webkit-border-radius: 0 0 1em 1em;
+	-moz-border-radius: 0 0 1em 1em;
 }
 
 .header a, .header a:visited {
   color: #AAA;
+	text-decoration: none;
 }
 
 .footer {

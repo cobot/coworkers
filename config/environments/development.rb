@@ -24,6 +24,6 @@ Coworkers::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
 end
 
-Coworkers::Conf = OpenStruct.new app_id: '69236b4e27b8a5f0145334875039f6ac',
-  app_secret: 'a494322b3bb081106b5c645473489be1fe5ed91aaae9cdb6217990a3a75963ad',
-  app_site: 'http://www.smackaho.st:3000'
+Coworkers::Conf = OpenStruct.new app_id: '864653e227d95120a7ecdf99c97950ce',
+  app_secret: 'cd830c10d8002b72a202ba0c14910f7c1c41ac5b700ec58afbb56efcbf153744',
+  app_site: 'https://www.cobot.me'
