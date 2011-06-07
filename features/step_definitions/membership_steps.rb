@@ -1,5 +1,5 @@
-Given /^"([^"]*)" has a member "([^"]*)"$/ do |space_name, member_name|
-  user = User.new(login: member_name)
+Given /^"([^"]*)" has a member "([^"]*)" with email "([^"]*)"$/ do |space_name, member_name, member_email|
+  user = User.new(login: member_name, email: member_email)
   DB.save! user
   DB.save! Membership.new(space_id: space_by_name(space_name).id,
     name: member_name, id: member_name.gsub(/\W+/, '_'), user_id: user.id)
