@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   skip_before_filter :require_authentication
   
+  def new
+    redirect_to account_path if current_user
+  end
+  
   def authenticate
     redirect_to client.web_server.authorize_url(
       redirect_uri: authentication_callback_url,
