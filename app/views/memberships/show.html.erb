@@ -1,35 +1,41 @@
-<div class="path">
-	<%= link_to @space.name, @space %> » <%= @membership.name %>
+<div class="path"><%= link_to @space.name, @space %> » <%= @membership.name %></div>
+<%= image_tag user_image_url(@user, 180), class: :profile_image %>
+
+<div class="profile_info">
+	<h2>General Information</h2>
+	<dl>
+  	<% [:website, :bio, :profession, :industry, :skills].each do |attribute| %>
+    	<% if @user.send("#{attribute}?") %>
+      	<dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
+      	<dd class="<%= attribute %>"><%== auto_link h(@user.send(attribute).to_s) %></dd>
+    	<% end %>
+  	<% end %>
+  	<% if @user.messenger_account? && @user.messenger_type? %>
+    	<dt class="messenger"><%= @user.messenger_type %></dt>
+    	<dd class="messenger">
+			<% if @user.messenger_type == 'Skype' %>
+				<%= link_to @user.messenger_account, skype_url(@user) %>
+			<% else %>
+				<%= @user.messenger_account %>
+			<% end %>
+			</dd>
+  	<% end %>
+	</dl>
+
+	<% if @membership.answers.any? %>
+  	<h2><%= @space.name %> information</h2>
+
+  	<dl>
+    	<% @membership.answers.each do |answer| %>
+      	<% if answer.text? %>
+        	<dt class="question"><%= answer.question %></dt>
+        	<dd class="answer"><%= answer.text %></dd>
+      	<% end %>
+    	<% end %>
+  	</dl>
+	<% elsif @membership.user == current_user && @space.questions.any? %>
+  	<p>Please <%= link_to 'add more information', edit_space_profile_path(@space) %></p>
+	<% end %>
 </div>
-
-<h2>General Information</h2>
-	<%= image_tag user_image_url(current_user, 128, request.ssl?) if current_user %>
-<dl>
-  <% [:website, :bio, :profession, :industry, :skills].each do |attribute| %>
-    <% if @user.send("#{attribute}?") %>
-      <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-      <dd class="<%= attribute %>"><%== auto_link h(@user.send(attribute).to_s) %></dd>
-    <% end %>
-  <% end %>
-  <% if @user.messenger_account? && @user.messenger_type? %>
-    <dt class="messenger"><%= @user.messenger_type %></dt>
-    <dd class="messenger"><%= @user.messenger_account %></dd>
-  <% end %>
-</dl>
-
-<% if @membership.answers.any? %>
-  <h2><%= @space.name %> information</h2>
-
-  <dl>
-    <% @membership.answers.each do |answer| %>
-      <% if answer.text? %>
-        <dt class="question"><%= answer.question %></dt>
-        <dd class="answer"><%= answer.text %></dd>
-      <% end %>
-    <% end %>
-  </dl>
-<% elsif @membership.user == current_user && @space.questions.any? %>
-  <p>Please <%= link_to 'add more information', edit_space_profile_path(@space) %></p>
-<% end %>
-
+<div class="clear"></div>
 <p><%= link_to 'back', @space %></p>

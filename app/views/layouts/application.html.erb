@@ -8,8 +8,8 @@
 </head>
 <body>
   <div class="container">
+		<%= link_to 'Coworkers', root_path, class: :logo %>
 		<div class="header">
-    	<%= link_to 'Coworkers', root_path %>
     	<navigation>
       	<% if current_user %>
         	<%= link_to 'Account', account_path %>

@@ -7,9 +7,6 @@
 navigation {
 	font-size: 0.8333em;
 	line-height: 1.5;
-	text_align:right;
-	width:100%;
-	background:#fff;
 }
 
 body {
@@ -26,11 +23,18 @@ body {
   position: absolute;
   top: 50px;
   left: 500px;
-  
+	border-radius: 0.3em;
+	-webkit-border-radius: 0.3em;
+	-moz-border-radius: 0.3em;
+}
+
+.logo {
+	float: left;
 }
 
 .header {
-	padding: 4px 10px;
+	float: right;
+	padding: 0px 10px;
   color: #AAA;
   margin-bottom: 20px;
 	background:#fff;
@@ -40,16 +44,49 @@ body {
 }
 
 .header a, .header a:visited {
-  color: #AAA;
+	padding: 6px;
+	margin: 0px;
+  color: #0b5c7b;
 	text-decoration: none;
 }
 
+.header a:hover, .header a:active {
+	text-shadow: 0px 0px 10px #b3bac6;
+}
+
+h2 {
+	margin: 0;
+}
+
+.path {
+	margin: 0 0 15px 0;
+}
+
+.profile_image {
+	float: left;
+}
+
+.profile_info {
+	float: right;
+	width: 75%;
+}
+
+.clear {
+	clear: both;
+}
+
 .main {
+	clear: both;
 	background: #fff;
 	padding: 20px;
 	border-radius: 0.5em;
 	-webkit-border-radius: 0.5em;
 	-moz-border-radius: 0.5em;
+}
+
+.memberships {
+	width: 100%;
+	text-align: left;
 }
 
 .footer {
