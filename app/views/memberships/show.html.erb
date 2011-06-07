@@ -1,4 +1,6 @@
-<h1>Profile of <%= @membership.name %> at <%= @space.name %></h1>
+<div class="path">
+	<%= link_to @space.name, @space %> » <%= @membership.name %>
+</div>
 
 <h2>General Information</h2>
 	<%= image_tag user_image_url(current_user, 128, request.ssl?) if current_user %>
