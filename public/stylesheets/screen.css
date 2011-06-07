@@ -5,13 +5,18 @@
 }
 
 navigation {
+	font-size: 0.8333em;
+	line-height: 1.5;
+	text_align:right;
 	width:100%;
 	background:#fff;
 }
 
 body {
-  background: #eee;
+  background: url('/images/bg_gradient.png'), url('/images/bg.png');
+	background-repeat: repeat-x, repeat;
 	margin:0px;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 }
 
 .flash.notice {
@@ -25,19 +30,26 @@ body {
 }
 
 .header {
-	padding: 3px 5px 5px 5px;
-	font-size: 0.8333em;
+	padding: 4px 10px;
   color: #AAA;
   margin-bottom: 20px;
 	background:#fff;
-	border-radius: 0 0 1em 1em;
-	-webkit-border-radius: 0 0 1em 1em;
-	-moz-border-radius: 0 0 1em 1em;
+	border-radius: 0 0 0.5em 0.5em;
+	-webkit-border-radius: 0 0 0.5em 0.5em;
+	-moz-border-radius: 0 0 0.5em 0.5em;
 }
 
 .header a, .header a:visited {
   color: #AAA;
 	text-decoration: none;
+}
+
+.main {
+	background: #fff;
+	padding: 20px;
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
 }
 
 .footer {

@@ -9,9 +9,6 @@
 <body>
   <div class="container">
 		<div class="header">
-			<% if current_user %>
-				<%= image_tag user_image_url(current_user, 32, request.ssl?) %>
-			<% end %>
     	<%= link_to 'Coworkers', root_path %>
     	<navigation>
       	<% if current_user %>
@@ -24,10 +21,12 @@
       	<% end %>
     	</navigation>
 		</div>
+		<div class="main">
     <% if flash[:notice] %>
       <p class="flash notice"><%= flash[:notice] %></p>
     <% end %>
     <%= yield %>
+		</div>
     <div class="footer">
       <p class="right">This software is <a href="http://github.com/cobot/coworkers">open source</a>.</p>
       <p>&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></p>
