@@ -87,6 +87,30 @@ h2 {
 .memberships {
 	width: 100%;
 	text-align: left;
+	border: #ddd 1px solid;
+	border-spacing: 0px;
+}
+
+img.member {
+	padding: 0px;
+	margin: 0px;
+}
+
+.memberships thead {
+	background: #0b5c7b;
+	color: #fff;
+	line-height: 2.4;
+	border-bottom: #ddd 1px solid;
+}
+
+.memberships tbody tr:hover {
+	background: #c2d9e9;
+}
+
+.memberships td {
+	padding: 5px 0px;
+	margin: 5px 0px;
+	border: none;
 }
 
 .footer {

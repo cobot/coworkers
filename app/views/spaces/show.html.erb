@@ -1,10 +1,8 @@
-<h1><%= @space.name %></h1>
+<div class="path"><%= @space.name %> » Members</div>
 
 <% if current_user.admin_of?(@space) %>
   <p><%= link_to 'Manage Member Profiles', space_questions_path(@space) %></p>
 <% end %>
-
-<h2>Members</h2>
 
 <table class="memberships">
 	<thead>
@@ -17,8 +15,8 @@
 	<tbody>
 	<% @space.memberships.each do |membership| %>
 		<tr>
-			<td><%= link_to image_tag(user_image_url(membership.user, 48), class: :member_image), [@space, membership], title: membership.name %></td>
-			<td><%= link_to membership.name, [@space, membership] %></td>
+			<td><%= link_to image_tag(user_image_url(membership.user, 55), class: :member), [@space, membership], title: membership.name %></td>
+			<td class="membership"><%= link_to membership.name, [@space, membership] %></td>
 			<td><%= membership.user.profession %>
 		</tr>
 	<% end %>
