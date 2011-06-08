@@ -10,7 +10,7 @@ navigation {
 }
 
 body {
-  background: url('/images/bg_gradient.png'), url('/images/bg.png');
+  background: url('../images/bg_gradient.png'), url('../images/bg.png');
 	background-repeat: repeat-x, repeat;
 	margin:0px;
 	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
