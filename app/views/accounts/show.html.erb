@@ -3,7 +3,7 @@
 <p>Please <%= link_to 'update your profile information', edit_account_path %>.</p>
 
 <% if @spaces.any? %>
-<table class="memberships">
+<table class="list">
 	<thead>
 		<tr>
 			<th>Name</th>
@@ -13,7 +13,7 @@
 	<tbody>
 	<% @spaces.each do |space| %>
 		<tr>
-			<td><%= link_to space.name, space %></td>
+			<td class="space"><%= link_to space.name, space %></td>
 			<td><%= space.memberships.length %></td>
 		</tr>
 	<% end %>
