@@ -7,7 +7,7 @@ Feature: Custom questions
     Given on cobot I'm an admin of the space "co.up"
     When I sign in
       And I add the question "What can you contribute?" to "co.up"
-    Then I follow "Sign out"
+      And I follow "Sign out"
     Given on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
     When I sign in
       And I answer the question with "I can cook"
