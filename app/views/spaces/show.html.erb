@@ -4,6 +4,7 @@
   <p><%= link_to 'Manage Member Profiles', space_questions_path(@space) %></p>
 <% end %>
 
+<% if @space.memberships.any? %>
 <table class="memberships">
 	<thead>
 		<tr>
@@ -28,3 +29,6 @@
 	<% end %>
 	</tbody>
 </table>
+<% else %>
+	<p>There are no members yet.</p>
+<% end%>
