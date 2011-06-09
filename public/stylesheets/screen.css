@@ -84,7 +84,7 @@ h2 {
 	-moz-border-radius: 0.5em;
 }
 
-.memberships {
+.list {
 	width: 100%;
 	text-align: left;
 	border: #ddd 1px solid;
@@ -96,18 +96,18 @@ img.member {
 	margin: 0px;
 }
 
-.memberships thead {
+.list thead {
 	background: #0b5c7b;
 	color: #fff;
 	line-height: 2.4;
 	border-bottom: #ddd 1px solid;
 }
 
-.memberships tbody tr:hover {
+.list tbody tr:hover {
 	background: #c2d9e9;
 }
 
-.memberships td {
+.list td {
 	padding: 5px 0px;
 	margin: 5px 0px;
 	border: none;
