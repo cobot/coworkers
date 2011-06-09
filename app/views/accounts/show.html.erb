@@ -1,8 +1,24 @@
-<h1>Welcome</h1>
+<div class="path">Your Spaces</div>
 
 <p>Please <%= link_to 'update your profile information', edit_account_path %>.</p>
 
-<h2>Your Spaces</h2>
-<% @spaces.each do |space| %>
-  <li class="space"><%= link_to space.name, space %></li>
-<% end %>
+<% if @spaces.any? %>
+<table class="memberships">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>No. of Members</th>
+		</tr>
+	</head>
+	<tbody>
+	<% @spaces.each do |space| %>
+		<tr>
+			<td><%= link_to space.name, space %></td>
+			<td><%= space.memberships.length %></td>
+		</tr>
+	<% end %>
+	</tbody>
+</table>
+<% else %>
+	<p>You are not a member of any space yet.</p>
+<% end%>
