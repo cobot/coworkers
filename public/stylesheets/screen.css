@@ -4,6 +4,16 @@
   padding: 0px 20px;
 }
 
+.logo {
+	font-family: 'Coming Soon', serif;
+	margin: 15px;
+	color: #000;
+	text-decoration: none;
+	font-weight: 700;
+	font-size: 1.5em;
+	text-shadow: 0px 1px 1px #fff;
+}
+
 navigation {
 	font-size: 0.8333em;
 	line-height: 1.5;
@@ -87,7 +97,6 @@ h2 {
 .list {
 	width: 100%;
 	text-align: left;
-	border: #ddd 1px solid;
 	border-spacing: 0px;
 }
 
@@ -96,21 +105,33 @@ img.member {
 	margin: 0px;
 }
 
-.list thead {
+.list th, .list td {
+	font-size: 0.8em;
+}
+
+.list td {
+	padding: 2px 2px;
+	border-bottom: 1px #0b5c7b solid;
+	border-right: 1px #0b5c7b solid;
+}
+
+.list tr td:first-child {
+	border-left: 1px #0b5c7b solid;
+}
+
+.list td a {
+	text-decoration: none;
+}
+
+.list thead th {
+	padding: 5px 1px;
 	background: #0b5c7b;
 	color: #fff;
-	line-height: 2.4;
-	border-bottom: #ddd 1px solid;
+	line-height: 1.5;
 }
 
 .list tbody tr:hover {
 	background: #c2d9e9;
-}
-
-.list td {
-	padding: 5px 0px;
-	margin: 5px 0px;
-	border: none;
 }
 
 .footer {
