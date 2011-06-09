@@ -166,6 +166,15 @@ h2 {
   float: right;
 }
 
+#search {
+	border-radius: 0.5em;
+	-webkit-border-radius: 0.5em;
+	-moz-border-radius: 0.5em;
+	border: 1px #ddd solid;
+	font-size: 1em;
+	margin-bottom: 20px;
+}
+
 form label {
   display: inline-block;
   width: 170px;

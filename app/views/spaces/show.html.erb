@@ -5,6 +5,10 @@
 <% end %>
 
 <% if @space.memberships.any? %>
+
+<%= label_tag :search, 'Search', class: 'small' %>
+<%= text_field_tag :search, '', title: 'Search' %>
+
 <table class="list">
 	<thead>
 		<tr>
