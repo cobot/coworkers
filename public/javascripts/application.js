@@ -4,5 +4,11 @@
 jQuery(function($) {
   window.setTimeout(function() {
     $('.flash').fadeOut();
-  }, 5000)
+  }, 5000);
+	
+	$('.list').tablesorter({
+		cssAsc: "sortdown",
+		cssDesc: "sortdown",
+		cssHeader: "tableheader"
+	});
 });
