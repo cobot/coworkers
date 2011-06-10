@@ -5,6 +5,10 @@
 <% end %>
 
 <% if @space.memberships.any? %>
+
+<%= label_tag :search, 'Search', class: 'small' %>
+<%= text_field_tag :search, '', title: 'Search' %>
+
 <table class="list">
 	<thead>
 		<tr>
@@ -19,7 +23,7 @@
 	<tbody>
 	<% @space.memberships.each do |membership| %>
 		<tr>
-			<td><%= link_to image_tag(user_image_url(membership.user, 55), class: :member), [@space, membership], title: membership.name %></td>
+			<td><%= link_to image_tag(user_image_url(membership.user, 24), class: :member), [@space, membership], title: membership.name %></td>
 			<td class="membership"><%= link_to membership.name, [@space, membership] %></td>
 			<td><%= membership.user.profession %></td>
 		<% if current_user.admin_of?(@space) %>

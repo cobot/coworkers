@@ -11,4 +11,9 @@ jQuery(function($) {
 		cssDesc: "sortdown",
 		cssHeader: "tableheader"
 	});
+	
+	$('#search').keyup(function(){
+		$.uiTableFilter($('.list'), $(this).val());
+	});
+	
 });
