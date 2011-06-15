@@ -17,3 +17,10 @@ Then /^I should see "([^"]*)" and "([^"]*)" as members of "([^"]*)"$/ do |name_1
   page.should have_css('*', text: name_1)
   page.should have_css('*', text: name_2)
 end
+
+When /^I visit the profile page of "([^"]*)"$/ do |member_name|
+  user = DB.first(User.by_login(member_name))
+  membership = DB.first(Membership.by_user_id(user.id))
+  space = DB.load membership.space_id
+  visit url_for([space, membership])
+end
