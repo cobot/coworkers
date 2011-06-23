@@ -15,8 +15,8 @@ module Api
     
     def space_hash(space)
       {
-        name: space.name,
         id: space._id,
+        name: space.name,
         url: url_for(space),
         memberships: space.memberships.map {|membership| membership_hash(space, membership)}
       }
