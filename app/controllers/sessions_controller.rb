@@ -91,7 +91,7 @@ class SessionsController < ApplicationController
   end
   
   def access_token
-    @access_token ||= client.web_server.get_access_token(params[:code], :redirect_uri => authentication_callback_url)
+    session['access_token'] ||= client.web_server.get_access_token(params[:code], :redirect_uri => authentication_callback_url)
   end
   
 end

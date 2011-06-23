@@ -23,10 +23,29 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)" and
   WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships/#{membership_id}?oauth_token=").to_return(body: {
     id: member_name.gsub(/\W+/, '_'),
     address: {
-      name: member_name
+      name: member_name,
     },
     confirmed_at: '2010-01-01'
   }.to_json)
+end
+
+Given /^on cobot my space "([^"]+)" has the following members:/ do |space_id, fields|
+  members = []
+  fields.rows.each do |login, email, name|
+    members << {
+      id: '1',
+      user: {
+        login: login,
+        email: email
+      },
+      address: {
+        name: name
+      },
+      confirmed_at: 1.week.ago,
+      canceled_to: nil
+    }
+  end
+  WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships?oauth_token=").to_return(body: members.to_json)
 end
 
 Given /^on cobot I'm a member of the space "([^"]+)" with login "([^"]+)" and name "([^"]+)"$/ do |space_name, login, member_name|

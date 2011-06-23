@@ -21,6 +21,11 @@ class ApplicationController < ActionController::Base
     @current_user ||= db.load!(session[:user_id]) if session[:user_id]
   end
   
+  def must_be_admin_for_space
+    @space = db.load params[:space_id]
+    return not_allowed unless current_user.admin_of?(@space)
+  end
+  
   def db
     @db ||= CouchPotato.database
   end

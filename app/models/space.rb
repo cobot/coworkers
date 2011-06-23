@@ -14,6 +14,10 @@ class Space
     @questions ||= database.view(Question.by_space_id(id))
   end
   
+  def subdomain
+    self.id.sub(/space-/, '')
+  end
+  
   def member?(user)
     database.first Membership.by_space_id_and_user_id([id, user.id])
   end

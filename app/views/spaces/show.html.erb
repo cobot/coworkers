@@ -3,6 +3,7 @@
 <% if current_user %>
   <% if current_user.admin_of?(@space) %>
   <p><%= link_to 'Manage Member Profiles', space_questions_path(@space) %></p>
+  <p><%= link_to 'Import Members', memberships_imports_path(@space) %>
   <% end %>
 <% end %>
 

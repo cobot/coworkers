@@ -3,6 +3,7 @@ Coworkers::Application.routes.draw do
   
   match '/auth' => 'sessions#authenticate', via: :get, as: :authenticate
   match '/auth/callback' => 'sessions#create', via: :get, as: :authentication_callback
+  match '/import' => 'memberships_imports#create', via: :post
   
   resource :account, only: [:show, :edit, :update]
   resources :spaces, only: :show do
