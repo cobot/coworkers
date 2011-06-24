@@ -88,6 +88,7 @@ GEM
     oauth2 (0.4.1)
       faraday (~> 0.6.1)
       multi_json (>= 0.0.5)
+    param_protected (2.0.0)
     polyglot (0.3.1)
     rack (1.2.3)
     rack-mount (0.6.14)
@@ -149,6 +150,7 @@ DEPENDENCIES
   hoptoad_notifier
   launchy
   oauth2
+  param_protected
   railties
   rspec-rails
   simple_form
