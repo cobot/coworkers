@@ -8,25 +8,28 @@
 </head>
 <body>
   <div class="container">
-		<%= link_to 'Coworkers', root_path, class: :logo %>
-		<div class="header">
-    	<navigation>
-      	<% if current_user %>
-        	<%= link_to 'Account', account_path %>
-        	<%= link_to 'Edit Profile', edit_account_path %>
-        	<%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
-        	<%= link_to 'Sign out', session_path, method: :delete %>
-      	<% else %>
-        	<%= link_to 'Home', root_path %>
-      	<% end %>
-    	</navigation>
-		</div>
-		<div class="main">
+
+    <h1 class="logo">
+      <%= link_to 'Coworkers', root_path %>
+    </h1>
+    <div class="header">
+      <nav>
+        <% if current_user %>
+          <%= link_to 'Account', account_path %>
+          <%= link_to 'Edit Profile', edit_account_path %>
+          <%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
+          <%= link_to 'Sign out', session_path, method: :delete %>
+        <% else %>
+          <%= link_to 'Home', root_path %>
+        <% end %>
+      </nav>
+    </div>
+    <div class="main">
     <% if flash[:notice] %>
       <p class="flash notice"><%= flash[:notice] %></p>
     <% end %>
     <%= yield %>
-		</div>
+    </div>
     <div class="footer">
       <p class="right">This software is <a href="http://github.com/cobot/coworkers">open source</a>.</p>
       <p>&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></p>

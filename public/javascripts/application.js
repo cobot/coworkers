@@ -5,15 +5,15 @@ jQuery(function($) {
   window.setTimeout(function() {
     $('.flash').fadeOut();
   }, 5000);
-	
-	$('.list').tablesorter({
-		cssAsc: "sortdown",
-		cssDesc: "sortdown",
-		cssHeader: "tableheader"
-	});
-	
-	$('#search').keyup(function(){
-		$.uiTableFilter($('.list'), $(this).val());
-	});
-	
+  
+  $('.list').tablesorter({
+    cssAsc: "sortdown",
+    cssDesc: "sortdown",
+    cssHeader: "tableheader"
+  });
+  
+  $('#search').keyup(function(){
+    $.uiTableFilter($('.list'), $(this).val());
+  });
+  
 });

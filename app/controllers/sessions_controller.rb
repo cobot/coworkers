@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
   private
   
   def sign_up(user_attributes)
-    user = find_or_create_user user_attributes
+    user = find_and_update_or_create_user user_attributes
     create_memberships user, user_attributes["memberships"]
     create_spaces user_attributes['admin_of'].map{|admin_of| admin_of['space_link']}
     user
@@ -39,10 +39,14 @@ class SessionsController < ApplicationController
     end
   end
   
-  def find_or_create_user(user_attributes)
+  def find_and_update_or_create_user(user_attributes)
     unless user = db.first(User.by_login(user_attributes["login"]))
       user = User.new(login: user_attributes["login"], email: user_attributes["email"], admin_of: user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']})
       db.save user
+    else
+      user.email = user_attributes["email"]
+      user.admin_of = user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']}
+      db.save user if user.changed?
     end
     user
   end
@@ -50,10 +54,14 @@ class SessionsController < ApplicationController
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
       membership_details = access_token.get(membership_attributes['link'])
-      unless membership_details['confirmed_at'].nil? || membership_details['canceled_to'] || db.load(membership_details['id'])
+      membership = db.load(membership_details['id'])
+      if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
         db.save Membership.new user_id: user.id, id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
           name: membership_details['address']['name']
+      elsif membership
+        membership.name = membership_details['address']['name']
+        db.save! membership
       end
     end
   end

@@ -1,7 +1,9 @@
 <div class="path"><%= @space.name %> » Members</div>
 
-<% if current_user.admin_of?(@space) %>
+<% if current_user %>
+  <% if current_user.admin_of?(@space) %>
   <p><%= link_to 'Manage Member Profiles', space_questions_path(@space) %></p>
+  <% end %>
 <% end %>
 
 <% if @space.memberships.any? %>
@@ -10,29 +12,33 @@
 <%= text_field_tag :search, '', title: 'Search' %>
 
 <table class="list">
-	<thead>
-		<tr>
-			<th>Photo</th>
-			<th>Name</th>
-			<th>Profession</th>
-		<% if current_user.admin_of?(@space) %>
-			<th>Settings</th>
-		<% end %>
-		</tr>
-	</head>
-	<tbody>
-	<% @space.memberships.each do |membership| %>
-		<tr>
-			<td><%= link_to image_tag(user_image_url(membership.user, 24), class: :member), [@space, membership], title: membership.name %></td>
-			<td class="membership"><%= link_to membership.name, [@space, membership] %></td>
-			<td><%= membership.user.profession %></td>
-		<% if current_user.admin_of?(@space) %>
-			<td><%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?' %></td>
-		<% end %>
-		</tr>
-	<% end %>
-	</tbody>
+  <thead>
+    <tr>
+      <th>Photo</th>
+      <th>Name</th>
+      <th>Profession</th>
+  <% if current_user %>
+    <% if current_user.admin_of?(@space) %>
+      <th>Settings</th>
+    <% end %>
+  <% end %>
+    </tr>
+  </head>
+  <tbody>
+  <% @space.memberships.each do |membership| %>
+    <tr>
+      <td><%= link_to image_tag(user_image_url(membership.user, 24), class: :member), [@space, membership], title: membership.name %></td>
+      <td class="membership"><%= link_to membership.name, [@space, membership] %></td>
+      <td><%= membership.user.profession %></td>
+  <% if current_user %>
+    <% if current_user.admin_of?(@space) %>
+      <td><%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?' %></td>
+    <% end %>
+  <% end %>
+    </tr>
+  <% end %>
+  </tbody>
 </table>
 <% else %>
-	<p>There are no members yet.</p>
+  <p>There are no members yet.</p>
 <% end%>

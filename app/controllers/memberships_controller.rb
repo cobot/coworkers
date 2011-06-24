@@ -1,4 +1,6 @@
 class MembershipsController < ApplicationController
+  skip_before_filter :require_authentication, only: :show
+  
   def show
     @space = db.load params[:space_id]
     @membership = db.load params[:id]
