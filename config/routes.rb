@@ -12,6 +12,12 @@ Coworkers::Application.routes.draw do
   end
   resource :session, only: :destroy
   
+  namespace 'api' do
+    resources :spaces, only: :show do
+      resources :memberships, only: :show
+    end
+  end
+  
   if (path = Rails.root.join('config', 'environments', "#{Rails.env}_routes.rb")).exist?
     eval File.read(path)
   end

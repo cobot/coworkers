@@ -11,9 +11,22 @@ Then /^"([^"]+)" should be listed as a member of the space "([^"]+)"(?: once)?$/
   page.all('.membership', text: membership_name).should have(1).item
 end
 
+Then /^"([^"]+)" should not be listed as a member of the space "([^"]+)"(?: once)?$/ do |membership_name, space_name|
+  click_link 'Account'
+  click_link space_name
+  page.all('.membership', text: membership_name).should have(1).item
+end
+
 Then /^I should see "([^"]*)" and "([^"]*)" as members of "([^"]*)"$/ do |name_1, name_2, space_name|
   click_link 'Account'
   click_link space_name
   page.should have_css('*', text: name_1)
   page.should have_css('*', text: name_2)
+end
+
+When /^I visit the profile page of "([^"]*)"$/ do |member_name|
+  user = DB.first(User.by_login(member_name))
+  membership = DB.first(Membership.by_user_id(user.id))
+  space = DB.load membership.space_id
+  visit url_for([space, membership])
 end

@@ -64,10 +64,10 @@ caption {background:#eee;}
 .container {
   margin: auto;
   width: 960px;
-  padding: 0px 20px;
 }
 
 .logo {
+<<<<<<< HEAD
   margin: 1.5em 0 1.5em 0;
   font-weight: 700;
   font-size: 1.5em;
@@ -109,8 +109,6 @@ a.invert:visited{color:#ffa1b5;}
 a.invert:hover,
 a.invert:active,
 a.invert:focus{color:#FFD9E1;}
-
-
 
 nav {
   font-size: 0.8333em;
@@ -166,9 +164,9 @@ nav a.last {
   position: absolute;
   top: 50px;
   left: 500px;
-  border-radius: 0.3em;
   -webkit-border-radius: 0.3em;
   -moz-border-radius: 0.3em;
+  border-radius: 0.3em;
 }
 
 .logo {
@@ -182,6 +180,7 @@ nav a.last {
 
 h2 {
   margin: 0;
+  font-size: 1.3em;
 }
 
 .path {
@@ -250,7 +249,7 @@ img.member {
   color: #AAA;
   margin-top: 50px;
   padding-top: 10px;
-  margin-bottom: 0px;
+  margin-bottom: 0;
   border-top: 1px solid #eee;
 }
 
@@ -260,10 +259,6 @@ img.member {
 
 h1 {
   font-size: 1.5em;
-}
-
-h2 {
-  font-size: 1.3em;
 }
 
 .right {
