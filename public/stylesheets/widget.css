@@ -1,31 +1,65 @@
 #cobot_widget {
-	list-style: none;
-	width: 300px;
-	-moz-border-radius: 6px;
-	-webkit-border-radius: 6px;
-	border-radius: 6px;
-	font-size: 110%;
-	background: #fbfaf8;
-	vertical-align: middle;
-	line-height: 24px;
-	font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  width: 250px;
+  overflow-x: hidden;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  font-size: 100%;
+  background: #f3f2ee;
+  vertical-align: top;
+  line-height: 15px;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-size: 12pt;
+  border: 1px solid #d5d4d1;
 }
-
-#cobot_title {
-	background: #c2d9e9;
-	padding: 5px;
-	font-style: bold;
-	-moz-border-radius: 6px 6px 0 0;
-	-webkit-border-radius: 6px 6px 0 0;
-	border-radius: 6px 6px 0 0;
+#cobot_widget ul {
+  padding: 5px 10px;
+  margin: 0;
 }
-
+#cobot_widget ul li {  margin: 5px 0 }
 #cobot_widget img {
-	margin: 0 10px 0 0;
+  width: 24px;
+  height: 24px;
+  margin: 0 10px 0 0;
+  float: left;
 }
-
-#cobot_widget a {
-	text-decoration: none;
-	margin: 0 10px 0 0;
+#cobot_widget ul li a, #cobot_widget ul li a:link, #cobot_widget ul li a:visited {
+  text-decoration: none;
+  vertical-align: top;
+  margin: 0 10px 0 0;
+  display: block;
+  color: #3a6180;
+  font-family: "Museo", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 }
-
+#cobot_widget ul li a:hover, #cobot_widget ul li a:active, #cobot_widget ul li a:focus {  color: #476d92 }
+#cobot_widget .pagination {
+  background: #d5d4d1;
+  -webkit-border-bottom-right-radius: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -moz-border-radius-bottomleft: 2px;
+  border-bottom-right-radius: 2px;
+  border-bottom-left-radius: 2px;
+  text-align: center;
+}
+#cobot_widget .pagination a, #cobot_widget .pagination a:link, #cobot_widget .pagination a:visited {
+  background-color: #f3f2ee;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  margin: 4px 6px;
+  line-height: 24px;
+  border-radius: 12px;
+  text-decoration: none;
+  color: #82817f;
+  font-size: 10pt;
+}
+#cobot_widget .pagination a:hover, #cobot_widget .pagination a:active, #cobot_widget .pagination a:focus {
+  color: #3a6180;
+  background-color: #edf0f3;
+}
+#cobot_widget span {
+  vertical-align: top;
+  font-size: 9pt;
+  color: #9a978b;
+}
