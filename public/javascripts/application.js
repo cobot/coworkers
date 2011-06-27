@@ -16,4 +16,11 @@ jQuery(function($) {
     $.uiTableFilter($('.list'), $(this).val());
   });
   
+  $('.embed').live('focus', function(e) {
+    var input = this;
+    window.setTimeout(function() {
+      input.select();
+    }, 1);
+  });
+  
 });
