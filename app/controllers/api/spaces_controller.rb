@@ -7,7 +7,7 @@ module Api
     def show
       @space = db.load! params[:id]
       unless params[:callback].blank?
-        render js: "#{params[:callback]}('#{space_hash(@space).to_json}');"
+        render js: "#{params[:callback]}(#{space_hash(@space).to_json});"
       else
         render json: space_hash(@space)
       end
