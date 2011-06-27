@@ -1,7 +1,7 @@
-var list
+var list;
 
 function coworkersWidget(space) {
-  list = JSON.parse(space).memberships;
+  list = space.memberships;
   showPage(1);
 };
 

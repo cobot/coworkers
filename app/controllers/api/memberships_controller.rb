@@ -6,7 +6,7 @@ module Api
       @space = db.load params[:space_id]
       @membership = db.load params[:id]
       unless params[:callback].blank?
-        render js: "#{params[:callback]}('#{membership_hash(@membership).to_json}');"
+        render js: "#{params[:callback]}(#{membership_hash(@membership).to_json});"
       else
         render json: membership_hash(@membership)
       end
