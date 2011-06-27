@@ -42,3 +42,10 @@
 <% else %>
   <p>There are no members yet.</p>
 <% end%>
+
+<h3>embed your coworkers</h3>
+<span>Please put the following html where you want to have your widget and embed the scripts below (important: you have to embed the scripts at the bottom of the body to make sure the widget works correctly): &lt;div id=&quot;coworkers_widget&quot;&gt;&lt;/div&gt;</span>
+<textarea class="embed">
+<%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
+<%= javascript_include_tag "http://#{request.host_with_port}/javascripts/widget.js", "#{api_space_url(@space)}?callback=coworkersWidget" %>
+</textarea>

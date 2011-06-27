@@ -1,4 +1,4 @@
-#cobot_widget {
+#coworkers_widget {
   width: 250px;
   overflow-x: hidden;
   -moz-border-radius: 3px;
@@ -12,18 +12,18 @@
   font-size: 12pt;
   border: 1px solid #d5d4d1;
 }
-#cobot_widget ul {
+#coworkers_widget ul {
   padding: 5px 10px;
   margin: 0;
 }
-#cobot_widget ul li {  margin: 5px 0 }
-#cobot_widget img {
+#coworkers_widget ul li {  margin: 5px 0 }
+#coworkers_widget img {
   width: 24px;
   height: 24px;
   margin: 0 10px 0 0;
   float: left;
 }
-#cobot_widget ul li a, #cobot_widget ul li a:link, #cobot_widget ul li a:visited {
+#coworkers_widget ul li a, #coworkers_widget ul li a:link, #coworkers_widget ul li a:visited {
   text-decoration: none;
   vertical-align: top;
   margin: 0 10px 0 0;
@@ -31,8 +31,8 @@
   color: #3a6180;
   font-family: "Museo", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 }
-#cobot_widget ul li a:hover, #cobot_widget ul li a:active, #cobot_widget ul li a:focus {  color: #476d92 }
-#cobot_widget .pagination {
+#coworkers_widget ul li a:hover, #coworkers_widget ul li a:active, #coworkers_widget ul li a:focus {  color: #476d92 }
+#coworkers_widget .pagination {
   background: #d5d4d1;
   -webkit-border-bottom-right-radius: 2px;
   -webkit-border-bottom-left-radius: 2px;
@@ -42,7 +42,7 @@
   border-bottom-left-radius: 2px;
   text-align: center;
 }
-#cobot_widget .pagination a, #cobot_widget .pagination a:link, #cobot_widget .pagination a:visited {
+#coworkers_widget .pagination a, #coworkers_widget .pagination a:link, #coworkers_widget .pagination a:visited {
   background-color: #f3f2ee;
   display: inline-block;
   width: 24px;
@@ -54,11 +54,11 @@
   color: #82817f;
   font-size: 10pt;
 }
-#cobot_widget .pagination a:hover, #cobot_widget .pagination a:active, #cobot_widget .pagination a:focus {
+#coworkers_widget .pagination a:hover, #coworkers_widget .pagination a:active, #coworkers_widget .pagination a:focus {
   color: #3a6180;
   background-color: #edf0f3;
 }
-#cobot_widget span {
+#coworkers_widget span {
   vertical-align: top;
   font-size: 9pt;
   color: #9a978b;
