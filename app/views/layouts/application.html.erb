@@ -8,9 +8,12 @@
 </head>
 <body>
   <div class="container">
-    <%= link_to 'Coworkers', root_path, class: :logo %>
+
+    <h1 class="logo">
+      <%= link_to 'Coworkers', root_path %>
+    </h1>
     <div class="header">
-      <navigation>
+      <nav>
         <% if current_user %>
           <%= link_to 'Account', account_path %>
           <%= link_to 'Edit Profile', edit_account_path %>
@@ -19,7 +22,7 @@
         <% else %>
           <%= link_to 'Home', root_path %>
         <% end %>
-      </navigation>
+      </nav>
     </div>
     <div class="main">
     <% if flash[:notice] %>
