@@ -52,7 +52,7 @@
 <%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
 <script>
   (function(){
-    load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'coworkersWidget') %>');
+    load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget') %>');
     function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
   })();
 </script>
