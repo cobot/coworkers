@@ -15,10 +15,11 @@ function showPage(page, items) {
 	content += '<ul>';
 	
 	for(i=(page-1)*items; i<page*items && i<list.length; i++) {	
-	  content += '<li><img src="'+list[i].image_url+'&size=24" alt="" /><a href="'+list[i].url+'">'+list[i].name+'</a>'; 	  
-    if(list[i].profession)
-	    content += '<span>'+list[i].profession+'</span>';
-	  content += '</li>';
+	  content += '<li><img src="'+list[i].image_url+'&size=32" alt="" /><a href="'+list[i].url+'">'+shortString(list[i].name,20)+'</a><span>'; 	  
+    if(list[i].profession){
+	    content += shortString(list[i].profession,30);
+		}
+	  content += '</span></li>';
 	}
 	
 	content += '</ul>';
@@ -30,4 +31,10 @@ function showPage(page, items) {
   }
   content += '</div>';
   coworkers_widget.innerHTML = content;
+}
+
+function shortString(string, length) {
+	if(string.length > length)
+	  return string.substr(0,length-4)+' ...';	
+	return string;
 }
