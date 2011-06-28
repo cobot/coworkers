@@ -67,7 +67,6 @@ caption {background:#eee;}
 }
 
 .logo {
-<<<<<<< HEAD
   margin: 1.5em 0 1.5em 0;
   font-weight: 700;
   font-size: 1.5em;
@@ -209,6 +208,10 @@ h2 {
   -moz-border-radius: 0.5em;
 }
 
+.center {
+  text-align: center;
+}
+
 .list {
   width: 100%;
   text-align: left;
@@ -241,10 +244,6 @@ img.member {
   line-height: 1.5;
 }
 
-.list tbody tr:hover {
-  background: #c2d9e9;
-}
-
 .footer {
   color: #AAA;
   margin-top: 50px;
@@ -274,6 +273,14 @@ h1 {
   margin-bottom: 20px;
 }
 
+form.simple_form {
+  margin-bottom: 1em;
+}
+
+div.input {
+  margin-bottom: 1em;
+}
+
 form label {
   display: inline-block;
   width: 170px;
@@ -292,4 +299,26 @@ form input.string {
 	width:99.5%;
 	height:40px;
 	overflow:hidden;
+}
+
+.screen {
+  float: left;
+  width: 270px;
+  margin-right: 40px;
+  
+  color: #666;
+}
+
+.screen.last {
+  margin-right: 0px;
+}
+
+.screen img {
+  border: 1px solid #AAA;
+  margin-bottom: .5em;
+}
+
+
+.clear {
+  clear: both;
 }
