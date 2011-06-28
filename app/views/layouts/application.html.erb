@@ -21,6 +21,7 @@
           <%= link_to 'Sign out', session_path, method: :delete %>
         <% else %>
           <%= link_to 'Home', root_path %>
+          <%= link_to 'Sign in', authenticate_path %>
         <% end %>
       </nav>
     </div>
