@@ -5,11 +5,21 @@ module Api
     skip_before_filter :require_authentication, only: :show
 
     def show
-      @space = db.load! params[:id]
-      unless params[:callback].blank?
-        render js: "#{params[:callback]}(#{space_hash(@space).to_json});"
+      space = db.load! params[:id]
+      if space.viewable_by?(nil) || space.secret == params[:secret]
+        render_space(space)
       else
-        render json: space_hash(@space)
+        not_allowed
+      end
+    end
+
+    private
+
+    def render_space(space)
+      unless params[:callback].blank?
+        render js: "#{params[:callback]}(#{space_hash(space).to_json});"
+      else
+        render json: space_hash(space)
       end
     end
     

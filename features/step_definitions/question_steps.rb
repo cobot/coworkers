@@ -1,7 +1,7 @@
 When /^I add the question "([^"]*)" to "([^"]*)"$/ do |question, space_name|
   visit account_path
   click_link space_name
-  click_link 'Manage Member Profiles'
+  click_link 'Settings'
   fill_in 'Text', with: question
   click_button 'Add Field'
 end

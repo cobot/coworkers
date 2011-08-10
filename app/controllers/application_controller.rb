@@ -26,6 +26,18 @@ class ApplicationController < ActionController::Base
   end
   
   def not_allowed
-    render file: Rails.root.join('public', '403.html'), layout: false, status: 403
+    respond_to do |format|
+      format.html do
+        if current_user
+          render file: Rails.root.join('public', '403.html'), status: 403, layout: false
+        else
+          redirect_to authenticate_path
+        end    
+      end
+      format.json do
+        head 403
+      end
+    end
   end
+
 end

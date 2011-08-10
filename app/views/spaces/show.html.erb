@@ -2,7 +2,7 @@
 
 <% if current_user %>
   <% if current_user.admin_of?(@space) %>
-  <p><%= link_to 'Manage Member Profiles', space_questions_path(@space) %></p>
+  <p><%= link_to 'Settings', space_questions_path(@space) %></p>
   <% end %>
 <% end %>
 
@@ -52,7 +52,7 @@
 <%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
 <script>
   (function(){
-    load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget') %>');
+    load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>');
     function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
   })();
 </script>

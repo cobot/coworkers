@@ -1,5 +1,17 @@
 <h1>Manage Member Profiles</h1>
 
+<h2>Settings</h2>
+
+<%= simple_form_for @space do |f| %>
+  <p>
+    <%= f.label :members_only, 'Visible for Members only' %>
+    <%= f.check_box :members_only %>
+  </p>
+  <p>
+    <%= f.submit 'Save' %>
+  </p>
+<% end %>
+
 <p>Here you can add additional fields to the member profiles of your space.</p>
 
 <%= simple_form_for @question, url: [@space, @question] do |f| %>

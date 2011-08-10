@@ -1,10 +1,16 @@
+require 'securerandom'
+
 class Space
   include CouchPotato::Persistence
   
   property :name
+  property :members_only, type: :boolean
+  property :secret
   
   view :by_id, key: :_id
   view :by_name, key: :name
+
+  before_create :set_secret
   
   def memberships
     @memberships ||= database.view(Membership.by_space_id(id)).sort_by(&:last_name)
@@ -15,7 +21,21 @@ class Space
   end
   
   def member?(user)
-    database.first Membership.by_space_id_and_user_id([id, user.id])
+    user && database.first(Membership.by_space_id_and_user_id([id, user.id]))
   end
   alias_method :membership_for, :member?
+
+  def updatable_by?(user)
+    user.admin_of?(self)
+  end
+
+  def viewable_by?(user)
+    !members_only? || member?(user) || (user && user.admin_of?(self))
+  end
+
+  private
+
+  def set_secret
+    self.secret = SecureRandom.urlsafe_base64  
+  end
 end

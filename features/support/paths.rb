@@ -10,6 +10,9 @@ module NavigationHelpers
 
     when /^the home\s?page$/
       '/'
+    when /the list of members for "([^\"]+)"/
+      space = space_by_name $1
+      space_path(space)
 
     # Add more mappings here.
     # Here is an example that pulls values out of the Regexp:

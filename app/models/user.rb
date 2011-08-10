@@ -19,4 +19,5 @@ class User
   def admin_of?(space)
     admin_of.include?(space.id)
   end
+
 end
