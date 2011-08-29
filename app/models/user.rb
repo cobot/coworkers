@@ -4,6 +4,7 @@ class User
   property :login
   property :email
   property :admin_of, default: [] # space ids
+  property :picture, default: '/images/default.jpg'
 
   # profile information
   property :website

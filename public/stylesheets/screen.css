@@ -188,6 +188,7 @@ h2 {
 
 .profile_image {
   float: left;
+  width: 180px;
 }
 
 .profile_info {

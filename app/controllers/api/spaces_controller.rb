@@ -37,7 +37,7 @@ module Api
         id: membership._id,
         name: membership.name,
         url: url_for([space, membership]),
-        image_url: user_image_url(membership.user),
+        image_url: membership.user.picture,
         login: membership.user.login,
         website: membership.user.website,
         bio: membership.user.bio,
@@ -46,18 +46,5 @@ module Api
         skills: membership.user.skills
       }
     end
-    
-    def user_image_url(user, size = 50, secure = request.ssl?)
-      email = "info@cobot.me"
-      email = user.email unless user.email.nil?
-
-      md5 = Digest::MD5.hexdigest(email)
-      if secure
-        "https://secure.gravatar.com/avatar/#{md5}?d=mm&size=#{size}"
-      else
-        "http://gravatar.com/avatar/#{md5}?d=mm&size=#{size}"
-      end
-    end
-    
   end
 end

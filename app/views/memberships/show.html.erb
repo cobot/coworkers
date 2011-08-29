@@ -1,5 +1,5 @@
 <div class="path"><%= link_to @space.name, @space %> » <%= @membership.name %></div>
-<%= image_tag user_image_url(@user, 180), class: :profile_image %>
+<%= image_tag @user.picture, class: :profile_image %>
 
 <div class="profile_info">
   <h2>General Information</h2>

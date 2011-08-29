@@ -41,10 +41,13 @@ class SessionsController < ApplicationController
   
   def find_and_update_or_create_user(user_attributes)
     unless user = db.first(User.by_login(user_attributes["login"]))
-      user = User.new(login: user_attributes["login"], email: user_attributes["email"], admin_of: user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']})
+      user = User.new(login: user_attributes["login"], email: user_attributes["email"],
+        picture: user_attributes["picture"],
+        admin_of: user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']})
       db.save user
     else
       user.email = user_attributes["email"]
+      user.picture = user_attributes["picture"]
       user.admin_of = user_attributes['admin_of'].map{|space_attributes| access_token.get(space_attributes['space_link'])['id']}
       db.save user if user.changed?
     end
