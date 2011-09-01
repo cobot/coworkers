@@ -4,7 +4,7 @@ class User
   property :login
   property :email
   property :admin_of, default: [] # space ids
-  property :picture, default: '/images/default.jpg'
+  property :picture, default: 'http://coworkers.apps.cobot.me/images/default.jpg'
 
   # profile information
   property :website
