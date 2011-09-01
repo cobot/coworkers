@@ -11,19 +11,23 @@ describe Api::SpacesController, 'show' do
          _id: 'member-1',
          to_param: 'member-1',
          name: 'member 1',
-         user: stub(:user, 
-           email: 'member1@cobot.me',
-           login: 'member1',
-           website: 'http://member1.test/',
-           bio: nil,
-           profession: 'Web',
-           industry: 'Web',
-           skills: 'all',
-           picture: 'http://example.com/pic.jpg'
-         )
+         user_id: 'user-1'
       )
     ]).as_null_object
     db = stub_db load!: @space
+    db.stub_view(User, :by_id).with(keys: ['user-1']) {
+      [stub(:user, 
+         id: 'user-1',
+         email: 'member1@cobot.me',
+         login: 'member1',
+         website: 'http://member1.test/',
+         bio: nil,
+         profession: 'Web',
+         industry: 'Web',
+         skills: 'all',
+         picture: 'http://example.com/pic.jpg'
+       )]
+    }
   end
   
   it "returns the spaces parameters in json" do

@@ -24,26 +24,27 @@ module Api
     end
     
     def space_hash(space)
+      users = db.view(User.by_id(keys: space.memberships.map(&:user_id)))
       {
         id: space._id,
         name: space.name,
         url: url_for(space),
-        memberships: space.memberships.map {|membership| membership_hash(space, membership)}
+        memberships: space.memberships.map {|membership| membership_hash(space, membership, users.find{|user| user.id == membership.user_id})}
       }
     end
     
-    def membership_hash(space, membership)
+    def membership_hash(space, membership, user)
       {
         id: membership._id,
         name: membership.name,
         url: url_for([space, membership]),
-        image_url: membership.user.picture,
-        login: membership.user.login,
-        website: membership.user.website,
-        bio: membership.user.bio,
-        profession: membership.user.profession,
-        industry: membership.user.industry,
-        skills: membership.user.skills
+        image_url: user.picture,
+        login: user.login,
+        website: user.website,
+        bio: user.bio,
+        profession: user.profession,
+        industry: user.industry,
+        skills: user.skills
       }
     end
   end
