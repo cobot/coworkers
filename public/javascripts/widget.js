@@ -20,7 +20,7 @@ CoworkersWidget.showPage = function(page, items) {
 	content += '<ul>';
 
 	for(i=(page-1)*items; i<page*items && i<list.length; i++) {	
-	  content += '<li><img src="'+list[i].image_url+'&size=32" alt="" /><a href="'+list[i].url+'">'+CoworkersWidget.shortString(list[i].name,20)+'</a><span>'; 	  
+	  content += '<li><img src="'+list[i].image_url+'" width="32" alt="" /><a href="'+list[i].url+'">'+CoworkersWidget.shortString(list[i].name,20)+'</a><span>'; 	  
     if(list[i].profession){
 	    content += CoworkersWidget.shortString(list[i].profession,30);
 		}
