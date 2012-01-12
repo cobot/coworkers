@@ -7,7 +7,7 @@ gem 'activemodel'
 gem 'couch_potato', '0.5.7'
 gem 'oauth2'
 gem 'simple_form'
-gem 'hoptoad_notifier'
+gem 'airbrake'
 gem 'param_protected'
 
 group :development do

@@ -21,6 +21,9 @@ GEM
       i18n (~> 0.5.0)
     activesupport (3.0.7)
     addressable (2.2.6)
+    airbrake (3.0.9)
+      activesupport
+      builder
     builder (2.1.2)
     capybara (1.0.0.beta1)
       mime-types (>= 1.16)
@@ -67,9 +70,6 @@ GEM
       launchy (>= 0.3.2)
       rest-client (~> 1.6.1)
       term-ansicolor (~> 1.0.5)
-    hoptoad_notifier (2.4.11)
-      activesupport
-      builder
     i18n (0.5.0)
     json (1.5.1)
     json_pure (1.5.1)
@@ -142,12 +142,12 @@ DEPENDENCIES
   actionmailer
   actionpack
   activemodel
+  airbrake
   capybara (= 1.0.0.beta1)
   couch_potato (= 0.5.7)
   cucumber-rails (= 0.5.0)
   database_cleaner
   heroku
-  hoptoad_notifier
   launchy
   oauth2
   param_protected
