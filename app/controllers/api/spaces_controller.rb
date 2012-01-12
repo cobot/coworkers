@@ -22,7 +22,7 @@ module Api
         render json: space_hash(space)
       end
     end
-    
+
     def space_hash(space)
       users = db.view(User.by_id(keys: space.memberships.map(&:user_id)))
       {
@@ -32,14 +32,13 @@ module Api
         memberships: space.memberships.map {|membership| membership_hash(space, membership, users.find{|user| user.id == membership.user_id})}
       }
     end
-    
+
     def membership_hash(space, membership, user)
       {
         id: membership._id,
         name: membership.name,
         url: url_for([space, membership]),
         image_url: user.picture,
-        login: user.login,
         website: user.website,
         bio: user.bio,
         profession: user.profession,

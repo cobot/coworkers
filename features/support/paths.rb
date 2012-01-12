@@ -13,13 +13,6 @@ module NavigationHelpers
     when /the list of members for "([^\"]+)"/
       space = space_by_name $1
       space_path(space)
-
-    # Add more mappings here.
-    # Here is an example that pulls values out of the Regexp:
-    #
-    #   when /^(.*)'s profile page$/i
-    #     user_profile_path(User.find_by_login($1))
-
     else
       begin
         page_name =~ /^the (.*) page$/

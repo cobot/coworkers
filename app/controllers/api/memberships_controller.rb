@@ -1,7 +1,7 @@
 module Api
   class MembershipsController < ApplicationController
     skip_before_filter :require_authentication, only: :show
-  
+
     def show
       @space = db.load params[:space_id]
       @membership = db.load params[:id]
@@ -11,13 +11,12 @@ module Api
         render json: membership_hash(@membership)
       end
     end
-    
+
     def membership_hash(membership)
       {
         id: membership._id,
         name: membership.name,
         image_url: membership.user.picture,
-        login: membership.user.login,
         website: membership.user.website,
         bio: membership.user.bio,
         profession: membership.user.profession,
