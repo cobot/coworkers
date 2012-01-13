@@ -1,3 +1,5 @@
+<%= render 'spaces/navigation', space: @space %>
+
 <div class="path"><%= link_to @space.name, @space %> » <%= @membership.name %></div>
 <%= image_tag @user.picture, class: :profile_image %>
 
@@ -25,7 +27,6 @@
 
   <% if @membership.answers.any? %>
     <h2><%= @space.name %> information</h2>
-
     <dl>
       <% @membership.answers.each do |answer| %>
         <% if answer.text? %>
