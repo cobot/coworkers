@@ -19,3 +19,11 @@ Scenario: post to message board as admin
     And I post a message "looking for rails gig" on the "Jobs" board
   Then the "Jobs" board should have a message "looking for rails gig" by "Joe Doe"
 
+Scenario: edit message
+  Given a space "co.up"
+    And on cobot I'm an admin of the space "co.up"
+    And "co.up" has a "Jobs" board
+    And the "Jobs" board has a message with the text "looking for PHP gig"
+  When I sign in
+    And I change the message on the "Jobs" board to "looking for rails gig"
+  Then the "Jobs" board should have a message "looking for rails gig"

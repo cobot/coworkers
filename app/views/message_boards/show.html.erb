@@ -6,10 +6,10 @@
 
 <h2>Post Message</h2>
 <%= simple_form_for [@space, @message_board, @message] do |f| %>
-  <%= f.input :text, as: :text %>
+  <%= f.input :text, as: :text, hint: 'You can use Markdown here.' %>
   <%= f.submit 'Post Message' %>
 <% end %>
 
 <h2>Messages</h2>
 
-<%= render 'messages/messages', messages: @message_board.messages, truncate: 100 %>
+<%= render 'messages/messages', messages: @message_board.messages, truncate: 100, edit_links: true, space: @space, message_board: @message_board %>

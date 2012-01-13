@@ -18,6 +18,11 @@ Given /^"([^"]*)" has a "([^"]*)" board$/ do |space_name, board_name|
   DB.save! MessageBoard.new(space_id: space.id, name: board_name)
 end
 
+Given /^the "([^"]*)" board has a message with the text "([^"]*)"$/ do |board_name, text|
+  board = DB.view(MessageBoard.by_space_id_and_id).find{|board| board.name == board_name}
+  DB.save! Message.new(message_board_id: board.id, text: text)
+end
+
 When /^I remove the "([^"]*)" board$/ do |board_name|
   visit account_path
   click_link 'Message Board'
@@ -33,12 +38,21 @@ When /^I post a message "([^"]*)" on the "([^"]*)" board$/ do |text, board_name|
   click_button 'Post Message'
 end
 
-Then /^the "([^"]*)" board should have a message "([^"]*)" by "([^"]*)"$/ do |board_name, message, author_name|
+When /^I change the message on the "([^"]*)" board to "([^"]*)"$/ do |board_name, new_text|
+  visit account_path
+  click_link 'Message Board'
+  click_link board_name
+  click_link 'Edit Message'
+  fill_in 'Text', with: new_text
+  click_button 'Update Message'
+end
+
+Then /^the "([^"]*)" board should have a message "([^"]*)"(?: by "([^"]*)")?$/ do |board_name, message, author_name|
   visit account_path
   click_link 'Message Board'
   click_link board_name
   page.should have_css('*', text: message)
-  page.should have_css('*', text: "by #{author_name}")
+  page.should have_css('*', text: "by #{author_name}") if author_name
 end
 
 Then /^"([^"]*)" should have no "([^"]*)" board$/ do |space_name, board_name|
