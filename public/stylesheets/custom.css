@@ -309,11 +309,31 @@ form input.string {
   border: 1px solid #EEE;
   border-radius: 0.5em;
   box-shadow: 2px 2px;
-  width: 300px;
+  width: 270px;
   background-color: rgb(251, 250, 249);
   padding: 10px;
+  float: left;
+  margin-right: 15px;
+}
+
+.message-board.last {
+  margin-right: 0px;
 }
 
 .message-board h3 {
   text-align: center;
+}
+
+div.message {
+  border: 1px solid #EEE;
+  border-radius: 0.5em;
+  box-shadow: 2px 2px;
+  padding: 5px;
+  background-color: white;
+  margin-bottom: 0.5em;
+}
+
+.author {
+  color: #AAA;
+  margin-bottom: 0px;
 }

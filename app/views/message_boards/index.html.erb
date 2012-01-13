@@ -3,12 +3,15 @@
 <div class="path"><%= link_to @space.name, @space %> » Message Boards</div>
 
 <% if @message_boards.any? %>
-  <%= link_to 'Add Message Board', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %>
+  <p><%= link_to 'Add Message Board', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %></p>
   <% @message_boards.each do |board| %>
-    <div class="message-board">
+    <div class="message-board <%= cycle '', '', 'last' %>">
       <h3><%= link_to board.name, [@space, board] %></h3>
+      <%= render 'messages/messages', messages: board.messages(3), shorten: 130, post_link: true, board: board %>
     </div>
   <% end %>
 <% else %>
   <p>This space does not have any message boards. <%= link_to 'Add one', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %>.</p>
 <% end %>
+
+<div class="clear"/>

@@ -1,6 +1,7 @@
 class MessageBoardsController < ApplicationController
   before_filter :load_space
   before_filter :check_admin, except: [:index, :show]
+  before_filter :check_admin_or_member, only: [:index, :show]
 
   def index
     @message_boards = @space.message_boards
@@ -22,6 +23,7 @@ class MessageBoardsController < ApplicationController
 
   def show
     @message_board = db.first! MessageBoard.by_space_id_and_id([@space.id, params[:id]])
+    @message = Message.new
   end
 
   def destroy
@@ -34,6 +36,12 @@ class MessageBoardsController < ApplicationController
 
   def load_space
     @space = db.load! params[:space_id]
+  end
+
+  def check_admin_or_member
+    unless current_user && current_user.admin_of?(@space) || @space.member?(current_user)
+      not_allowed
+    end
   end
 
   def check_admin

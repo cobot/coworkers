@@ -4,3 +4,12 @@
 
 <%= link_to 'Remove Message Board', [@space, @message_board], method: :delete, confirm: 'Really remove this board?' %>
 
+<h2>Post Message</h2>
+<%= simple_form_for [@space, @message_board, @message] do |f| %>
+  <%= f.input :text, as: :text %>
+  <%= f.submit 'Post Message' %>
+<% end %>
+
+<h2>Messages</h2>
+
+<%= render 'messages/messages', messages: @message_board.messages, truncate: 100 %>

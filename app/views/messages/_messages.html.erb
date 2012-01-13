@@ -1,0 +1,13 @@
+<% if messages.any? %>
+  <% messages.each do |message| %>
+    <div class="message">
+      <%= markdown local_assigns[:shorten] ? truncate(message.text, length: local_assigns[:shorten]) : message.text %>
+      <p class="author"><%= time_ago_in_words message.created_at %> ago by <%= link_to message.author_name, space_membership_path(@space, message.author_id) %></p>
+    </div>
+  <% end %>
+<% else %>
+  <p>No messages posted yet.
+  <%= link_to 'Post one', [@space, board] if local_assigns[:post_link] %></p>
+<% end %>
+
+
