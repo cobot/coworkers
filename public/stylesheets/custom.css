@@ -154,6 +154,26 @@ h2 {
   clear: both;
 }
 
+#menu {
+  clear: both;
+  background: #3681B6;
+  border-radius: 0.5em 0.5em 0px 0px;
+  -mox-border-radius: 0.5em 0.5em 0px 0px;
+  -webkit-border-radius: 0.5em 0.5em 0px 0px;
+  padding: 0.4em 20px 0.4em 20px;
+}
+
+#menu a {
+  color: white;
+  display: inline-block;
+  min-width: 80px;
+}
+
+#menu a:hover {
+  color: #eee;
+}
+
+
 .main {
   clear: both;
   background: #fff;
@@ -162,6 +182,13 @@ h2 {
   -webkit-border-radius: 0.5em;
   -moz-border-radius: 0.5em;
 }
+
+.main.with-menu {
+  border-radius: 0 0 0.5em 0.5em;
+  -webkit-border-radius: 0 0 0.5em 0.5em;
+  -moz-border-radius: 0 0 0.5em 0.5em;
+}
+
 
 .center {
   text-align: center;

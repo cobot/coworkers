@@ -16,7 +16,6 @@
         <% if current_user %>
           <%= link_to 'Account', account_path %>
           <%= link_to 'Edit Profile', edit_account_path %>
-          <%= link_to "Edit #{@space.name} Profile", edit_space_profile_path(@space) if @space && @space.member?(current_user) %>
           <%= link_to 'Sign out', session_path, method: :delete %>
         <% else %>
           <%= link_to 'Home', root_path %>
@@ -24,11 +23,17 @@
         <% end %>
       </nav>
     </div>
-    <div class="main">
-    <% if flash[:notice] %>
-      <p class="flash notice"><%= flash[:notice] %></p>
+    <% if menu = yield(:menu) %>
+      <div id="menu">
+        <%= menu %>
+        &nbsp;
+      </div>
     <% end %>
-    <%= yield %>
+    <div class="main <%= ' with-menu' if menu %>">
+      <% if flash[:notice] %>
+        <p class="flash notice"><%= flash[:notice] %></p>
+      <% end %>
+      <%= yield %>
     </div>
     <div class="footer">
       <p class="right">This software is <a href="http://github.com/cobot/coworkers">open source</a>.</p>

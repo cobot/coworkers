@@ -1,6 +1,5 @@
-<h1>Manage Member Profiles</h1>
-
-<h2>Settings</h2>
+<%= render 'spaces/navigation', space: @space %>
+<div class="path"><%= @space.name %> » Settings</div>
 
 <%= simple_form_for @space do |f| %>
   <p>
