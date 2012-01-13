@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe SpacesController, 'show' do
   before(:each) do
-    @db = stub_db
+    @db = stub_db view: []
   end
 
   it 'renders show' do
-    @db.stub(:load!) {stub(:space, viewable_by?: true)}
+    @db.stub(:load!) {stub(:space, viewable_by?: true).as_null_object}
 
     get :show, id: '1'
 
@@ -14,7 +14,7 @@ describe SpacesController, 'show' do
   end
 
   it 'redirects to the login if not allowed to view the space' do
-    @db.stub(:load!) {stub(:space, viewable_by?: false)}
+    @db.stub(:load!) {stub(:space, viewable_by?: false).as_null_object}
 
     get :show, id: '1'
 
@@ -23,7 +23,7 @@ describe SpacesController, 'show' do
 
   it 'renders 403 if logged in and not allowed to view the space' do
     user = stub(:user)
-    space = stub(:space)
+    space = stub(:space).as_null_object
     log_in user
     space.stub(:viewable_by?).with(user) {false}
     @db.stub(:load!) {space}

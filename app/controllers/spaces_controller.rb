@@ -1,9 +1,12 @@
 class SpacesController < ApplicationController
   skip_before_filter :require_authentication, only: :show
-  
+
   def show
     @space = db.load! params[:id]
     not_allowed unless @space.viewable_by?(current_user)
+    @memberships = @space.memberships
+    users = db.view(User.by_id(keys: @memberships.map(&:user_id)))
+    @memberships.each {|m| m.user = users.find{|u| u.id == m.user_id}}
   end
 
   def update

@@ -2,8 +2,8 @@
 
 <div class="path"><%= link_to @space.name, @space %> » Members</div>
 
-<% if @space.memberships.any? %>
-  <% @space.memberships.each do |membership| %>
+<% if @memberships.any? %>
+  <% @memberships.each do |membership| %>
     <div class="member">
       <%= link_to image_tag(membership.user.picture, width: 150, class: :member), [@space, membership], title: membership.name, class: 'photo' %>
       <div class="bio">
