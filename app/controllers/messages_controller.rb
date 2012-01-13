@@ -13,7 +13,7 @@ class MessagesController < ApplicationController
       message.author_name = admin.name
     end
     if membership || admin
-      db.save message
+      flash[:notice] = 'Message added.' if db.save message
       redirect_to [@space, @message_board]
     else
       not_allowed
