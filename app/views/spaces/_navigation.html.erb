@@ -1,5 +1,8 @@
 <% menu do %>
-  <%= link_to space.name, space %>
+  <%= link_to "Members", space %>
+  <% if current_user && current_user.admin_of?(space) || space.message_boards.any? %>
+    <%= link_to space.message_boards.size == 1 ? "Message Board" : "Message Boards", [space, :message_boards] %>
+  <% end %>
   <% if current_user && current_user.admin_of?(space) %>
     <%= link_to 'Settings', space_questions_path(space) %>
     <%= link_to 'Embed', '#embed', rel: 'facebox' %>

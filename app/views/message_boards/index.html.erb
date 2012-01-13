@@ -1,0 +1,14 @@
+<%= render 'spaces/navigation', space: @space %>
+
+<div class="path"><%= link_to @space.name, @space %> » Message Boards</div>
+
+<% if @message_boards.any? %>
+  <%= link_to 'Add Message Board', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %>
+  <% @message_boards.each do |board| %>
+    <div class="message-board">
+      <h3><%= board.name %></h3>
+    </div>
+  <% end %>
+<% else %>
+  <p>This space does not have any message boards. <%= link_to 'Add one', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %>.</p>
+<% end %>

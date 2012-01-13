@@ -1,6 +1,6 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="path"><%= @space.name %> » Edit Profile</div>
+<div class="path"><%= link_to @space.name, @space %> » Edit Profile</div>
 
 <%= form_tag space_profile_path(@space), method: :put do %>
   <% @questions.each.with_index do |question, i| %>

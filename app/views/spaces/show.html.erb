@@ -1,6 +1,6 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="path"><%= @space.name %> » Members</div>
+<div class="path"><%= link_to @space.name, @space %> » Members</div>
 
 <% if @space.memberships.any? %>
   <% @space.memberships.each do |membership| %>

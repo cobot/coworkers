@@ -166,7 +166,7 @@ h2 {
 #menu a {
   color: white;
   display: inline-block;
-  min-width: 80px;
+  margin-right: 30px;
 }
 
 #menu a:hover {
@@ -303,4 +303,17 @@ form input.string {
 
 .clear {
   clear: both;
+}
+
+.message-board {
+  border: 1px solid #EEE;
+  border-radius: 0.5em;
+  box-shadow: 2px 2px;
+  width: 300px;
+  background-color: rgb(251, 250, 249);
+  padding: 10px;
+}
+
+.message-board h3 {
+  text-align: center;
 }
