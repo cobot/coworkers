@@ -8,6 +8,12 @@ When /^I sign in$/ do
   click_link 'Sign in'
 end
 
+When /^I sign as another user$/ do
+  Given %Q{on cobot I'm an admin of the space "other-space"}
+  When 'I sign out'
+  When 'I sign in'
+end
+
 When /^I sign out$/ do
   click_link 'Sign out'
 end

@@ -7,7 +7,6 @@ end
 
 Then /^"([^"]*)" should have listed the website "([^"]*)" on his "([^"]*)" profile$/ do |name, website, space_name|
   visit account_path
-  click_link space_name
   click_link name
   page.should have_css('.website', text: website)
 end

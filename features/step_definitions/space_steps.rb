@@ -3,7 +3,6 @@ Given /^a space "([^"]*)"$/ do |name|
 end
 
 When /^I change the visibility to members only$/ do
-  find('.space a:first').click
   click_link 'Settings'
   check 'Visible for Members only'
   click_button 'Save'
