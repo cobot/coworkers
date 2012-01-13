@@ -127,12 +127,16 @@ h2 {
   border-bottom-width: 0px;
 }
 
+.member .remove {
+  margin-left: 45px;
+}
+
 .member .photo {
   float: left;
 }
 
 .member .bio {
-  min-height: 150px;
+  min-height: 140px;
   margin-left: 200px;
 }
 

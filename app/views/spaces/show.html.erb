@@ -14,14 +14,14 @@
       <div class="bio">
         <h3>
           <%= link_to membership.name, [@space, membership] %>
-          <% if current_user && current_user.admin_of?(@space) %>
-            <%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?', class: 'remove_member' %>
-          <% end %>
         </h3>
         <p><%= membership.user.profession %><%= ', ' if membership.user.profession? && membership.user.website? %><%= link_to membership.user.website if membership.user.website? %></p>
 
         <%= markdown truncate(membership.user.bio, length: 400) %>
       </div>
+      <% if current_user && current_user.admin_of?(@space) %>
+        <%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?', class: 'remove' %>
+      <% end %>
     </div>
   <% end %>
 <% else %>
