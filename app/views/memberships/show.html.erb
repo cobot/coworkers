@@ -3,8 +3,9 @@
 
 <div class="profile_info">
   <h2>General Information</h2>
+  <%= markdown @user.bio %>
   <dl>
-    <% [:website, :bio, :profession, :industry, :skills].each do |attribute| %>
+    <% [:website, :profession, :industry, :skills].each do |attribute| %>
       <% if @user.send("#{attribute}?") %>
         <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
         <dd class="<%= attribute %>"><%== auto_link h(@user.send(attribute).to_s) %></dd>

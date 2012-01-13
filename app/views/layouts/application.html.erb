@@ -2,13 +2,12 @@
 <html>
 <head>
   <title>Coworkers</title>
-  <%= stylesheet_link_tag 'screen', 'btn' %>
-  <%= javascript_include_tag 'jquery', 'rails', 'application', 'jquery.tablesorter.min', 'jquery.uitablefilter.js' %>
+  <%= stylesheet_link_tag 'screen', 'custom', 'btn', 'facebox' %>
+  <%= javascript_include_tag 'jquery', 'rails', 'facebox', 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
   <div class="container">
-
     <h1 class="logo">
       <%= link_to 'Coworkers', root_path %>
     </h1>

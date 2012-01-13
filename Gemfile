@@ -9,6 +9,7 @@ gem 'oauth2'
 gem 'simple_form'
 gem 'airbrake'
 gem 'param_protected'
+gem 'rdiscount'
 
 group :development do
   gem 'rspec-rails'

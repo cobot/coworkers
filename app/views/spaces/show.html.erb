@@ -1,61 +1,48 @@
 <div class="path"><%= @space.name %> » Members</div>
 
-<% if current_user %>
-  <% if current_user.admin_of?(@space) %>
-  <p><%= link_to 'Settings', space_questions_path(@space) %></p>
-  <% end %>
+<% if current_user && current_user.admin_of?(@space) %>
+  <p>
+    <%= link_to 'Settings', space_questions_path(@space) %> |
+    <%= link_to 'Embed', '#embed', rel: 'facebox' %>
+  </p>
 <% end %>
 
 <% if @space.memberships.any? %>
-
-<%= label_tag :search, 'Search', class: 'small' %>
-<%= text_field_tag :search, '', title: 'Search' %>
-
-<table class="list">
-  <thead>
-    <tr>
-      <th>Photo</th>
-      <th>Name</th>
-      <th>Profession</th>
-  <% if current_user %>
-    <% if current_user.admin_of?(@space) %>
-      <th>Settings</th>
-    <% end %>
-  <% end %>
-    </tr>
-  </head>
-  <tbody>
   <% @space.memberships.each do |membership| %>
-    <tr>
-      <td><%= link_to image_tag(membership.user.picture, width: 24, class: :member), [@space, membership], title: membership.name %></td>
-      <td class="membership"><%= link_to membership.name, [@space, membership] %></td>
-      <td><%= membership.user.profession %></td>
-  <% if current_user %>
-    <% if current_user.admin_of?(@space) %>
-      <td><%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?' %></td>
-    <% end %>
+    <div class="member">
+      <%= link_to image_tag(membership.user.picture, width: 150, class: :member), [@space, membership], title: membership.name, class: 'photo' %>
+      <div class="bio">
+        <h3>
+          <%= link_to membership.name, [@space, membership] %>
+          <% if current_user && current_user.admin_of?(@space) %>
+            <%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?', class: 'remove_member' %>
+          <% end %>
+        </h3>
+        <p><%= membership.user.profession %><%= ', ' if membership.user.profession? && membership.user.website? %><%= link_to membership.user.website if membership.user.website? %></p>
+
+        <%= markdown truncate(membership.user.bio, length: 400) %>
+      </div>
+    </div>
   <% end %>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
 <% else %>
   <p>There are no members yet.</p>
 <% end%>
 
-<h3>Embed on your website</h3>
+<div id="embed" style="display:none">
+  <h3>Embed on your website</h3>
 
-<p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
+  <p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
 
-<textarea class="embed">
-&lt;div id=&quot;coworkers_widget&quot;&gt;&lt;/div&gt;
-<%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
-<script>
-  (function(){
-    load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>');
-    function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
-  })();
-</script>
-</textarea>
+  <textarea class="embed">
+  &lt;div id=&quot;coworkers_widget&quot;&gt;&lt;/div&gt;
+  <%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
+  <script>
+    (function(){
+      load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>');
+      function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
+    })();
+  </script>
+  </textarea>
 
-<p>You can change the look of the widget through CSS. Take a look at <%= link_to 'widget.css', "http://#{request.host_with_port}/stylesheets/widget.css" %> to see how it is styled. You can even change the HTML by replacing <%= link_to 'widget.js', "http://#{request.host_with_port}/javascripts/widget.js" %> with your own version.</p>
+  <p>You can change the look of the widget through CSS. Take a look at <%= link_to 'widget.css', "http://#{request.host_with_port}/stylesheets/widget.css" %> to see how it is styled. You can even change the HTML by replacing <%= link_to 'widget.js', "http://#{request.host_with_port}/javascripts/widget.js" %> with your own version.</p>
+</div>
