@@ -9,7 +9,7 @@ Coworkers::Application.routes.draw do
     resources :memberships, only: [:show, :destroy]
     resources :questions, only: [:index, :create, :destroy]
     resource :profile, only: [:edit, :update]
-    resources :message_boards, only: [:index, :new, :create]
+    resources :message_boards, only: [:index, :new, :create, :show, :destroy]
   end
   resource :session, only: :destroy
 

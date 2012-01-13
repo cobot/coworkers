@@ -1,0 +1,6 @@
+<%= render 'spaces/navigation', space: @space %>
+
+<div class="path"><%= link_to @space.name, @space %> » <%= link_to 'Message Boards', [@space, :message_boards] %> » <%= @message_board.name %></div>
+
+<%= link_to 'Remove Message Board', [@space, @message_board], method: :delete, confirm: 'Really remove this board?' %>
+

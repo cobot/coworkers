@@ -6,7 +6,7 @@
   <%= link_to 'Add Message Board', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %>
   <% @message_boards.each do |board| %>
     <div class="message-board">
-      <h3><%= board.name %></h3>
+      <h3><%= link_to board.name, [@space, board] %></h3>
     </div>
   <% end %>
 <% else %>
