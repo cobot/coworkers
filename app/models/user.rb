@@ -1,6 +1,8 @@
 class User
   include CouchPotato::Persistence
 
+  Admin = Struct.new(:name)
+
   property :email
   property :admin_of, default: [] # space ids
   property :picture, default: 'http://coworkers.apps.cobot.me/images/default.jpg'
@@ -18,7 +20,13 @@ class User
   view :by_id, key: :_id
 
   def admin_of?(space)
-    admin_of.include?(space.id)
+    admin_of.map{|attributes| attributes[:space_id]}.include?(space.id)
+  end
+
+  def admin_for(space)
+    if attributes = admin_of.find{|attributes| attributes[:space_id] == space.id}
+      Admin.new(attributes[:name])
+    end
   end
 
 end

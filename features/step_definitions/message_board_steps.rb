@@ -33,11 +33,12 @@ When /^I post a message "([^"]*)" on the "([^"]*)" board$/ do |text, board_name|
   click_button 'Post Message'
 end
 
-Then /^the "([^"]*)" board should have a message "([^"]*)"$/ do |board_name, message|
+Then /^the "([^"]*)" board should have a message "([^"]*)" by "([^"]*)"$/ do |board_name, message, author_name|
   visit account_path
   click_link 'Message Board'
   click_link board_name
   page.should have_css('*', text: message)
+  page.should have_css('*', text: "by #{author_name}")
 end
 
 Then /^"([^"]*)" should have no "([^"]*)" board$/ do |space_name, board_name|

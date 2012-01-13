@@ -57,13 +57,14 @@ Given /^on cobot I'm a member of the space "([^"]+)" with email "([^"]+)" and na
 end
 
 
-Given /^on cobot I'm an admin of the space "([^"]*)"$/ do |space_name|
+Given /^on cobot I'm an admin of the space "([^"]*)"(?: with the name "([^"]*)")?$/ do |space_name, name|
   space_id = space_name.gsub(/\W+/, '_')
   WebMock.stub_request(:get, 'https://www.cobot.me/api/user?oauth_token=').to_return(body: {
     memberships: [],
     admin_of: [
       {
-        space_link: "https://www.cobot.me/api/spaces/#{space_id}"
+        space_link: "https://www.cobot.me/api/spaces/#{space_id}",
+        name: name || 'joe'
       }
     ],
     email: 'joe@cobot.me'
