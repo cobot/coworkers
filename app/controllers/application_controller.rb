@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include KissmetricsHelper
   protect_from_forgery
   before_filter :require_authentication
 

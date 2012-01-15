@@ -3,7 +3,6 @@
 <head>
   <title>Coworkers</title>
   <%= stylesheet_link_tag 'screen', 'custom', 'btn', 'facebox', 'forms' %>
-  <%= javascript_include_tag 'jquery', 'rails', 'facebox', 'application' %>
   <%= csrf_meta_tag %>
 </head>
 <body>
@@ -40,5 +39,25 @@
       <p>&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></p>
     </div>
   </div>
+  <%= javascript_include_tag 'jquery', 'rails', 'facebox', 'application' %>
+  <script type="text/javascript">
+    $(function() {
+      (function() {
+        window._kmq = window._kmq || [];
+        function _kms(u){
+          setTimeout(function(){
+            var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
+            s.src = u; f.parentNode.insertBefore(s, f);
+          }, 1);
+        }
+        <% if current_user %>
+          _kmq.push(['identify', '<%= current_user.email %>']);
+        <% end %>
+        _kms('//i.kissmetrics.com/i.js');
+        _kms('//doug1izaerwt3.cloudfront.net/d28ef16c902b60ab05ad5d446cbd1d403b54081a.1.js');
+        <%== km_events %>
+      })();
+    });
+  </script>
 </body>
 </html>

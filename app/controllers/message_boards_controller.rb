@@ -16,6 +16,7 @@ class MessageBoardsController < ApplicationController
     @message_board.space_id = @space.id
     if db.save @message_board
       redirect_to space_message_boards_path(@space)
+      km_record 'Created Board'
     else
       render 'new'
     end

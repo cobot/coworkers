@@ -50,7 +50,7 @@ class SessionsController < ApplicationController
       user = User.new(email: user_attributes["email"],
         picture: user_attributes["picture"],
         admin_of: admin_of)
-      db.save user
+      db.save(user) && km_record('signed up')
     else
       user.picture = user_attributes["picture"]
       user.admin_of = admin_of
@@ -64,9 +64,9 @@ class SessionsController < ApplicationController
       membership_details = access_token.get(membership_attributes['link'])
       membership = db.load(membership_details['id'])
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
-        db.save Membership.new user_id: user.id, id: membership_details['id'],
+        db.save(Membership.new user_id: user.id, id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
-          name: membership_details['address']['name']
+          name: membership_details['address']['name']) && km_record('Signed up as member')
       elsif membership
         membership.name = membership_details['address']['name']
         db.save! membership
@@ -79,6 +79,7 @@ class SessionsController < ApplicationController
     unless space = db.load(space_attributes['id'])
       space = Space.new name: space_attributes['name'], id: space_attributes['id']
       db.save space
+      km_record 'Added Space'
     end
     space
   end
