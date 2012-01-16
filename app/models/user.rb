@@ -29,4 +29,6 @@ class User
     end
   end
 
+  alias_method :profile_completed?, :bio?
+
 end

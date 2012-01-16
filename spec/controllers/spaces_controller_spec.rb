@@ -21,8 +21,29 @@ describe SpacesController, 'show' do
     response.should redirect_to(authenticate_path)
   end
 
+  it 'redirects to edit profile if the profile has not been completed' do
+    @db.stub(:load!) {stub(:space, viewable_by?: true).as_null_object}
+    log_in stub(:user, profile_completed?: false, admin_of?: false)
+
+    get :show, id: '1'
+
+    response.should redirect_to(edit_account_path)
+  end
+
+  it 'does not redirect to profile if admin' do
+    space = stub(:space, viewable_by?: true).as_null_object
+    user = stub(:user, profile_completed?: false)
+    user.stub(:admin_of?).with(space) {true}
+    @db.stub(:load!) {space}
+    log_in user
+
+    get :show, id: '1'
+
+    response.should render_template('show')
+  end
+
   it 'renders 403 if logged in and not allowed to view the space' do
-    user = stub(:user)
+    user = stub(:user).as_null_object
     space = stub(:space).as_null_object
     log_in user
     space.stub(:viewable_by?).with(user) {false}

@@ -6,6 +6,10 @@ end
 When /^I sign in$/ do
   visit root_url
   click_link 'Sign in'
+  if current_path == edit_account_path
+    fill_in 'Bio', with: 'i work here'
+    click_button 'Update Profile'
+  end
 end
 
 When /^I sign as another user$/ do

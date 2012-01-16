@@ -3,10 +3,16 @@ class SpacesController < ApplicationController
 
   def show
     @space = db.load! params[:id]
-    not_allowed unless @space.viewable_by?(current_user)
-    @memberships = @space.memberships
-    users = db.view(User.by_id(keys: @memberships.map(&:user_id)))
-    @memberships.each {|m| m.user = users.find{|u| u.id == m.user_id}}
+    if !@space.viewable_by?(current_user)
+      not_allowed
+    elsif current_user && !current_user.admin_of?(@space) && !current_user.profile_completed?
+      flash[:notice] = 'Please fill in your profile first.'
+      redirect_to edit_account_path
+    else
+      @memberships = @space.memberships
+      users = db.view(User.by_id(keys: @memberships.map(&:user_id)))
+      @memberships.each {|m| m.user = users.find{|u| u.id == m.user_id}}
+    end
   end
 
   def update

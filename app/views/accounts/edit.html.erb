@@ -4,7 +4,7 @@
   <%= f.input :website, placeholder: 'http://...' %>
   <%= f.input :profession %>
   <%= f.input :industry %>
-  <%= f.input :bio, as: :text %>
+  <%= f.input :bio, as: :text, required: true, placeholder: 'A few lines about you.' %>
   <%= f.input :skills, as: :text %>
   <%= f.input :messenger_type, collection: ['Skype', 'Twitter', 'Jabber']  %>
   <%= f.input :messenger_account %>

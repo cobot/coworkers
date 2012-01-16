@@ -8,13 +8,15 @@ Scenario: sign up as member, space doesn't exist yet
   When I sign in
   Then "Joe Doe" should be listed as a member of the space "co.up"
 
-Scenario: sign up, space already exists
+Scenario: sign up as member, space already exists
   Given a space "co.up"
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
-  When I sign in
+  When I go to the home page
+    And I follow "Sign in"
+    And I fill in my profile info
   Then "Joe Doe" should be listed as a member of the space "co.up"
 
-Scenario: sign in
+Scenario: sign in as member
   Given a space "co.up"
     And "co.up" has a member "Joe Doe" with email "joedoe@cobot.me"
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
