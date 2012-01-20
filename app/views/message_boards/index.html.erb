@@ -7,7 +7,7 @@
   <% @message_boards.each do |board| %>
     <div class="message-board <%= cycle '', '', 'last' %>">
       <h3><%= link_to board.name, [@space, board] %></h3>
-      <%= render 'messages/messages', messages: board.messages(3), shorten: 130, post_link: true, board: board %>
+      <%= render 'messages/messages', messages: board.messages(3), post_link: true, message_board: board, space: @space %>
     </div>
   <% end %>
 <% else %>

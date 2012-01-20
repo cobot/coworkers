@@ -1,6 +1,6 @@
 class MessagesController < ApplicationController
   before_filter :load_space_and_board
-  before_filter :load_message, only: [:edit, :update]
+  before_filter :load_message, only: [:edit, :update, :show]
   param_protected({message: [:message_board_id, :author_id, :author_name]}, only: :update)
 
   def create
@@ -29,7 +29,10 @@ class MessagesController < ApplicationController
   def update
     @message.attributes = params[:message]
     db.save @message
-    redirect_to [@space, @message_board]
+    redirect_to [@space, @message_board, @message]
+  end
+
+  def show
   end
 
   private

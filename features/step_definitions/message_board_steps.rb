@@ -23,6 +23,11 @@ Given /^the "([^"]*)" board has a message with the text "([^"]*)"$/ do |board_na
   DB.save! Message.new(message_board_id: board.id, text: text)
 end
 
+Given /^the "([^"]*)" board has a message with a long text starting withh "([^"]*)" and ending with "([^"]*)"$/ do |board_name, text_start, text_end|
+  board = DB.view(MessageBoard.by_space_id_and_id).find{|board| board.name == board_name}
+  DB.save! Message.new(message_board_id: board.id, text: text_start + 'X' * 150 + text_end)
+end
+
 When /^I remove the "([^"]*)" board$/ do |board_name|
   visit account_path
   click_link 'Message Board'
@@ -53,6 +58,13 @@ Then /^the "([^"]*)" board should have a message "([^"]*)"(?: by "([^"]*)")?$/ d
   click_link board_name
   page.should have_css('*', text: message)
   page.should have_css('*', text: "by #{author_name}") if author_name
+end
+
+Then /^the "([^"]*)" board should have a message that starts with "([^"]*)"$/ do |board_name, message_start|
+  visit account_path
+  click_link 'Message Board'
+  click_link board_name
+  page.should have_css('*', text: /^#{Regexp.escape message_start}/)
 end
 
 Then /^"([^"]*)" should have no "([^"]*)" board$/ do |space_name, board_name|

@@ -27,3 +27,13 @@ Scenario: edit message
   When I sign in
     And I change the message on the "Jobs" board to "looking for rails gig"
   Then the "Jobs" board should have a message "looking for rails gig"
+
+Scenario: view long message
+  Given a space "co.up"
+    And on cobot I'm an admin of the space "co.up"
+    And "co.up" has a "Jobs" board
+    And the "Jobs" board has a message with a long text starting withh "long message" and ending with "end of long message"
+  When I sign in
+  Then the "Jobs" board should have a message that starts with "long message"
+  When I follow "more"
+  Then I should see "end of long message"
