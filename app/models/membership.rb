@@ -8,6 +8,7 @@ class Membership
   view :by_user_id, key: :user_id
   view :by_space_id, key: :space_id
   view :by_space_id_and_user_id, key: [:space_id, :user_id]
+  view :by_space_id_and_created_at, key: [:space_id, :created_at]
 
   def user=(user)
     @user = user

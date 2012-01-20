@@ -1,0 +1,5 @@
+<%= render 'spaces/navigation', space: @space %>
+
+<div class="path"><%= link_to @space.name, @space %> » Members</div>
+
+<%= render 'memberships/memberships', memberships: @memberships, remove_links: true, space: @space %>

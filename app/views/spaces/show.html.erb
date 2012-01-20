@@ -1,24 +1,11 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="path"><%= link_to @space.name, @space %> » Members</div>
+<div class="path"><%= link_to @space.name, @space %> » Dashboard</div>
 
-<% if @memberships.any? %>
-  <% @memberships.each do |membership| %>
-    <div class="member">
-      <%= link_to image_tag(membership.user.picture, width: 150, class: :member), [@space, membership], title: membership.name, class: 'photo' %>
-      <div class="bio">
-        <h3>
-          <%= link_to membership.name, [@space, membership] %>
-        </h3>
-        <p><%= membership.user.profession %><%= ', ' if membership.user.profession? && membership.user.website? %><%= link_to membership.user.website, membership.user.website if membership.user.website? %></p>
+<% if @new_messages.any? %>
+  <h2><%= link_to 'New Messages', [@space, :message_boards] %></h2>
+  <%= render 'messages/messages', messages: @new_messages, space: @space %>
+<% end %>
 
-        <%= markdown truncate(membership.user.bio, length: 400) %>
-      </div>
-      <% if current_user && current_user.admin_of?(@space) %>
-        <%= link_to 'remove', [@space, membership], method: 'delete', confirm: 'Really remove that membership?', class: 'remove' %>
-      <% end %>
-    </div>
-  <% end %>
-<% else %>
-  <p>There are no members yet. Members of the space are added automatically when they log in the first time.</p>
-<% end%>
+<h2><%= link_to 'New Members', [@space, :memberships] %></h2>
+<%= render 'memberships/memberships', memberships: @new_memberships, space: @space %>

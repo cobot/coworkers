@@ -6,6 +6,7 @@ class MessagesController < ApplicationController
   def create
     message = Message.new params[:message]
     message.message_board_id = @message_board.id
+    message.space_id = @message_board.space_id
     if membership = @space.membership_for(current_user)
       message.author_name = membership.name
       message.author_id = membership.id

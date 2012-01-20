@@ -20,6 +20,11 @@ class Space
     @memberships ||= database.view(Membership.by_space_id(id)).sort_by(&:last_name)
   end
 
+  def new_memberships
+    @new_memberships ||= database.view(Membership.by_space_id_and_created_at(
+      startkey: [id, {}], endkey: [id], descending: true, limit: 3))
+  end
+
   def questions
     @questions ||= database.view(Question.by_space_id(id))
   end

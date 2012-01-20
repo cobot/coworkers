@@ -6,7 +6,7 @@ Coworkers::Application.routes.draw do
 
   resource :account, only: [:show, :edit, :update]
   resources :spaces, only: [:show, :update] do
-    resources :memberships, only: [:show, :destroy]
+    resources :memberships, only: [:index, :show, :destroy]
     resources :questions, only: [:index, :create, :destroy]
     resource :profile, only: [:edit, :update]
     resources :message_boards, only: [:index, :new, :create, :show, :destroy] do

@@ -20,7 +20,7 @@ end
 
 Given /^the "([^"]*)" board has a message with the text "([^"]*)"$/ do |board_name, text|
   board = DB.view(MessageBoard.by_space_id_and_id).find{|board| board.name == board_name}
-  DB.save! Message.new(message_board_id: board.id, text: text)
+  DB.save! Message.new(message_board_id: board.id, text: text, space_id: board.space_id)
 end
 
 Given /^the "([^"]*)" board has a message with a long text starting withh "([^"]*)" and ending with "([^"]*)"$/ do |board_name, text_start, text_end|

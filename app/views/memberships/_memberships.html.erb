@@ -1,0 +1,20 @@
+<% if memberships.any? %>
+  <% memberships.each do |membership| %>
+    <div class="member">
+      <%= link_to image_tag(membership.user.picture, width: 150, class: :member), [space, membership], title: membership.name, class: 'photo' %>
+      <div class="bio">
+        <h3>
+          <%= link_to membership.name, [space, membership] %>
+        </h3>
+        <p><%= membership.user.profession %><%= ', ' if membership.user.profession? && membership.user.website? %><%= link_to membership.user.website, membership.user.website if membership.user.website? %></p>
+
+        <%= markdown truncate(membership.user.bio, length: 400) %>
+      </div>
+      <% if local_assigns[:remove_links] && current_user && current_user.admin_of?(space) %>
+        <%= link_to 'remove', [space, membership], method: 'delete', confirm: 'Really remove that membership?', class: 'remove' %>
+      <% end %>
+    </div>
+  <% end %>
+<% else %>
+  <p>There are no members yet. Members of the space are added automatically when they log in the first time.</p>
+<% end%>

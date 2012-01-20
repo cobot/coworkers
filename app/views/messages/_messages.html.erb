@@ -1,12 +1,12 @@
 <% if messages.any? %>
   <% messages.each do |message| %>
     <div class="message">
-      <%= markdown truncate(message.text, length: 130) + ' ' + (link_to 'more', [space, message_board, message] if message.text.size > 130).to_s %>
+      <%= markdown truncate(message.text, length: 130) + ' ' + (link_to 'more', [space, message.message_board, message] if message.text.size > 130).to_s %>
       <p class="author">
         <%= time_ago_in_words message.created_at %> ago
         by <%= author_link(message) %>
         <% if local_assigns[:edit_links] && message.editable_by?(current_user, space) %>
-          | <%= link_to 'Edit Message', [:edit, space, message_board, message] %>
+          | <%= link_to 'Edit Message', [:edit, space, message.message_board, message] %>
         <% end %>
       </p>
     </div>
