@@ -5,27 +5,6 @@
   <% end %>
   <% if current_user && current_user.admin_of?(space) %>
     <%= link_to 'Settings', space_questions_path(space) %>
-    <%= link_to 'Embed', '#embed', rel: 'facebox' %>
   <% end %>
   <%= link_to "Edit #{space.name} Profile", edit_space_profile_path(space) if space && space.member?(current_user) %>
 <% end %>
-
-
-<div id="embed" style="display:none">
-  <h3>Embed on your website</h3>
-
-  <p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
-
-  <textarea class="embed">
-  &lt;div id=&quot;coworkers_widget&quot;&gt;&lt;/div&gt;
-  <%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
-  <script>
-    (function(){
-      load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>');
-      function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
-    })();
-  </script>
-  </textarea>
-
-  <p>You can change the look of the widget through CSS. Take a look at <%= link_to 'widget.css', "http://#{request.host_with_port}/stylesheets/widget.css" %> to see how it is styled. You can even change the HTML by replacing <%= link_to 'widget.js', "http://#{request.host_with_port}/javascripts/widget.js" %> with your own version.</p>
-</div>

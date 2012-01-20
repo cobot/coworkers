@@ -1,6 +1,26 @@
 <%= render 'spaces/navigation', space: @space %>
 <div class="path"><%= link_to @space.name, @space %> » Settings</div>
 
+
+  <h2>Embed on your website</h2>
+
+  <p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
+
+  <textarea class="embed">
+  &lt;div id=&quot;coworkers_widget&quot;&gt;&lt;/div&gt;
+  <%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
+  <script>
+    (function(){
+      load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>');
+      function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
+    })();
+  </script>
+  </textarea>
+
+  <p>You can change the look of the widget through CSS. Take a look at <%= link_to 'widget.css', "http://#{request.host_with_port}/stylesheets/widget.css" %> to see how it is styled. You can even change the HTML by replacing <%= link_to 'widget.js', "http://#{request.host_with_port}/javascripts/widget.js" %> with your own version.</p>
+
+<h2>Visibility</h2>
+
 <%= simple_form_for @space do |f| %>
   <p>
     <%= f.label :members_only, 'Visible for Members only' %>
@@ -10,6 +30,8 @@
     <%= f.submit 'Save' %>
   </p>
 <% end %>
+
+<h2>Questions</h2>
 
 <p>Here you can add additional fields to the member profiles of your space.</p>
 
@@ -21,8 +43,6 @@
 
 
 <% if @questions.any? %>
-  <h2>Questions</h2>
-
   <ol>
     <% @questions.each do |question| %>
       <li>
