@@ -25,17 +25,23 @@ module Api
 
     def space_hash(space)
       users = db.view(User.by_id(keys: space.memberships.map(&:user_id)))
+      memberships = space.memberships
+      answers = db.view(Answer.by_membership_id(keys: memberships.map(&:id)))
       {
         id: space._id,
         name: space.name,
         url: url_for(space),
-        memberships: space.memberships.map {|membership| membership_hash(space, membership, users.find{|user| user.id == membership.user_id})}
+        memberships: memberships.map {|membership|
+          membership_hash(space, membership,
+            users.find{|user| user.id == membership.user_id},
+            answers.select{|answer| answer.membership_id == membership.id}
+        )}
       }
     end
 
-    def membership_hash(space, membership, user)
+    def membership_hash(space, membership, user, answers)
       {
-        id: membership._id,
+        id: membership.id,
         name: membership.name,
         url: url_for([space, membership]),
         image_url: user.picture,
@@ -43,7 +49,11 @@ module Api
         bio: user.bio,
         profession: user.profession,
         industry: user.industry,
-        skills: user.skills
+        skills: user.skills,
+        messenger: ({user.messenger_type => user.messenger_account} if user.messenger_type.present?),
+        questions: answers.map{|answer|
+          {answer.question => answer.text}
+        }
       }
     end
   end
