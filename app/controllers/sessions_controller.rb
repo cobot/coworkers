@@ -43,7 +43,7 @@ class SessionsController < ApplicationController
   end
 
   def find_and_update_or_create_user
-    unless user = db.first(User.by_cobot_id(user_attributes["id"]))
+    unless user = db.first(User.by_cobot_id(user_attributes["id"])) || db.first(User.by_email(user_attributes["email"]))
       user = User.new(email: user_attributes["email"],
         cobot_id: user_attributes['id'],
         picture: user_attributes["picture"],
