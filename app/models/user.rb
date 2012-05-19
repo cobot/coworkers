@@ -7,6 +7,7 @@ class User
   property :email
   property :admin_of, default: [] # space ids
   property :picture, default: 'http://coworkers.apps.cobot.me/images/default.jpg'
+  property :access_token
 
   # profile information
   property :website

@@ -45,11 +45,13 @@ class SessionsController < ApplicationController
   def find_and_update_or_create_user
     unless user = db.first(User.by_cobot_id(user_attributes["id"])) || db.first(User.by_email(user_attributes["email"]))
       user = User.new(email: user_attributes["email"],
+        access_token: params[:code],
         cobot_id: user_attributes['id'],
         picture: user_attributes["picture"],
         admin_of: admin_of)
       db.save(user) && km_record('signed up')
     else
+      user.access_token = params[:code]
       user.email = user_attributes["email"]
       user.picture = user_attributes["picture"]
       user.admin_of = admin_of
