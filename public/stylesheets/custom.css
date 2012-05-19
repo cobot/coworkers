@@ -173,6 +173,9 @@ h2 {
   color: #eee;
 }
 
+body.embed {
+  background: #FBFAF8;
+}
 
 .main {
   clear: both;

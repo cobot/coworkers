@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Coworkers</title>
+  <%= stylesheet_link_tag 'screen', 'custom', 'btn', 'facebox', 'forms' %>
+  <%= csrf_meta_tag %>
+</head>
+<body class="embed">
+  <div class="container">
+    <% if menu = yield(:menu) %>
+      <div id="menu">
+        <%= menu %>
+        &nbsp;
+      </div>
+    <% end %>
+    <div class="main <%= ' with-menu' if menu %>">
+      <% if flash[:notice] %>
+        <p class="flash notice"><%= flash[:notice] %></p>
+      <% end %>
+      <%= yield %>
+    </div>
+  </div>
+  <%= render 'layouts/js' %>
+</body>
+</html>

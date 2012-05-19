@@ -9,7 +9,14 @@ class ApplicationController < ActionController::Base
     render file: Rails.root.join('public', '404.html'), layout: false, status: :not_found
   end
 
+  layout :current_layout
+
   private
+
+  def current_layout
+    session[:app_layout] = params[:app_layout] if params[:app_layout]
+    session[:app_layout] || 'application'
+  end
 
   def require_authentication
     unless current_user
