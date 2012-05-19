@@ -18,8 +18,8 @@ Scenario: sign up as member, space already exists
 
 Scenario: sign in as member
   Given a space "co.up"
-    And "co.up" has a member "Joe Doe" with email "joedoe@cobot.me"
-    And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
+    And "co.up" has a member "Joe Doe" with cobot id "user-joe"
+    And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and id "user-joe"
   When I sign in
   Then "Joe Doe" should be listed as a member of the space "co.up" once
 

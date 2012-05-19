@@ -3,6 +3,7 @@ class User
 
   Admin = Struct.new(:name)
 
+  property :cobot_id
   property :email
   property :admin_of, default: [] # space ids
   property :picture, default: 'http://coworkers.apps.cobot.me/images/default.jpg'
@@ -17,6 +18,7 @@ class User
   property :messenger_account
 
   view :by_email, key: :email
+  view :by_cobot_id, key: :cobot_id
   view :by_id, key: :_id
 
   def admin_of?(space)

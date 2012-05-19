@@ -13,8 +13,7 @@ class SessionsController < ApplicationController
   end
 
   def create
-    user_attributes = access_token.get('/api/user')
-    user = sign_up user_attributes
+    user = sign_up
     session[:user_id] = user.id
     redirect_to account_path
   end
@@ -26,11 +25,15 @@ class SessionsController < ApplicationController
 
   private
 
-  def sign_up(user_attributes)
-    user = find_and_update_or_create_user user_attributes
+  def sign_up
+    user = find_and_update_or_create_user
     create_memberships user, user_attributes["memberships"]
     create_spaces user_attributes['admin_of'].map{|admin_of| admin_of['space_link']}
     user
+  end
+
+  def user_attributes
+    @user_attributes ||= access_token.get('/api/user')
   end
 
   def create_spaces(links)
@@ -39,24 +42,29 @@ class SessionsController < ApplicationController
     end
   end
 
-  def find_and_update_or_create_user(user_attributes)
-    admin_of = user_attributes['admin_of'].map{|space_attributes|
-      {
-        space_id: access_token.get(space_attributes['space_link'])['id'],
-        name: space_attributes['name']
-      }
-    }
-    unless user = db.first(User.by_email(user_attributes["email"]))
+  def find_and_update_or_create_user
+    unless user = db.first(User.by_cobot_id(user_attributes["id"]))
       user = User.new(email: user_attributes["email"],
+        cobot_id: user_attributes['id'],
         picture: user_attributes["picture"],
         admin_of: admin_of)
       db.save(user) && km_record('signed up')
     else
+      user.email = user_attributes["email"]
       user.picture = user_attributes["picture"]
       user.admin_of = admin_of
       db.save user if user.changed?
     end
     user
+  end
+
+  def admin_of
+    user_attributes['admin_of'].map{|space_attributes|
+      {
+        space_id: access_token.get(space_attributes['space_link'])['id'],
+        name: space_attributes['name']
+      }
+    }
   end
 
   def create_memberships(user, memberships_attributes)

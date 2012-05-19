@@ -2,10 +2,11 @@ Before do
   WebMock.stub_request(:post, "https://www.cobot.me/oauth2/access_token").to_return(body: "{}")
 end
 
-Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"(?: and email "([^"]+)")?$/ do |space_name, member_name, member_email|
+Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"(?: and email "([^"]+)")?(?: and id "([^"]*)")?$/ do |space_name, member_name, member_email, cobot_id|
   space_id = space_name.gsub(/\W+/, '_')
   membership_id = next_id
   WebMock.stub_request(:get, 'https://www.cobot.me/api/user?oauth_token=').to_return(body: {
+    id: cobot_id || 'user-alex',
     memberships: [
       {
         space_link: "https://www.cobot.me/api/spaces/#{space_id}",
@@ -33,6 +34,7 @@ Given /^on cobot I'm a member of the space "([^"]+)" with email "([^"]+)" and na
   space_id = space_name.gsub(/\W+/, '_')
   membership_id = next_id
   WebMock.stub_request(:get, 'https://www.cobot.me/api/user?oauth_token=').to_return(body: {
+    id: 'user-alex',
     memberships: [
       {
         space_link: "https://www.cobot.me/api/spaces/#{space_id}",
@@ -60,6 +62,7 @@ end
 Given /^on cobot I'm an admin of the space "([^"]*)"(?: with the name "([^"]*)")?$/ do |space_name, name|
   space_id = space_name.gsub(/\W+/, '_')
   WebMock.stub_request(:get, 'https://www.cobot.me/api/user?oauth_token=').to_return(body: {
+    id: 'user-alex',
     memberships: [],
     admin_of: [
       {
