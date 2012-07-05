@@ -17,7 +17,7 @@ class Space
   end
 
   def memberships
-    @memberships ||= database.view(Membership.by_space_id(id)).sort_by(&:last_name)
+    @memberships ||= database.view(Membership.by_space_id(id)).sort_by{|m| m.last_name.to_s}
   end
 
   def new_memberships
