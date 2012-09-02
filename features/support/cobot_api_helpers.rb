@@ -20,7 +20,7 @@ module CobotApiHelpers
     }.to_json, headers: {'Content-Type' => 'application/json'})
   end
 
-  def stub_cobot_membership(space_name, name, membership_id = nil)
+  def stub_cobot_membership(space_name, name, membership_id = nil, attributes = {})
     space_id = space_name.gsub(/\W+/, '-')
     membership_id ||= next_id
     WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships").to_return(body: [{
@@ -29,7 +29,7 @@ module CobotApiHelpers
         name: name
       },
       confirmed_at: '2010-01-01'
-    }].to_json, headers: {'Content-Type' => 'application/json'})
+    }.merge(attributes)].to_json, headers: {'Content-Type' => 'application/json'})
 
     WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships/#{membership_id}").to_return(body: {
       id: membership_id,
@@ -37,7 +37,7 @@ module CobotApiHelpers
         name: name
       },
       confirmed_at: '2010-01-01'
-    }.to_json, headers: {'Content-Type' => 'application/json'})
+    }.merge(attributes).to_json, headers: {'Content-Type' => 'application/json'})
   end
 end
 
