@@ -15,7 +15,11 @@ class Membership
   end
 
   def user
-    @user ||= database.load user_id
+    if user_id
+      @user ||= database.load user_id
+    else
+      User.new
+    end
   end
 
   def last_name

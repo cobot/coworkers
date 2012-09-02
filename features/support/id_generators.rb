@@ -6,4 +6,4 @@ module IdGenerators
   end
 end
 
-World(IdGenerators)
+World(IdGenerators) if respond_to?(:World)

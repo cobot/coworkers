@@ -1,8 +1,8 @@
 class MembershipsController < ApplicationController
+  include LoadSpace
   skip_before_filter :require_authentication, only: :show
 
   def index
-    @space = db.load! params[:space_id]
     if !@space.viewable_by?(current_user)
       not_allowed
     else
@@ -13,16 +13,14 @@ class MembershipsController < ApplicationController
   end
 
   def show
-    @space = db.load params[:space_id]
-    @membership = db.load params[:id]
+    @membership = db.load! params[:id]
     @user = @membership.user
   end
 
   def destroy
-    @space = db.load params[:space_id]
     return not_allowed unless current_user.admin_of?(@space)
-    @membership = db.load params[:id]
+    @membership = db.load! params[:id]
     db.destroy @membership
-    redirect_to @space, notice: 'The member was removed.'
+    redirect_to [@space, :memberships], notice: 'The member was removed.'
   end
 end

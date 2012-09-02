@@ -6,6 +6,7 @@ class Space
   property :name
   property :members_only, type: :boolean
   property :secret
+  property :cobot_url
 
   view :by_id, key: :_id
   view :by_name, key: :name

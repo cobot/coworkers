@@ -6,16 +6,20 @@ class SessionsController < ApplicationController
   end
 
   def authenticate
-    redirect_to client.authorize_url(
+    redirect_to oauth_client.auth_code.authorize_url(
       redirect_uri: authentication_callback_url,
       scope: 'read'
     )
   end
 
   def create
-    user = sign_up
-    session[:user_id] = user.id
-    redirect_to account_path
+    if params[:error]
+      render text: params[:error_description]
+    else
+      user = sign_up
+      session[:user_id] = user.id
+      redirect_to account_path
+    end
   end
 
   def destroy
@@ -45,13 +49,13 @@ class SessionsController < ApplicationController
   def find_and_update_or_create_user
     unless user = db.first(User.by_cobot_id(user_attributes["id"])) || db.first(User.by_email(user_attributes["email"]))
       user = User.new(email: user_attributes["email"],
-        access_token: params[:code],
+        access_token: access_token.token,
         cobot_id: user_attributes['id'],
         picture: user_attributes["picture"],
         admin_of: admin_of)
       db.save(user) && km_record('signed up')
     else
-      user.access_token = params[:code]
+      user.access_token = access_token.token
       user.email = user_attributes["email"]
       user.picture = user_attributes["picture"]
       user.admin_of = admin_of
@@ -87,26 +91,19 @@ class SessionsController < ApplicationController
   def find_or_create_space(space_url)
     space_attributes = access_token.get(space_url).parsed
     unless space = db.load(space_attributes['id'])
-      space = Space.new name: space_attributes['name'], id: space_attributes['id']
+      space = Space.new name: space_attributes['name'], id: space_attributes['id'],
+        cobot_url: space_attributes['url']
       db.save space
       km_record 'Added Space'
+    else
+      space.cobot_url = space_attributes['url']
+      db.save space, false
     end
     space
   end
 
-  def client
-    OAuth2::Client.new(Coworkers::Conf.app_id,
-      Coworkers::Conf.app_secret,
-      site: {
-         url: Coworkers::Conf.app_site
-      },
-      authorize_url: '/oauth2/authorize',
-      token_url: '/oauth2/access_token'
-    )
-  end
-
   def access_token
-    @access_token ||= client.auth_code.get_token(params[:code], redirect_uri: authentication_callback_url)
+    @access_token ||= oauth_client.auth_code.get_token(params[:code], redirect_uri: authentication_callback_url)
   end
 
 end
