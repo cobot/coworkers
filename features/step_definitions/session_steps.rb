@@ -1,6 +1,6 @@
 Given /^I am signed in as the admin of "([^"]*)"$/ do |space_name|
-  Given %Q{on cobot I'm an admin of the space "#{space_name}"}
-  When 'I sign in'
+  step %Q{on cobot I'm an admin of the space "#{space_name}"}
+  step 'I sign in'
 end
 
 When /^I sign in$/ do
@@ -13,9 +13,9 @@ When /^I sign in$/ do
 end
 
 When /^I sign as another user$/ do
-  Given %Q{on cobot I'm an admin of the space "other-space"}
-  When 'I sign out'
-  When 'I sign in'
+  step %Q{on cobot I'm an admin of the space "other-space"}
+  step 'I sign out'
+  step 'I sign in'
 end
 
 When /^I sign out$/ do

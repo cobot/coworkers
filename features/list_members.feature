@@ -9,7 +9,7 @@ Feature: List members
       And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
     When I sign in
     Then I should see "Joe Doe" and "Jane Doe" as members of "co.up"
-    
+
   Scenario: enter and see more details
     Given on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
     When I sign in

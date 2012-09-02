@@ -2,14 +2,15 @@ source 'http://rubygems.org'
 
 gem 'railties'
 gem 'actionpack'
-gem 'actionmailer'
 gem 'activemodel'
-gem 'couch_potato', '0.5.7'
+gem 'couch_potato'
 gem 'oauth2'
 gem 'simple_form'
 gem 'airbrake'
 gem 'param_protected'
 gem 'rdiscount'
+gem 'tzinfo'
+gem 'rinku', require: 'rails_rinku'
 
 group :development do
   gem 'rspec-rails'
@@ -17,8 +18,8 @@ group :development do
 end
 
 group :test do
-  gem 'cucumber-rails', '0.5.0'
-  gem 'capybara', '1.0.0.beta1'
+  gem 'cucumber-rails', require: false
+  gem 'capybara'
   gem 'webmock'
   gem 'timecop'
   gem 'launchy'

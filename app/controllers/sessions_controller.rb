@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
   end
 
   def authenticate
-    redirect_to client.web_server.authorize_url(
+    redirect_to client.authorize_url(
       redirect_uri: authentication_callback_url,
       scope: 'read'
     )
@@ -33,7 +33,7 @@ class SessionsController < ApplicationController
   end
 
   def user_attributes
-    @user_attributes ||= access_token.get('/api/user')
+    @user_attributes ||= access_token.get('/api/user').parsed
   end
 
   def create_spaces(links)
@@ -63,7 +63,7 @@ class SessionsController < ApplicationController
   def admin_of
     user_attributes['admin_of'].map{|space_attributes|
       {
-        space_id: access_token.get(space_attributes['space_link'])['id'],
+        space_id: access_token.get(space_attributes['space_link']).parsed['id'],
         name: space_attributes['name']
       }
     }
@@ -71,7 +71,7 @@ class SessionsController < ApplicationController
 
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
-      membership_details = access_token.get(membership_attributes['link'])
+      membership_details = access_token.get(membership_attributes['link']).parsed
       membership = db.load(membership_details['id'])
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
         db.save(Membership.new user_id: user.id, id: membership_details['id'],
@@ -85,7 +85,7 @@ class SessionsController < ApplicationController
   end
 
   def find_or_create_space(space_url)
-    space_attributes = access_token.get(space_url)
+    space_attributes = access_token.get(space_url).parsed
     unless space = db.load(space_attributes['id'])
       space = Space.new name: space_attributes['name'], id: space_attributes['id']
       db.save space
@@ -98,19 +98,15 @@ class SessionsController < ApplicationController
     OAuth2::Client.new(Coworkers::Conf.app_id,
       Coworkers::Conf.app_secret,
       site: {
-         url: Coworkers::Conf.app_site,
-         ssl: {
-           verify: false
-         }
+         url: Coworkers::Conf.app_site
       },
-      parse_json: true,
-      authorize_path: '/oauth2/authorize',
-      access_token_path: '/oauth2/access_token'
+      authorize_url: '/oauth2/authorize',
+      token_url: '/oauth2/access_token'
     )
   end
 
   def access_token
-    @access_token ||= client.web_server.get_access_token(params[:code], :redirect_uri => authentication_callback_url)
+    @access_token ||= client.auth_code.get_token(params[:code], redirect_uri: authentication_callback_url)
   end
 
 end

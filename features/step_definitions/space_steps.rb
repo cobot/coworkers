@@ -1,5 +1,5 @@
 Given /^a space "([^"]*)"$/ do |name|
-  DB.save! Space.new(name: name, id: name.gsub(/\W+/, '_'))
+  DB.save! Space.new(name: name, id: name.gsub(/\W+/, '-'))
 end
 
 When /^I change the visibility to members only$/ do

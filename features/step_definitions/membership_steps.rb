@@ -2,14 +2,14 @@ Given /^"([^"]*)" has a member "([^"]*)"(?: with email "([^"]*)")?$/ do |space_n
   user = User.new(email: member_email || 'joe@doe.com')
   DB.save! user
   DB.save! Membership.new(space_id: space_by_name(space_name).id,
-    name: member_name, id: member_name.gsub(/\W+/, '_'), user_id: user.id)
+    name: member_name, id: member_name.gsub(/\W+/, '-'), user_id: user.id)
 end
 
 Given /^"([^"]*)" has a member "([^"]*)" with cobot id "([^"]*)"$/ do |space_name, member_name, cobot_id|
   user = User.new(email: 'joe@doe.com', cobot_id: cobot_id)
   DB.save! user
   DB.save! Membership.new(space_id: space_by_name(space_name).id,
-    name: member_name, id: member_name.gsub(/\W+/, '_'), user_id: user.id)
+    name: member_name, id: member_name.gsub(/\W+/, '-'), user_id: user.id)
 end
 
 Then /^"([^"]+)" should be listed as a member of the space "([^"]+)"(?: once)?$/ do |membership_name, space_name|
