@@ -1,5 +1,5 @@
 class MembershipImportsController < ApplicationController
-  include LoadSpace
+  include RequireAdmin, LoadSpace
 
   def new
     existing_memberships = db.view(Membership.by_space_id(@space.id))

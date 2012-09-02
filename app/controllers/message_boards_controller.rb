@@ -1,5 +1,6 @@
 class MessageBoardsController < ApplicationController
-  before_filter :load_space
+  include LoadSpace
+
   before_filter :check_admin, except: [:index, :show]
   before_filter :check_admin_or_member, only: [:index, :show]
 
@@ -34,10 +35,6 @@ class MessageBoardsController < ApplicationController
   end
 
   private
-
-  def load_space
-    @space = db.load! params[:space_id]
-  end
 
   def check_admin_or_member
     unless current_user && current_user.admin_of?(@space) || @space.member?(current_user)
