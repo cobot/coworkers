@@ -54,6 +54,7 @@ class SessionsController < ApplicationController
         admin_of: admin_of)
       db.save(user) && km_record('signed up')
     else
+      user.cobot_id ||= user_attributes['id']
       user.access_token = access_token.token
       user.email = user_attributes["email"]
       user.admin_of = admin_of

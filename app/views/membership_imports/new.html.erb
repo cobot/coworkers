@@ -5,12 +5,12 @@
 <% if @memberships.any? %>
   <%= simple_form_for :memberships, url: space_membership_import_url do |f| %>
     <% @memberships.each do |membership| %>
-      <p>
+      <p class="check-box">
         <%= check_box_tag :"memberships[#{membership.id}]" %>
         <%= label_tag :"memberships[#{membership.id}]", membership.name %>
       </p>
     <% end %>
-    <%= f.button :submit, 'Import Members' %>
+    <%= f.button :submit, 'Import Members', class: 'btn' %>
   <% end %>
 <% else %>
   <p>No members to import from Cobot.</p>
