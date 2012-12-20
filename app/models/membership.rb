@@ -26,6 +26,10 @@ class Membership
     @user = user
   end
 
+  def can_update_picture?
+    user.access_token?
+  end
+
   def user
     if user_id
       @user ||= database.load user_id

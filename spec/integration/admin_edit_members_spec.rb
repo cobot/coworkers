@@ -39,5 +39,22 @@ describe 'editing members as admin' do
     expect(page).to have_content('sailing')
   end
 
-  it "lets me update a member's picture"
+  it "lets me update a member's picture" do
+    stub_cobot_admin 'co.up', 'joe'
+    stub_user 'token-123', picture: 'http://example.com/new_picture.jpg'
+    sign_in
+    space = space_by_name 'co.up'
+    user = User.new access_token: 'token-123'
+    DB.save! user
+    membership = Membership.new(name: 'Jane', space_id: space.id, user_id: user.id)
+    DB.save! membership
+
+    click_link 'Members'
+    click_link 'Jane'
+    click_link 'Edit'
+    click_link 'Update Picture'
+
+    visit space_membership_path(space, membership)
+    expect(page).to have_css("img[src='http://example.com/new_picture.jpg']")
+  end
 end

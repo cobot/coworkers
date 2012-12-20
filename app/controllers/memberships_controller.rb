@@ -22,6 +22,14 @@ class MembershipsController < ApplicationController
     @answers = db.view(Answer.by_membership_id_and_created_at(startkey: [@membership.id], endkey: [@membership.id, {}]))
   end
 
+  def picture
+    check_access
+    @membership = db.load! params[:id]
+    @membership.picture = cobot_client(@membership.user.access_token).get('/api/user').parsed['picture']
+    db.save @membership, false
+    redirect_to [:edit, @space, @membership], notice: 'Picture updated.'
+  end
+
   def update
     @membership = db.load! params[:id]
     @membership.attributes = params[:membership]
@@ -52,5 +60,9 @@ class MembershipsController < ApplicationController
 
   def check_access
     not_allowed unless current_user.try(:admin_of?, @space) || current_user.try(:member_of?, @space)
+  end
+
+  def cobot_client(access_token)
+    @cobot_client ||= OAuth2::AccessToken.new oauth_client, access_token
   end
 end

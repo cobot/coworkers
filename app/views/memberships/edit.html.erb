@@ -4,8 +4,9 @@
 
 <%= simple_form_for [@space, @membership] do |f| %>
 
-  <% if @membership.picture %>
-    <%= image_tag @membership.picture %>
+  <p><%= image_tag @membership.picture %></p>
+  <% if @membership.can_update_picture? %>
+    <p><%= link_to 'Update Picture', picture_space_membership_path(@space, @membership), class: 'btn', method: 'put' %></p>
   <% end %>
 
   <fieldset>
@@ -33,7 +34,6 @@
     </fieldset>
   <% end %>
 
-  <%#= f.input :picture %>
   <%= f.submit 'Update Profile', disable_with: 'Saving...', class: 'btn' %>
   <%= link_to 'Remove Profile', [@space, @membership], method: 'delete', confirm: 'Really remove that membership?', class: 'remove' %>
 <% end %>

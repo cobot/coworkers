@@ -20,6 +20,13 @@ module CobotApiHelpers
     }.to_json, headers: {'Content-Type' => 'application/json'})
   end
 
+  def stub_user(access_token, attributes)
+    WebMock.stub_request(:get, "https://www.cobot.me/api/user")
+      .with(headers: {'Authorization' => "Bearer #{access_token}"})
+      .to_return(
+        body: attributes.to_json, headers: {'Content-Type' => 'application/json'})
+  end
+
   def stub_cobot_membership(space_name, name, membership_id = nil, attributes = {})
     space_id = space_name.gsub(/\W+/, '-')
     membership_id ||= next_id

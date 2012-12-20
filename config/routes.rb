@@ -7,7 +7,11 @@ Coworkers::Application.routes.draw do
   resource :account, only: :show
   resources :spaces, only: [:show, :update] do
     resource :membership_import, only: [:new, :create]
-    resources :memberships, only: [:index, :show, :destroy, :edit, :update]
+    resources :memberships, only: [:index, :show, :destroy, :edit, :update] do
+      member do
+        put :picture
+      end
+    end
     resources :questions, only: [:index, :create, :destroy]
     resources :message_boards, only: [:index, :new, :create, :show, :destroy] do
       resources :messages, only: [:create, :edit, :update, :show]

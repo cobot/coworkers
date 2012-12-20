@@ -8,18 +8,6 @@ class User
   property :admin_of, default: [] # space ids
   property :access_token
 
-
-  # these have all moved to membership
-  # property :picture
-  # property :website
-  # property :bio
-  # property :profession
-  # property :industry
-  # property :skills
-  # property :messenger_type
-  # property :messenger_account
-
-
   view :by_email, key: :email
   view :by_cobot_id, key: :cobot_id
   view :by_id, key: :_id
