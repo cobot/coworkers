@@ -14,7 +14,7 @@ gem 'rinku', require: 'rails_rinku'
 
 group :development do
   gem 'rspec-rails'
-  gem 'heroku'
+  gem 'foreman'
 end
 
 group :test do
