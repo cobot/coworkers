@@ -5,8 +5,10 @@ class MembershipImportsController < ApplicationController
     existing_memberships = db.view(Membership.by_space_id(@space.id))
     @memberships = cobot_memberships.reject{|m|
       m['canceled_to'].present? && Date.parse(m['canceled_to']) < Date.today ||
-        existing_memberships.map(&:id).include?(m['id'])}.map{|attributes|
-          Membership.new(id: attributes['id'], name: attributes['address']['name'])}
+        existing_memberships.map(&:id).include?(m['id'])
+    }.map{|attributes|
+      Membership.new(id: attributes['id'], name: attributes['address']['name'])
+    }.sort_by(&:name)
   end
 
   def create
