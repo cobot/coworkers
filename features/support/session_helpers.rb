@@ -2,7 +2,7 @@ module SessionHelpers
   def sign_in
     visit root_url
     click_link 'Sign in'
-    if current_path == edit_account_path
+    if page.all("input[value='Update Profile']").first
       fill_in 'Bio', with: 'i work here'
       click_button 'Update Profile'
     end

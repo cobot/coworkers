@@ -5,9 +5,10 @@ class SpacesController < ApplicationController
     @space = db.load! params[:id]
     if !@space.viewable_by?(current_user)
       not_allowed
-    elsif current_user && !current_user.admin_of?(@space) && !current_user.profile_completed?
+    elsif current_user && !current_user.admin_of?(@space) &&
+      (membership = current_user.membership_for(@space)) && !membership.profile_completed?
       flash[:notice] = 'Please fill in your profile first.'
-      redirect_to edit_account_path
+      redirect_to edit_space_membership_path(@space, membership)
     else
       @new_memberships = load_new_memberships
       @new_messages = load_new_messages

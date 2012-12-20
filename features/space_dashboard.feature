@@ -6,5 +6,6 @@ Scenario: see new messages and new members
     And "co.up" has a "Jobs" board
     And the "Jobs" board has a message with the text "looking for a Clojure gig"
   When I sign in
+    And I go to the "co.up" dashboard
   Then I should see "Joe Doe"
     And I should see "looking for a Clojure gig"

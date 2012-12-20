@@ -14,7 +14,6 @@
       <nav>
         <% if current_user %>
           <%= link_to 'Account', account_path %>
-          <%= link_to 'Edit Profile', edit_account_path %>
           <%= link_to 'Sign out', session_path, method: :delete %>
         <% else %>
           <%= link_to 'Home', root_path %>

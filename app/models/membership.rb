@@ -5,10 +5,22 @@ class Membership
   property :user_id
   property :name
 
+  # profile information
+  property :website
+  property :bio
+  property :profession
+  property :industry
+  property :skills
+  property :messenger_type
+  property :messenger_account
+  property :picture, default: 'http://coworkers.apps.cobot.me/images/default.jpg'
+
   view :by_user_id, key: :user_id
   view :by_space_id, key: :space_id
   view :by_space_id_and_user_id, key: [:space_id, :user_id]
   view :by_space_id_and_created_at, key: [:space_id, :created_at]
+
+  alias_method :profile_completed?, :bio?
 
   def user=(user)
     @user = user

@@ -1,9 +1,14 @@
 <%= render 'spaces/navigation', space: @space %>
 
+<% if current_user.try(:admin_of?, @space) %>
+  <div class="action-links">
+    <%= link_to 'Add Message Board', new_space_message_board_path(@space), class: 'btn' %>
+  </div>
+<% end %>
+
 <div class="path"><%= link_to @space.name, @space %> » Message Boards</div>
 
 <% if @message_boards.any? %>
-  <p><%= link_to 'Add Message Board', new_space_message_board_path(@space) if current_user.try(:admin_of?, @space) %></p>
   <% @message_boards.each do |board| %>
     <div class="message-board <%= cycle '', '', 'last' %>">
       <h3><%= link_to board.name, [@space, board] %></h3>

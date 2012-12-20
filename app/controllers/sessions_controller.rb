@@ -51,13 +51,11 @@ class SessionsController < ApplicationController
       user = User.new(email: user_attributes["email"],
         access_token: access_token.token,
         cobot_id: user_attributes['id'],
-        picture: user_attributes["picture"],
         admin_of: admin_of)
       db.save(user) && km_record('signed up')
     else
       user.access_token = access_token.token
       user.email = user_attributes["email"]
-      user.picture = user_attributes["picture"]
       user.admin_of = admin_of
       db.save user if user.changed?
     end
@@ -80,9 +78,12 @@ class SessionsController < ApplicationController
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
         db.save(Membership.new user_id: user.id, id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
+          picture: user_attributes["picture"],
           name: membership_details['address']['name']) && km_record('Signed up as member')
       elsif membership
         membership.name = membership_details['address']['name']
+        membership.picture = user_attributes["picture"]
+
         db.save! membership
       end
     end

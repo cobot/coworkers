@@ -22,12 +22,12 @@
 <h2>Visibility</h2>
 
 <%= simple_form_for @space do |f| %>
-  <p>
-    <%= f.label :members_only, 'Visible for Members only' %>
+  <p class="check-box">
     <%= f.check_box :members_only %>
+    <%= f.label :members_only, 'Visible for Members only' %>
   </p>
   <p>
-    <%= f.submit 'Save' %>
+    <%= f.submit 'Save', class: 'btn' %>
   </p>
 <% end %>
 
@@ -38,7 +38,7 @@
 <%= simple_form_for @question, url: [@space, @question] do |f| %>
   <%= f.input :text %>
   <%= f.input :type, collection: {'Short Text' => 'short_text', 'Long Text' => 'long_text'}, prompt: false %>
-  <%= f.submit 'Add Field' %>
+  <%= f.submit 'Add Field', class: 'btn' %>
 <% end %>
 
 

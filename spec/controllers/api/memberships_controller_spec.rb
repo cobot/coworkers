@@ -8,8 +8,8 @@ describe Api::MembershipsController, 'show' do
     }
 
     @membership = stub(:membership, class: Membership, _id: 'member-1', to_param: 'member-1', name: 'member 1',
-      user: stub(:user, email: 'member1@cobot.me', website: 'http://member1.test/', bio: nil,
-        profession: 'Web', industry: 'Web', skills: 'all', picture: 'http://example.com/pic.jpg'))
+      website: 'http://member1.test/', bio: nil, profession: 'Web', industry: 'Web', skills: 'all',
+      picture: 'http://example.com/pic.jpg', user: stub(:user, email: 'member1@cobot.me'))
     db.stub(:load).with('member-1') {@membership}
   end
 

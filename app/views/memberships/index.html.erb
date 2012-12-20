@@ -1,7 +1,12 @@
 <%= render 'spaces/navigation', space: @space %>
 
+<% if current_user && current_user.admin_of?(@space) %>
+  <div class="action-links">
+    <p><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></p>
+  </div>
+<% end %>
+
 <div class="path"><%= link_to @space.name, @space %> » Members</div>
 
-<%= render 'memberships/memberships', memberships: @memberships, remove_links: true, space: @space %>
+<%= render 'memberships/memberships', memberships: @memberships, edit_links: true, space: @space %>
 
-<p><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></p>

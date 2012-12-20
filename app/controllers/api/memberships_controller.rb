@@ -16,12 +16,12 @@ module Api
       {
         id: membership._id,
         name: membership.name,
-        image_url: membership.user.picture,
-        website: membership.user.website,
-        bio: membership.user.bio,
-        profession: membership.user.profession,
-        industry: membership.user.industry,
-        skills: membership.user.skills
+        image_url: membership.picture,
+        website: membership.website,
+        bio: membership.bio,
+        profession: membership.profession,
+        industry: membership.industry,
+        skills: membership.skills
       }
     end
   end

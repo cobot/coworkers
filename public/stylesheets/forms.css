@@ -57,6 +57,15 @@ input.check_boxes {
   vertical-align: -3px;
 }
 
+.check-box label {
+  float: none;
+  display: inline
+}
+
+.check-box input {
+  margin-left: 120px;
+}
+
 label.collection_check_boxes {
   float: none;
   margin: 0;

@@ -2,27 +2,13 @@ a.btn {
   text-decoration: none;
 }
 
-a.btn, button.btn, input.btn { 
-  display: inline-block;
-  width: auto;
-  position: relative;
-  border: 0; 
-  padding: 0;
-  margin: 0;
-  cursor: pointer;
-  overflow: visible; /* removes extra side padding in IE */
-  font-size: 1em;
-  line-height: 1em;
-  cursor: pointer;
-  vertical-align: bottom;
-}
 
-a.btn span:focus, 
-button.btn span:focus, 
-a.btn:focus, 
-button.btn:focus, 
-input.btn:focus { 
-  outline: none;  
+a.btn span:focus,
+button.btn span:focus,
+a.btn:focus,
+button.btn:focus,
+input.btn:focus {
+  outline: none;
 }
 
 button.btn::-moz-focus-inner {
@@ -31,10 +17,10 @@ button.btn::-moz-focus-inner {
 }
 
 a.btn.span,
-button.btn span { 
+button.btn span {
   position: relative;
-  display: inline-block; 
-  white-space: nowrap;  
+  display: inline-block;
+  white-space: nowrap;
 }
 
 @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -44,20 +30,20 @@ button.btn span {
   }
 }
 
-/* button styles, not to be changed */   
+/* button styles, not to be changed */
 input.btn,
 a.btn,
 button.btn,
 a.btn span,
-button.btn span { 
-  text-align: center; 
+button.btn span {
+  text-align: center;
   background-repeat: no-repeat;
 }
 
 input.btn,
 a.btn,
-button.btn { 
-  text-align: center; 
+button.btn {
+  text-align: center;
 }
 
 a.btn span,
@@ -66,14 +52,14 @@ button.btn span {
 }
 
 a.btn:focus,
-button.btn:focus,  
+button.btn:focus,
 a.btn:hover,
-button.btn:hover { 
-  background-position: 100% -150px; 
+button.btn:hover {
+  background-position: 100% -150px;
 }
 
 a.btn:focus span,
-button.btn:focus span,  
+button.btn:focus span,
 a.btn:hover span,
 button.btn:hover span {
   background-position: 0 -50px;
@@ -96,12 +82,12 @@ a.btn, .notice a.btn {
   -webkit-border-radius: 6px;
   border-radius: 6px;
   text-shadow: 0px -0.08333em 0px #000;
-  text-shadow: 0px -0.08333em 0px rgba(0,0,0,.5);  
-  
+  text-shadow: 0px -0.08333em 0px rgba(0,0,0,.5);
+
   -moz-box-shadow: inset 0 -12px 15px rgba(0, 0, 60, 0.2);
   -webkit-box-shadow: inset 0 -12px 15px rgba(0, 0, 60, 0.2);
   box-shadow: inset 0 -12px 15px rgba(0, 0, 60, 0.2);
-  
+
   border-bottom: 1px solid rgba(0,0,0,0.25);
 }
 

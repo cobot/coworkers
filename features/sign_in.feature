@@ -40,4 +40,4 @@ Scenario: sign in as space admin, existing space
 Scenario: sign in as space admin, space doesn't exist yet
   Given on cobot I'm an admin of the space "co.up"
   When I sign in
-  Then I should be on the list of members for "co.up"
+  Then I should be on the "co.up" dashboard

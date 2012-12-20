@@ -1,32 +1,43 @@
 <%= render 'spaces/navigation', space: @space %>
 
+<% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
+  <div class="action-links">
+    <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn' %>
+  </div>
+<% end %>
+
+
 <div class="path"><%= link_to @space.name, @space %> » <%= @membership.name %></div>
-<%= image_tag @user.picture, class: :profile_image %>
+<%= image_tag @membership.picture, class: :profile_image %>
 
 <div class="profile_info">
   <h2>General Information</h2>
-  <%= markdown @user.bio %>
+  <%= markdown @membership.bio %>
   <dl>
-    <% [:website, :profession, :industry, :skills].each do |attribute| %>
-      <% if @user.send("#{attribute}?") %>
+    <% if @membership.website? %>
+      <dt>Website</dt>
+      <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
+    <% end %>
+    <% [:profession, :industry, :skills].each do |attribute| %>
+      <% if @membership.send("#{attribute}?") %>
         <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-        <dd class="<%= attribute %>"><%== auto_link h(@user.send(attribute).to_s) %></dd>
+        <dd class="<%= attribute %>"><%== auto_link h(@membership.send(attribute).to_s) %></dd>
       <% end %>
     <% end %>
-    <% if @user.messenger_account? && @user.messenger_type? %>
-      <dt class="messenger"><%= @user.messenger_type %></dt>
+    <% if @membership.messenger_account? && @membership.messenger_type? %>
+      <dt class="messenger"><%= @membership.messenger_type %></dt>
       <dd class="messenger">
-      <% if @user.messenger_type == 'Skype' %>
-        <%= link_to @user.messenger_account, skype_url(@user) %>
+      <% if @membership.messenger_type == 'Skype' %>
+        <%= link_to @membership.messenger_account, skype_url(@user) %>
       <% else %>
-        <%= @user.messenger_account %>
+        <%= @membership.messenger_account %>
       <% end %>
       </dd>
     <% end %>
   </dl>
 
   <% if @membership.answers.any? %>
-    <h2><%= @space.name %> information</h2>
+    <h2>Additional information</h2>
     <dl>
       <% @membership.answers.each do |answer| %>
         <% if answer.text? %>

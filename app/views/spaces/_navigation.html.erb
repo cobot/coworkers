@@ -7,5 +7,5 @@
   <% if current_user && current_user.admin_of?(space) %>
     <%= link_to 'Settings', space_questions_path(space) %>
   <% end %>
-  <%= link_to "Edit #{space.name} Profile", edit_space_profile_path(space) if space && space.member?(current_user) %>
+  <%= link_to "Edit Profile", edit_space_membership_path(space, current_user.membership_for(space)) if space && space.member?(current_user) %>
 <% end %>

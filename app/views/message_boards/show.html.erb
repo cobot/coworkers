@@ -1,13 +1,17 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="path"><%= link_to @space.name, @space %> » <%= link_to 'Message Boards', [@space, :message_boards] %> » <%= @message_board.name %></div>
+<% if current_user.try(:admin_of?, @space) %>
+  <div class="action-links">
+    <%= link_to 'Remove Message Board', [@space, @message_board], method: :delete, confirm: 'Really remove this board?', class: 'btn' %>
+  </div>
+<% end %>
 
-<%= link_to 'Remove Message Board', [@space, @message_board], method: :delete, confirm: 'Really remove this board?' %>
+<div class="path"><%= link_to @space.name, @space %> » <%= link_to 'Message Boards', [@space, :message_boards] %> » <%= @message_board.name %></div>
 
 <h2>Post Message</h2>
 <%= simple_form_for [@space, @message_board, @message] do |f| %>
   <%= f.input :text, as: :text, hint: 'You can use Markdown here.' %>
-  <%= f.submit 'Post Message' %>
+  <%= f.submit 'Post Message', class: 'btn' %>
 <% end %>
 
 <h2>Messages</h2>

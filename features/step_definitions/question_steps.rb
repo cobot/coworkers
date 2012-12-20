@@ -7,7 +7,7 @@ end
 
 When /^I answer the question with "([^"]*)"$/ do |answer|
   visit account_path
-  click_link 'Edit co.up Profile'
+  click_link 'Edit Profile'
   fill_in 'answers_0_text', with: answer
   click_button 'Update Profile'
 end

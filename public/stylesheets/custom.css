@@ -22,6 +22,10 @@
   background-position: 0 -65px;
 }
 
+.action-links {
+  float: right;
+}
+
 
 /* Links */
 a,a:link,a:visited{color:#429ACC;text-decoration:none;}
@@ -127,7 +131,7 @@ h2 {
   border-bottom-width: 0px;
 }
 
-.member .remove {
+.member .edit {
   margin-left: 45px;
 }
 
@@ -266,6 +270,10 @@ div.input {
   margin-bottom: 1em;
 }
 
+form img {
+  margin-left: 120px;
+}
+
 form label {
   display: inline-block;
   width: 170px;
@@ -311,7 +319,6 @@ form input.string {
 .message-board {
   border: 1px solid #EEE;
   border-radius: 0.5em;
-  box-shadow: 2px 2px;
   width: 270px;
   background-color: rgb(251, 250, 249);
   padding: 10px;
@@ -330,7 +337,6 @@ form input.string {
 div.message {
   border: 1px solid #EEE;
   border-radius: 0.5em;
-  box-shadow: 2px 2px;
   padding: 5px;
   background-color: white;
   margin-bottom: 0.5em;

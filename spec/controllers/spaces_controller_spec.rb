@@ -22,12 +22,12 @@ describe SpacesController, 'show' do
   end
 
   it 'redirects to edit profile if the profile has not been completed' do
-    @db.stub(:load!) {stub(:space, viewable_by?: true).as_null_object}
-    log_in stub(:user, profile_completed?: false, admin_of?: false)
+    @db.stub(:load!) {stub(:space, viewable_by?: true, to_param: 'co-up').as_null_object}
+    log_in stub(:user, membership_for: stub(:membership, to_param: 'mem-1', profile_completed?: false), admin_of?: false)
 
     get :show, id: '1'
 
-    response.should redirect_to(edit_account_path)
+    response.should redirect_to(edit_space_membership_path('co-up', 'mem-1'))
   end
 
   it 'does not redirect to profile if admin' do

@@ -7,6 +7,8 @@ Scenario: I'm an admin and delete a member
   When I sign in
      And "Jane Doe" should be listed as a member of the space "co.up"
      And I follow "Members"
-     And I follow "remove"
-  Then I should see "The member was removed."
+     And I follow "Jane Doe"
+     And I follow "Edit"
+     And I follow "Remove Profile"
+  Then I should see "The profile was removed."
 

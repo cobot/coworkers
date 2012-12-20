@@ -44,13 +44,13 @@ module Api
         id: membership.id,
         name: membership.name,
         url: url_for([space, membership]),
-        image_url: user.picture,
-        website: user.website,
-        bio: user.bio,
-        profession: user.profession,
-        industry: user.industry,
-        skills: user.skills,
-        messenger: ({user.messenger_type => user.messenger_account} if user.messenger_type.present?),
+        image_url: membership.picture,
+        website: membership.website,
+        bio: membership.bio,
+        profession: membership.profession,
+        industry: membership.industry,
+        skills: membership.skills,
+        messenger: ({membership.messenger_type => membership.messenger_account} if membership.messenger_type.present?),
         questions: answers.map{|answer|
           {answer.question => answer.text}
         }
