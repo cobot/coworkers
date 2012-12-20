@@ -27,11 +27,7 @@
     <% if @membership.messenger_account? && @membership.messenger_type? %>
       <dt class="messenger"><%= @membership.messenger_type %></dt>
       <dd class="messenger">
-      <% if @membership.messenger_type == 'Skype' %>
-        <%= link_to @membership.messenger_account, skype_url(@user) %>
-      <% else %>
-        <%= @membership.messenger_account %>
-      <% end %>
+        <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
       </dd>
     <% end %>
   </dl>
