@@ -11,8 +11,8 @@ describe 'editing members as admin' do
     space = space_by_name 'co.up'
     DB.save! Membership.new(name: 'Jane', space_id: space.id)
     click_link 'co.up'
-    click_link 'Members'
-    click_link 'Jane'
+    within('#menu') { click_link 'Members' }
+    first(:link, 'Jane').click
     click_link 'Edit'
     fill_in 'Profession', with: 'Senor Programmer'
     click_button 'Update Profile'
@@ -30,8 +30,8 @@ describe 'editing members as admin' do
     DB.save! Question.new(text: 'Hobbies', space_id: space.id, type: 'short_text')
 
     click_link 'co.up'
-    click_link 'Members'
-    click_link 'Jane'
+    within('#menu') { click_link 'Members' }
+    first(:link, 'Jane').click
     click_link 'Edit'
     fill_in 'Hobbies', with: 'sailing'
     click_button 'Update Profile'
@@ -51,8 +51,8 @@ describe 'editing members as admin' do
     DB.save! membership
 
     click_link 'co.up'
-    click_link 'Members'
-    click_link 'Jane'
+    within('#menu') { click_link 'Members' }
+    first(:link, 'Jane').click
     click_link 'Edit'
     click_link 'Update Picture'
 

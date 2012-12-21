@@ -68,8 +68,7 @@ button.btn:hover span {
 /* custom btn */
 
 button.btn,
-.btn,
-a.btn, .notice a.btn {
+.btn, a.btn, a.btn:visited, a.btn:link {
   font-size: 1em;
   line-height: 1.5;
   margin-right: 5px;

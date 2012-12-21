@@ -3,7 +3,13 @@ source 'http://rubygems.org'
 gem 'railties'
 gem 'actionpack'
 gem 'activemodel'
-gem 'couch_potato'
+gem 'sprockets'
+gem 'uglifier'
+gem 'sass'
+gem 'sass-rails'
+gem 'compass-rails'
+
+gem 'couch_potato', '~>0.7.1'
 gem 'oauth2'
 gem 'simple_form'
 gem 'airbrake'
@@ -12,7 +18,13 @@ gem 'rdiscount'
 gem 'tzinfo'
 gem 'rinku', require: 'rails_rinku'
 gem 'virtus'
-gem 'cobot_client', git: 'git@github.com:cobot/cobot_client.git'
+gem 'cobot_client', '~>0.1.0'
+
+group :assets do
+  gem 'sass-rails'
+  gem 'compass-rails'
+  # gem 'therubyracer'
+end
 
 group :development do
   gem 'rspec-rails'

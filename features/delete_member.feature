@@ -6,7 +6,7 @@ Scenario: I'm an admin and delete a member
      And on cobot I'm an admin of the space "co.up"
   When I sign in
   Then "Jane Doe" should be listed as a member of the space "co.up"
-  When I follow "Jane Doe"
+  When I follow "Jane Doe" within ".bio"
     And I follow "Edit"
     And I follow "Remove Profile"
   Then I should see "The profile was removed."

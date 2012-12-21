@@ -11,7 +11,7 @@
   display: block;
   width: 314px;
   height: 64px;
-  background: transparent url(../images/logo_coworkers.png) no-repeat 0 0;
+  background: transparent image-url('logo_coworkers.png') no-repeat 0 0;
   text-indent: -9999px;
 }
 
@@ -23,9 +23,7 @@
 }
 
 .action-links {
-  position: absolute;
-  top: 0;
-  right: 0;
+  float: right;
 }
 
 .action-links ul {
@@ -156,14 +154,8 @@ h2 {
   margin-left: 200px;
 }
 
-.profile_image {
-  float: left;
-  width: 180px;
-}
-
 .profile_info {
-  float: right;
-  width: 500px;
+  margin-left: 200px;
 }
 
 .clear {
@@ -300,7 +292,7 @@ form input.string {
   width: 300px;
 }
 
-.embed {
+textarea.embed {
   width:90%;
 
   overflow:hidden;

@@ -4,6 +4,7 @@ require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
 require 'couch_potato/rspec'
+require 'capybara/rspec'
 Dir[Rails.root.join('features', 'support', '*_helpers.rb')].each {|f| require f}
 require Rails.root.join('features', 'support', 'id_generators')
 

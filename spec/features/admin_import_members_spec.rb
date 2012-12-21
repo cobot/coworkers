@@ -11,7 +11,7 @@ describe 'importing members as admins' do
     sign_in
     space = space_by_name('co.up')
     click_link 'co.up'
-    click_link 'Members'
+    within('#menu') { click_link 'Members' }
     click_link 'Import Members'
     check 'Jane'
     click_button 'Import Members'
@@ -27,7 +27,7 @@ describe 'importing members as admins' do
     sign_in
     space = space_by_name('co.up')
     click_link 'co.up'
-    click_link 'Members'
+    within('#menu') { click_link 'Members' }
     click_link 'Import Members'
     check 'Jane'
     click_button 'Import Members'

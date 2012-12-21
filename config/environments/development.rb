@@ -16,6 +16,10 @@ Coworkers::Application.configure do
   # Print deprecation notices to the Rails logger
   config.active_support.deprecation = :log
 
+  config.assets.compress = false
+  config.assets.debug = true
+
+
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 end
@@ -23,3 +27,5 @@ end
 Coworkers::Conf = OpenStruct.new app_id: ENV['COBOT_APP_ID'],
   app_secret: ENV['COBOT_APP_SECRET'],
   app_site: ENV['COBOT_SITE']
+
+CobotClient::UrlHelper.site = ENV['COBOT_SITE']

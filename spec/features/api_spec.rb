@@ -13,8 +13,8 @@ describe 'space api' do
     membership = Membership.new space_id: space.id, user_id: user.id, name: 'joe doe'
     @db.save! membership
 
-    get api_space_path(space)
+    visit api_space_path(space)
 
-    response.body.should include('joe doe')
+    expect(page.source).to include('joe doe')
   end
 end
