@@ -10,6 +10,7 @@ describe 'importing members as admins' do
     stub_cobot_membership 'co.up', 'Jane'
     sign_in
     space = space_by_name('co.up')
+    click_link 'co.up'
     click_link 'Members'
     click_link 'Import Members'
     check 'Jane'
@@ -25,6 +26,7 @@ describe 'importing members as admins' do
     stub_cobot_membership 'co.up', 'Jane', nil, user: {picture: 'http://cobot.me/jane.jpg', email: 'jane@doe.com'}
     sign_in
     space = space_by_name('co.up')
+    click_link 'co.up'
     click_link 'Members'
     click_link 'Import Members'
     check 'Jane'

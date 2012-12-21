@@ -2,6 +2,7 @@ class ApplicationController < ActionController::Base
   include KissmetricsHelper
   protect_from_forgery
   before_filter :require_authentication
+  before_filter :set_embedded
 
   helper_method :current_user
 
@@ -13,6 +14,26 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def set_embedded
+    @embedded = true if params[:cobot_embed] == 'true'
+  end
+
+  def current_layout
+    if params[:cobot_embed] == 'true'
+      'embed'
+    else
+      'application'
+    end
+  end
+
+  def default_url_options
+    if params[:cobot_embed]
+      {cobot_embed: params[:cobot_embed]}
+    else
+      {}
+    end
+  end
+
   def oauth_client
     @oath_client ||= OAuth2::Client.new(Coworkers::Conf.app_id,
       Coworkers::Conf.app_secret,
@@ -22,11 +43,6 @@ class ApplicationController < ActionController::Base
       authorize_url: '/oauth2/authorize',
       token_url: '/oauth2/access_token'
     )
-  end
-
-  def current_layout
-    session[:app_layout] = params[:app_layout] if params[:app_layout]
-    session[:app_layout] || 'application'
   end
 
   def require_authentication

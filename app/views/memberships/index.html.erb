@@ -2,11 +2,17 @@
 
 <% if current_user && current_user.admin_of?(@space) %>
   <div class="action-links">
-    <p><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></p>
+    <ul>
+      <li><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></li>
+    </ul>
   </div>
 <% end %>
 
 <div class="path"><%= link_to @space.name, @space %> » Members</div>
+
+<div class="page-header">
+  <h2>Coworkers</h2>
+</div>
 
 <%= render 'memberships/memberships', memberships: @memberships, edit_links: true, space: @space %>
 

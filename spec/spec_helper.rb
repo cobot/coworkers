@@ -2,6 +2,7 @@
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
+require 'webmock/rspec'
 require 'couch_potato/rspec'
 Dir[Rails.root.join('features', 'support', '*_helpers.rb')].each {|f| require f}
 require Rails.root.join('features', 'support', 'id_generators')
@@ -17,7 +18,7 @@ RSpec.configure do |config|
   config.include IdGenerators
   config.mock_with :rspec
 
-  config.before(:all) do
+  config.before(:each) do
     WebMock.stub_request(:post, "https://www.cobot.me/oauth2/access_token").to_return(body: {access_token: '1'}.to_json, headers: {'Content-Type' => 'application/json'})
   end
 end

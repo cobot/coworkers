@@ -4,16 +4,23 @@
   <title>Coworkers</title>
   <%= stylesheet_link_tag 'screen', 'custom', 'btn', 'facebox', 'forms' %>
   <%= csrf_meta_tag %>
+  <style>
+    .path {
+      display: none;
+    }
+    .container {
+      width: 705px;
+    }
+    .main {
+      background: none;
+      padding: 0;
+      border: none;
+    }
+  </style>
 </head>
 <body class="embed">
   <div class="container">
-    <% if menu = yield(:menu) %>
-      <div id="menu">
-        <%= menu %>
-        &nbsp;
-      </div>
-    <% end %>
-    <div class="main <%= ' with-menu' if menu %>">
+    <div class="main">
       <% if flash[:notice] %>
         <p class="flash notice"><%= flash[:notice] %></p>
       <% end %>

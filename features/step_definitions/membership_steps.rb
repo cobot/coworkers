@@ -13,17 +13,17 @@ Given /^"([^"]*)" has a member "([^"]*)" with cobot id "([^"]*)"$/ do |space_nam
 end
 
 Then /^"([^"]+)" should be listed as a member of the space "([^"]+)"(?: once)?$/ do |membership_name, space_name|
-  click_link 'Account'
+  visit space_memberships_path(space_by_name(space_name))
   page.all('.member', text: membership_name).should have(1).item
 end
 
 Then /^"([^"]+)" should not be listed as a member of the space "([^"]+)"(?: once)?$/ do |membership_name, space_name|
-  click_link 'Account'
+  visit space_memberships_path(space_by_name(space_name))
   page.all('.member', text: membership_name).should have(1).item
 end
 
 Then /^I should see "([^"]*)" and "([^"]*)" as members of "([^"]*)"$/ do |name_1, name_2, space_name|
-  click_link 'Account'
+  visit space_memberships_path(space_by_name(space_name))
   page.should have_css('*', text: name_1)
   page.should have_css('*', text: name_2)
 end

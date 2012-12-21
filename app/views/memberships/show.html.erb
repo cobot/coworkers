@@ -2,13 +2,15 @@
 
 <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
   <div class="action-links">
-    <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn' %>
+    <ul>
+      <li><%= link_to 'Edit', [:edit, @space, @membership], class: 'btn' %><li>
+    </ul>
   </div>
 <% end %>
 
-
 <div class="path"><%= link_to @space.name, @space %> » <%= @membership.name %></div>
-<%= image_tag @membership.picture, class: :profile_image %>
+
+<p><%= image_tag @membership.picture, class: :profile_image %></p>
 
 <div class="profile_info">
   <h2>General Information</h2>
@@ -47,3 +49,5 @@
   <% end %>
 </div>
 <div class="clear"></div>
+
+<p><%= link_to 'back', space_memberships_path(@space) %></p>

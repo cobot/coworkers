@@ -23,7 +23,19 @@
 }
 
 .action-links {
-  float: right;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.action-links ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.action-links ul li a {
+  display: block;
 }
 
 
@@ -151,7 +163,7 @@ h2 {
 
 .profile_info {
   float: right;
-  width: 75%;
+  width: 500px;
 }
 
 .clear {
@@ -289,8 +301,8 @@ form input.string {
 }
 
 .embed {
-  width:99.5%;
-  height:40px;
+  width:90%;
+
   overflow:hidden;
 }
 
@@ -345,4 +357,35 @@ div.message {
 .author {
   color: #AAA;
   margin-bottom: 0px;
+}
+
+/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
+@font-face {
+  font-family: "Museo";
+  src: url(/fonts/museo500.otf);
+}
+
+h1, h2, h3 {
+  font-family: "Museo", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+}
+
+h1 {
+  color: #0B5C7B;
+}
+
+h3 {
+  color: #111A24;
+}
+
+h2 {
+  color: #0B5C7B;
+}
+
+.page-header {
+  margin-bottom: 2.5em;
+}
+
+.page-header h2 {
+  font-size: 1.6em;
+  line-height: 1;
 }

@@ -10,7 +10,7 @@ describe 'editing members as admin' do
     sign_in
     space = space_by_name 'co.up'
     DB.save! Membership.new(name: 'Jane', space_id: space.id)
-
+    click_link 'co.up'
     click_link 'Members'
     click_link 'Jane'
     click_link 'Edit'
@@ -29,6 +29,7 @@ describe 'editing members as admin' do
     DB.save! membership
     DB.save! Question.new(text: 'Hobbies', space_id: space.id, type: 'short_text')
 
+    click_link 'co.up'
     click_link 'Members'
     click_link 'Jane'
     click_link 'Edit'
@@ -49,6 +50,7 @@ describe 'editing members as admin' do
     membership = Membership.new(name: 'Jane', space_id: space.id, user_id: user.id)
     DB.save! membership
 
+    click_link 'co.up'
     click_link 'Members'
     click_link 'Jane'
     click_link 'Edit'

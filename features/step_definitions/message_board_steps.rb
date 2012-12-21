@@ -1,5 +1,6 @@
 When /^I add a message board "([^"]*)"$/ do |name|
   visit account_path
+  find('.space a').click
   click_link 'Message Boards'
   click_link 'Add one'
   fill_in 'Name', with: name
@@ -30,6 +31,7 @@ end
 
 When /^I remove the "([^"]*)" board$/ do |board_name|
   visit account_path
+  find('.space a').click
   click_link 'Message Board'
   click_link board_name
   click_link "Remove Message Board"
@@ -37,6 +39,7 @@ end
 
 When /^I post a message "([^"]*)" on the "([^"]*)" board$/ do |text, board_name|
   visit account_path
+  find('.space a').click
   click_link 'Message Board'
   click_link board_name
   fill_in 'Text', with: text
@@ -45,6 +48,7 @@ end
 
 When /^I change the message on the "([^"]*)" board to "([^"]*)"$/ do |board_name, new_text|
   visit account_path
+  find('.space a').click
   click_link 'Message Board'
   click_link board_name
   click_link 'Edit Message'
@@ -54,6 +58,7 @@ end
 
 Then /^the "([^"]*)" board should have a message "([^"]*)"(?: by "([^"]*)")?$/ do |board_name, message, author_name|
   visit account_path
+  find('.space a').click
   click_link 'Message Board'
   click_link board_name
   page.should have_css('*', text: message)
@@ -62,6 +67,7 @@ end
 
 Then /^the "([^"]*)" board should have a message that starts with "([^"]*)"$/ do |board_name, message_start|
   visit account_path
+  find('.space a').click
   click_link 'Message Board'
   click_link board_name
   page.should have_css('*', text: /^#{Regexp.escape message_start}/)

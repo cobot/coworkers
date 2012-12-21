@@ -13,6 +13,7 @@ Scenario: sign up as member, space already exists
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
   When I go to the home page
     And I follow "Sign in"
+    And I follow "co.up"
     And I fill in my profile info
   Then "Joe Doe" should be listed as a member of the space "co.up"
 
@@ -40,4 +41,5 @@ Scenario: sign in as space admin, existing space
 Scenario: sign in as space admin, space doesn't exist yet
   Given on cobot I'm an admin of the space "co.up"
   When I sign in
+    And I follow "co.up"
   Then I should be on the "co.up" dashboard

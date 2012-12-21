@@ -11,6 +11,8 @@ gem 'param_protected'
 gem 'rdiscount'
 gem 'tzinfo'
 gem 'rinku', require: 'rails_rinku'
+gem 'virtus'
+gem 'cobot_client', git: 'git@github.com:cobot/cobot_client.git'
 
 group :development do
   gem 'rspec-rails'

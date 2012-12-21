@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   def authenticate
     redirect_to oauth_client.auth_code.authorize_url(
       redirect_uri: authentication_callback_url,
-      scope: 'read'
+      scope: 'read navigation'
     )
   end
 

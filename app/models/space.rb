@@ -13,6 +13,10 @@ class Space
 
   before_create :set_secret
 
+  def subdomain
+    URI.parse(cobot_url).host.split('.').first
+  end
+
   def message_boards
     database.view(MessageBoard.by_space_id_and_name(startkey: [id], endkey: [id, {}]))
   end
