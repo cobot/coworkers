@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     else
       user = sign_up
       session[:user_id] = user.id
-      redirect_to account_path
+      redirect_to session.delete(:return_to) || account_path
     end
   end
 
