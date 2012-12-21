@@ -88,6 +88,7 @@ GEM
       multi_json (>= 1.0)
     launchy (2.1.2)
       addressable (~> 2.3)
+    libv8 (3.11.8.4)
     libwebsocket (0.1.7.1)
       addressable
       websocket
@@ -191,6 +192,7 @@ DEPENDENCIES
   database_cleaner
   foreman
   launchy
+  libv8 (~> 3.11.8)
   oauth2
   param_protected
   railties

@@ -24,6 +24,7 @@ group :assets do
   gem 'sass-rails'
   gem 'compass-rails'
   gem 'therubyracer'
+  gem 'libv8', '~> 3.11.8'
 end
 
 group :development do
