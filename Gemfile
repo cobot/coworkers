@@ -23,7 +23,7 @@ gem 'cobot_client', '~>0.1.0'
 group :assets do
   gem 'sass-rails'
   gem 'compass-rails'
-  # gem 'therubyracer'
+  gem 'therubyracer'
 end
 
 group :development do
