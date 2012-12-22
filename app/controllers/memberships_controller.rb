@@ -12,7 +12,7 @@ class MembershipsController < ApplicationController
       @memberships = @space.memberships
       users = db.view(User.by_id(keys: @memberships.map(&:user_id)))
       @memberships.each {|m| m.user = users.find{|u| u.id == m.user_id}}
-      @memberships.sort_by!(&:name)
+      @memberships.sort_by!{|m| m.name.downcase}
     end
   end
 
