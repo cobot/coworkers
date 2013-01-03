@@ -1,8 +1,8 @@
 Coworkers::Application.routes.draw do
   root to: "sessions#new"
 
-  match '/auth' => 'sessions#authenticate', via: :get, as: :authenticate
-  match '/auth/callback' => 'sessions#create', via: :get, as: :authentication_callback
+  get '/auth' => 'sessions#authenticate', as: :authenticate
+  get '/auth/callback' => 'sessions#create', as: :authentication_callback
 
   resource :account, only: :show
   resources :spaces, only: [:show, :update] do

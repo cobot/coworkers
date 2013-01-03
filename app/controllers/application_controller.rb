@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
   def require_authentication
     unless current_user
       session[:return_to] = request.url
-      redirect_to root_path
+      redirect_to authenticate_path
     end
   end
 

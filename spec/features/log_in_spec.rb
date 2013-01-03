@@ -13,7 +13,6 @@ describe 'logging in' do
     DB.save! user
 
     visit space_memberships_path(space, embed: true)
-    click_link 'Sign In'
 
     expect(current_url).to eql(space_memberships_url(space, embed: true))
   end
