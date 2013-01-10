@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'railties'
+gem 'railties', '~>3.2.11'
 gem 'actionpack'
 gem 'activemodel'
 gem 'sprockets'
