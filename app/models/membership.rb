@@ -13,7 +13,7 @@ class Membership
   property :skills
   property :messenger_type
   property :messenger_account
-  property :picture, default: 'http://coworkers.apps.cobot.me/images/default.jpg'
+  property :picture, default: 'http://coworkers.apps.cobot.me/assets/default.jpg'
 
   view :by_user_id, key: :user_id
   view :by_space_id, key: :space_id
