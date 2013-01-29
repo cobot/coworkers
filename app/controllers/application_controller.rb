@@ -2,8 +2,7 @@ class ApplicationController < ActionController::Base
   include CobotClient::XdmHelper
   include KissmetricsHelper
   protect_from_forgery
-  before_filter :require_authentication
-  before_filter :set_embedded
+  before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded
 
   helper_method :current_user
 
@@ -14,6 +13,14 @@ class ApplicationController < ActionController::Base
   layout :current_layout
 
   private
+
+  def match_user_against_cobot_iframe
+    if current_user && params[:embed] && params[:cobot_user_id]
+      if current_user.cobot_id != params[:cobot_user_id]
+        reset_session
+      end
+    end
+  end
 
   def set_embedded
     @embedded = true if params[:cobot_embed] == 'true'

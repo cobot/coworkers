@@ -1,8 +1,8 @@
 module CobotApiHelpers
-  def stub_cobot_admin(space_name, name)
+  def stub_cobot_admin(space_name, name, user_attributes = {})
     space_id = space_name.gsub(/\W+/, '-')
     WebMock.stub_request(:get, 'https://www.cobot.me/api/user').to_return(body: {
-      id: 'user-alex',
+      id: user_attributes[:id] || 'user-alex',
       memberships: [],
       admin_of: [
         {
@@ -10,7 +10,7 @@ module CobotApiHelpers
           name: name || 'joe'
         }
       ],
-      email: 'joe@cobot.me'
+      email: user_attributes[:email] || 'joe@cobot.me'
     }.to_json, headers: {'Content-Type' => 'application/json'})
 
     WebMock.stub_request(:get, "https://www.cobot.me/api/spaces/#{space_id}").to_return(body: {

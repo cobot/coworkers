@@ -16,4 +16,17 @@ describe 'logging in' do
 
     expect(current_url).to eql(space_memberships_url(space, embed: true))
   end
+
+  it 'logs me out and in if the user id from the cobot iframe does not match' do
+    stub_cobot_admin 'co.up', 'joe', id: 'user-joe', email: 'joe@doe.com'
+    visit authenticate_path # log in as joe
+
+    stub_cobot_admin 'co.up', 'jane', id: 'user-jane', email: 'jane@doe.com'
+
+    visit space_memberships_path(last_space, embed: true, cobot_user_id: 'user-jane')
+    visit user_info_path
+
+    expect(page.body).to eql('user-jane')
+  end
+
 end

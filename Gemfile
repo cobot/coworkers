@@ -39,4 +39,6 @@ group :test do
   gem 'timecop'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'libv8', '~> 3.11.8'
+  gem 'therubyracer'
 end
