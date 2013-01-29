@@ -23,7 +23,7 @@ describe 'logging in' do
 
     stub_cobot_admin 'co.up', 'jane', id: 'user-jane', email: 'jane@doe.com'
 
-    visit space_memberships_path(last_space, embed: true, cobot_user_id: 'user-jane')
+    visit space_memberships_path(last_space, cobot_embed: true, cobot_user_id: 'user-jane')
     visit user_info_path
 
     expect(page.body).to eql('user-jane')

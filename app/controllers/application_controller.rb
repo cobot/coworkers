@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   private
 
   def match_user_against_cobot_iframe
-    if current_user && params[:embed] && params[:cobot_user_id]
+    if current_user && params[:cobot_embed] && params[:cobot_user_id]
       if current_user.cobot_id != params[:cobot_user_id]
         reset_session
       end
