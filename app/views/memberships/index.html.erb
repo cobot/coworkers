@@ -1,9 +1,14 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<% if current_user && current_user.admin_of?(@space) %>
+<% if current_user %>
   <div class="action-links">
     <ul>
-      <li><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></li>
+      <% if current_user.admin_of?(@space) %>
+        <li><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></li>
+      <% end %>
+      <% if membership = current_user.membership_for(@space) %>
+        <li><%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn' %></li>
+      <% end %>
     </ul>
   </div>
 <% end %>
