@@ -12,7 +12,7 @@ gem 'compass-rails'
 gem 'couch_potato', '~>0.7.1'
 gem 'oauth2'
 gem 'simple_form'
-gem 'airbrake'
+gem "sentry-raven"
 gem 'param_protected'
 gem 'rdiscount'
 gem 'tzinfo'
