@@ -45,7 +45,7 @@
       <% end %>
     </dl>
   <% elsif @membership.user == current_user && @space.questions.any? %>
-    <p>Please <%= link_to 'add more information', edit_space_profile_path(@space) %></p>
+    <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
   <% end %>
 </div>
 <div class="clear"></div>

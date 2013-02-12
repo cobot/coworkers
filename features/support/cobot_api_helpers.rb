@@ -13,6 +13,10 @@ module CobotApiHelpers
       email: user_attributes[:email] || 'joe@cobot.me'
     }.to_json, headers: {'Content-Type' => 'application/json'})
 
+    stub_space(space_id, space_name)
+  end
+
+  def stub_space(space_id, space_name)
     WebMock.stub_request(:get, "https://www.cobot.me/api/spaces/#{space_id}").to_return(body: {
       name: space_name,
       url: "https://#{space_id}.cobot.me",
@@ -20,11 +24,12 @@ module CobotApiHelpers
     }.to_json, headers: {'Content-Type' => 'application/json'})
   end
 
-  def stub_user(access_token, attributes)
+  def stub_user(access_token = '123', attributes = {})
     WebMock.stub_request(:get, "https://www.cobot.me/api/user")
       .with(headers: {'Authorization' => "Bearer #{access_token}"})
       .to_return(
-        body: attributes.to_json, headers: {'Content-Type' => 'application/json'})
+        body: {admin_of: []}.merge(attributes).to_json,
+        headers: {'Content-Type' => 'application/json'})
   end
 
   def stub_cobot_membership(space_name, name, membership_id = nil, attributes = {})
