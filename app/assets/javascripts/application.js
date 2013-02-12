@@ -12,7 +12,7 @@ jQuery(function($) {
     $('.flash').fadeOut();
   }, 5000);
 
-  $('a[rel*=facebox]').facebox()
+  $('a[rel*=facebox]').facebox();
 
   $('.embed').live('focus', function(e) {
     var input = this;

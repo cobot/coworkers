@@ -5,10 +5,10 @@
 }
 
 .simple_form label {
-  float: left;
   width: 100px;
   text-align: right;
   margin: 2px 10px;
+  vertical-align: top;
 }
 
 div.boolean, .simple_form input[type='submit'] {
