@@ -1,16 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'railties', '~>3.2.11'
+gem 'railties', '~>3.2.12'
 gem 'actionpack'
 gem 'activemodel'
-gem 'sprockets'
-gem 'uglifier'
-gem 'sass'
-gem 'sass-rails'
-gem 'compass-rails'
+gem 'omniauth'
+gem 'omniauth_cobot', '~>0.0.2'
 
-gem 'couch_potato', '~>0.7.1'
-gem 'oauth2'
+gem 'couch_potato'
 gem 'simple_form'
 gem "sentry-raven"
 gem 'param_protected'
@@ -28,12 +24,18 @@ group :assets do
 end
 
 group :development do
-  gem 'rspec-rails'
+  gem 'rspec-rails', "~> 2.4"
   gem 'foreman'
 end
 
+group :production do
+  gem 'thin'
+end
+
 group :test do
-  gem 'cucumber-rails', require: false
+
+  gem 'rspec-rails', "~> 2.4"
+  gem 'cucumber-rails', :require => false
   gem 'capybara'
   gem 'webmock'
   gem 'timecop'

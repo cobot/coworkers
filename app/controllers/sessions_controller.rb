@@ -5,21 +5,11 @@ class SessionsController < ApplicationController
     redirect_to account_path if current_user
   end
 
-  def authenticate
-    redirect_to oauth_client.auth_code.authorize_url(
-      redirect_uri: authentication_callback_url,
-      scope: 'read navigation'
-    )
-  end
-
   def create
-    if params[:error]
-      render text: params[:error_description]
-    else
-      user = sign_up
-      session[:user_id] = user.id
-      redirect_to session.delete(:return_to) || account_path
-    end
+    user_attributes = request.env['omniauth.auth']['extra']['raw_info']
+    user = sign_up user_attributes
+    session[:user_id] = user.id
+    redirect_to session.delete(:return_to) || account_path
   end
 
   def destroy
@@ -27,17 +17,18 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-  private
+  def failure
+    flash[:failure] = "There was a problem: #{params[:message]}"
+    redirect_to root_path
+  end
 
-  def sign_up
-    user = find_and_update_or_create_user
+
+  private
+  def sign_up(user_attributes)
+    user = find_and_update_or_create_user user_attributes
     create_memberships user, user_attributes["memberships"]
     create_spaces user_attributes['admin_of'].map{|admin_of| admin_of['space_link']}
     user
-  end
-
-  def user_attributes
-    @user_attributes ||= access_token.get('/api/user').parsed
   end
 
   def create_spaces(links)
@@ -46,40 +37,32 @@ class SessionsController < ApplicationController
     end
   end
 
-  def find_and_update_or_create_user
-    unless user = db.first(User.by_cobot_id(user_attributes["id"]))
-      user = User.new(email: user_attributes["email"],
-        access_token: access_token.token,
-        cobot_id: user_attributes['id'],
-        admin_of: admin_of)
-      db.save(user) && km_record('signed up')
-    else
-      user.access_token = access_token.token
+  def find_and_update_or_create_user(user_attributes)
+    user = db.first(User.by_cobot_id(user_attributes['id']))
+    if user
       user.email = user_attributes["email"]
-      user.admin_of = admin_of
-      db.save user if user.changed?
+      user.admin_of = admin_spaces(user_attributes)
+      user.access_token = access_token.token
+    else
+      user = User.new(
+        cobot_id: user_attributes['id'],
+        email: user_attributes['email'],
+        admin_of: admin_spaces(user_attributes),
+        access_token: access_token.token
+      )
     end
+    db.save user if user.changed?
     user
   end
-
-  def admin_of
-    user_attributes['admin_of'].map{|space_attributes|
-      {
-        space_id: access_token.get(space_attributes['space_link']).parsed['id'],
-        name: space_attributes['name']
-      }
-    }
-  end
-
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
-      membership_details = access_token.get(membership_attributes['link']).parsed
+      membership_details = outh_get(membership_attributes['link'])
       membership = db.load(membership_details['id'])
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
         db.save(Membership.new user_id: user.id, id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
           picture: user_attributes["picture"],
-          name: membership_details['address']['name']) && km_record('Signed up as member')
+          name: membership_details['address']['name'])
       elsif membership
         membership.name = membership_details['address']['name']
         membership.picture = user_attributes["picture"]
@@ -90,7 +73,7 @@ class SessionsController < ApplicationController
   end
 
   def find_or_create_space(space_url)
-    space_attributes = access_token.get(space_url).parsed
+    space_attributes = outh_get(space_url)
     unless space = db.load(space_attributes['id'])
       space = Space.new name: space_attributes['name'], id: space_attributes['id'],
         cobot_url: space_attributes['url']
@@ -103,8 +86,30 @@ class SessionsController < ApplicationController
     space
   end
 
-  def access_token
-    @access_token ||= oauth_client.auth_code.get_token(params[:code], redirect_uri: authentication_callback_url)
+  def oauth_client
+    OAuth2::Client.new(Coworkers::Conf.app_id,
+      Coworkers::Conf.app_secret,
+      site: {
+        url: Coworkers::Conf.site
+      },
+      raise_errors: false
+    )
   end
 
+  def admin_spaces(user_attributes)
+    user_attributes['admin_of'].map{|space_attributes|
+      {
+        space_id: outh_get(space_attributes['space_link'])['id'],
+        name: space_attributes['name']
+      }
+    }
+  end
+
+  def access_token
+    @access_token ||= OAuth2::AccessToken.new(oauth_client, request.env['omniauth.auth']['credentials']['token'])
+  end
+
+  def outh_get(url)
+    access_token.get(url).parsed
+  end
 end

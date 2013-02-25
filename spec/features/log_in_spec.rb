@@ -19,7 +19,7 @@ describe 'logging in' do
 
   it 'logs me out and in if the user id from the cobot iframe does not match' do
     stub_cobot_admin 'co.up', 'joe', id: 'user-joe', email: 'joe@doe.com'
-    visit authenticate_path # log in as joe
+    visit '/auth/cobot' # log in as joe
 
     stub_cobot_admin 'co.up', 'jane', id: 'user-jane', email: 'jane@doe.com'
 

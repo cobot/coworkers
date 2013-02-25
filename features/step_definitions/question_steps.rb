@@ -17,7 +17,7 @@ end
 Then /^the question "([^"]*)" with the answer "([^"]*)" should be listed on "([^"]*)"'s profile$/ do |question, answer, name|
   visit account_path
   find('.space a').click
-  click_link name
+  find('.membership a', text: name).click
   page.should have_css('.question', text: question)
   page.should have_css('.answer', text: answer)
 end

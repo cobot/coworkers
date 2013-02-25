@@ -31,7 +31,7 @@ Coworkers::Application.configure do
 
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_assets = true
   config.assets.compress = true
 
   # Enable serving of images, stylesheets, and javascripts from an asset server
@@ -41,7 +41,7 @@ Coworkers::Application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
-  # config.threadsafe!
+  config.threadsafe!
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation can not be found)

@@ -31,5 +31,7 @@ Coworkers::Application.configure do
   config.active_support.deprecation = :stderr
 end
 
-Coworkers::Conf = OpenStruct.new app_id: '1', app_secret: '1', app_site: 'https://www.cobot.me'
 ENV['SECRET_TOKEN'] = '123' * 10
+Coworkers::Conf = OpenStruct.new app_id: '1', app_secret: '1', app_site: 'https://www.cobot.me'
+
+OmniAuth.config.test_mode = true
