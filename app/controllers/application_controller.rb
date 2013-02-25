@@ -1,6 +1,5 @@
 class ApplicationController < ActionController::Base
   include CobotClient::XdmHelper
-  include KissmetricsHelper
   protect_from_forgery
   before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded
 

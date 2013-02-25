@@ -16,7 +16,6 @@ class MessagesController < ApplicationController
     if membership || admin
       if db.save message
         flash[:notice] = 'Message added.'
-        km_record 'Posted Message'
       end
       redirect_to [@space, @message_board]
     else

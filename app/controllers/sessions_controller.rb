@@ -78,7 +78,6 @@ class SessionsController < ApplicationController
       space = Space.new name: space_attributes['name'], id: space_attributes['id'],
         cobot_url: space_attributes['url']
       db.save space
-      km_record 'Added Space'
     else
       space.cobot_url = space_attributes['url']
       db.save space, false
