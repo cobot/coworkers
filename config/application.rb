@@ -4,6 +4,7 @@ require File.expand_path('../boot', __FILE__)
 
 require "action_controller/railtie"
 require "active_model/railtie"
+require "sprockets/railtie"
 
 
 # If you have a Gemfile, require the gems listed there, including any gems
@@ -39,6 +40,7 @@ module Coworkers
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
-    config.assets.enabled = false
+    
+    config.assets.initialize_on_precompile = false
   end
 end

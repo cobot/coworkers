@@ -64,6 +64,8 @@ GEM
     diff-lcs (1.2.1)
     erubis (2.7.0)
     eventmachine (1.0.0)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     faraday (0.8.6)
       multipart-post (~> 1.1)
     ffi (1.4.0)
@@ -75,14 +77,13 @@ GEM
     hashie (1.2.0)
     hike (1.2.1)
     httpauth (0.2.0)
-    i18n (0.6.1)
+    i18n (0.6.2)
     journey (1.0.4)
     json (1.7.7)
     jwt (0.1.5)
       multi_json (>= 1.0)
     launchy (2.2.0)
       addressable (~> 2.3)
-    libv8 (3.11.8.13)
     mime-types (1.21)
     multi_json (1.6.1)
     multipart-post (1.1.5)
@@ -120,7 +121,6 @@ GEM
     rdiscount (2.0.7)
     rdoc (3.12.2)
       json (~> 1.4)
-    ref (1.0.2)
     rest-client (1.6.7)
       mime-types (>= 1.16)
     rinku (1.7.2)
@@ -159,9 +159,6 @@ GEM
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
-    therubyracer (0.11.3)
-      libv8 (~> 3.11.8.12)
-      ref
     thin (1.5.0)
       daemons (>= 1.0.9)
       eventmachine (>= 0.12.6)
@@ -170,6 +167,9 @@ GEM
     tilt (1.3.3)
     timecop (0.5.9.2)
     tzinfo (0.3.35)
+    uglifier (1.3.0)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
     uuidtools (2.1.3)
     virtus (0.5.4)
       backports (~> 2.6.1)
@@ -195,7 +195,6 @@ DEPENDENCIES
   database_cleaner
   foreman
   launchy
-  libv8 (~> 3.11.8)
   omniauth
   omniauth_cobot (~> 0.0.2)
   param_protected
@@ -206,9 +205,9 @@ DEPENDENCIES
   sass-rails
   sentry-raven
   simple_form
-  therubyracer
   thin
   timecop
   tzinfo
+  uglifier
   virtus
   webmock

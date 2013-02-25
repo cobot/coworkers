@@ -16,13 +16,9 @@ gem 'tzinfo'
 gem 'rinku', require: 'rails_rinku'
 gem 'virtus'
 gem 'cobot_client', '~>0.1.0'
-
-group :assets do
-  gem 'sass-rails'
-  gem 'compass-rails'
-  gem 'therubyracer'
-  gem 'libv8', '~> 3.11.8'
-end
+gem 'sass-rails'
+gem 'compass-rails'
+gem 'uglifier'
 
 group :development do
   gem 'rspec-rails', "~> 2.4"
@@ -34,7 +30,6 @@ group :production do
 end
 
 group :test do
-
   gem 'rspec-rails', "~> 2.4"
   gem 'cucumber-rails', :require => false
   gem 'capybara'
@@ -42,6 +37,4 @@ group :test do
   gem 'timecop'
   gem 'launchy'
   gem 'database_cleaner'
-  gem 'libv8', '~> 3.11.8'
-  gem 'therubyracer'
 end
