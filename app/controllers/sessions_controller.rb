@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
   end
 
   def failure
-    flash[:failure] = "There was a problem: #{params[:message]}"
+    flash[:notice] = "There was a problem: #{params[:message]}"
     redirect_to root_path
   end
 
