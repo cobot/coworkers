@@ -7,10 +7,11 @@ describe 'editing members as admin' do
 
   it "lets me edit a member's basic details" do
     stub_cobot_admin 'co.up', 'joe'
-    space = space_by_name 'co.up'
-    DB.save! Membership.new(name: 'Jane', space_id: space.id)
 
     sign_in
+
+    space = space_by_name 'co.up'
+    DB.save! Membership.new(name: 'Jane', space_id: space.id)
 
     click_link 'co.up'
     within('#menu') { click_link 'Members' }

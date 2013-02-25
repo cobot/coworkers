@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
   def require_authentication
     unless current_user
       session[:return_to] = request.url
-      redirect_to '/auth/cobot'
+      redirect_to new_session_path
     end
   end
 
@@ -73,7 +73,7 @@ class ApplicationController < ActionController::Base
         if current_user
           render file: Rails.root.join('public', '403.html'), status: 403, layout: false
         else
-          redirect_to '/auth/cobot'
+          redirect_to new_session_path
         end
       end
       format.json do

@@ -1,5 +1,5 @@
 Coworkers::Application.routes.draw do
-  root to: "sessions#new"
+  root to: "sessions#show"
 
   get '/auth/:provider/callback', :to => 'sessions#create', as: :authenticate
   get '/auth/failure', :to => 'sessions#failure'
@@ -20,7 +20,7 @@ Coworkers::Application.routes.draw do
       resources :messages, only: [:create, :edit, :update, :show]
     end
   end
-  resource :session, only: :destroy
+  resource :session, only: [:destroy, :new]
 
   namespace 'api' do
     resources :spaces, only: :show do

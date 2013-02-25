@@ -18,7 +18,7 @@ describe SpacesController, 'show' do
 
     get :show, id: '1'
 
-    response.should redirect_to('/auth/cobot')
+    response.should redirect_to(new_session_path)
   end
 
   it 'redirects to edit profile if the profile has not been completed' do

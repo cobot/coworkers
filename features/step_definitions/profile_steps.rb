@@ -21,6 +21,6 @@ end
 Then /^"([^"]*)" should have listed the website "([^"]*)" on his "([^"]*)" profile$/ do |name, website, space_name|
   visit account_path
   find('.space a').click
-  find('.membership a', text: name).click
+  click_link name
   page.should have_css('.website', text: website)
 end

@@ -2,7 +2,11 @@ class SessionsController < ApplicationController
   skip_before_filter :require_authentication
 
   def new
-    redirect_to account_path if current_user
+    redirect_to '/auth/cobot'
+  end
+
+  def show
+
   end
 
   def create
@@ -26,7 +30,7 @@ class SessionsController < ApplicationController
   private
   def sign_up(user_attributes)
     user = find_and_update_or_create_user user_attributes
-    create_memberships user, user_attributes["memberships"]
+    create_memberships user, user_attributes["memberships"], user_attributes["picture"]
     create_spaces user_attributes['admin_of'].map{|admin_of| admin_of['space_link']}
     user
   end
@@ -43,6 +47,7 @@ class SessionsController < ApplicationController
       user.email = user_attributes["email"]
       user.admin_of = admin_spaces(user_attributes)
       user.access_token = access_token.token
+      db.save user if user.changed?
     else
       user = User.new(
         cobot_id: user_attributes['id'],
@@ -50,22 +55,23 @@ class SessionsController < ApplicationController
         admin_of: admin_spaces(user_attributes),
         access_token: access_token.token
       )
+      db.save user
     end
-    db.save user if user.changed?
     user
   end
-  def create_memberships(user, memberships_attributes)
+
+  def create_memberships(user, memberships_attributes, picture_url)
     memberships_attributes.each do |membership_attributes|
       membership_details = outh_get(membership_attributes['link'])
       membership = db.load(membership_details['id'])
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
         db.save(Membership.new user_id: user.id, id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
-          picture: user_attributes["picture"],
+          picture: picture_url,
           name: membership_details['address']['name'])
       elsif membership
         membership.name = membership_details['address']['name']
-        membership.picture = user_attributes["picture"]
+        membership.picture = picture_url
 
         db.save! membership
       end
@@ -83,16 +89,6 @@ class SessionsController < ApplicationController
       db.save space, false
     end
     space
-  end
-
-  def oauth_client
-    OAuth2::Client.new(Coworkers::Conf.app_id,
-      Coworkers::Conf.app_secret,
-      site: {
-        url: Coworkers::Conf.site
-      },
-      raise_errors: false
-    )
   end
 
   def admin_spaces(user_attributes)
