@@ -37,4 +37,5 @@ group :test do
   gem 'timecop'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'therubyracer'
 end
