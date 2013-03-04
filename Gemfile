@@ -19,6 +19,7 @@ gem 'cobot_client', '~>0.1.0'
 gem 'sass-rails'
 gem 'compass-rails'
 gem 'uglifier'
+gem 'jquery-rails'
 
 group :development do
   gem 'rspec-rails', "~> 2.4"

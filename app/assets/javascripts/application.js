@@ -2,7 +2,7 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 //= require jquery
-//= require rails
+//= require jquery_ujs
 //= require facebox
 //= require cobot_client/easyxdm
 //= require_self
