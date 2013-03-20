@@ -1,41 +1,25 @@
 require 'securerandom'
 
-class Space
-  include CouchPotato::Persistence
+class Space < ActiveRecord::Base
+  has_many :message_boards
+  has_many :memberships
+  has_many :messages
+  has_many :questions
 
-  property :name
-  property :members_only, type: :boolean
-  property :secret
-  property :cobot_url
+  before_create :set_secret, :set_subdomain
 
-  view :by_id, key: :_id
-  view :by_name, key: :name
+  scope :by_subdomain, ->(subdomain) { where(subdomain: subdomain) }
 
-  before_create :set_secret
-
-  def subdomain
-    URI.parse(cobot_url).host.split('.').first
-  end
-
-  def message_boards
-    database.view(MessageBoard.by_space_id_and_name(startkey: [id], endkey: [id, {}]))
-  end
-
-  def memberships
-    @memberships ||= database.view(Membership.by_space_id(id)).sort_by{|m| m.last_name.to_s}
+  def to_param
+    subdomain
   end
 
   def new_memberships
-    @new_memberships ||= database.view(Membership.by_space_id_and_created_at(
-      startkey: [id, {}], endkey: [id], descending: true, limit: 3))
-  end
-
-  def questions
-    @questions ||= database.view(Question.by_space_id(id))
+    @new_memberships ||= memberships.limit(3).order('memberships.created_at DESC')
   end
 
   def member?(user)
-    user && database.first(Membership.by_space_id_and_user_id([id, user.id]))
+    user && Membership.by_space_id_and_user_id(id, user.id).first
   end
   alias_method :membership_for, :member?
 
@@ -48,6 +32,10 @@ class Space
   end
 
   private
+
+  def set_subdomain
+    self.subdomain = URI.parse(cobot_url).host.split('.').first if cobot_url?
+  end
 
   def set_secret
     self.secret = SecureRandom.urlsafe_base64

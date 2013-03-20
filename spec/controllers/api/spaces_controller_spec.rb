@@ -2,6 +2,12 @@ require 'spec_helper'
 
 describe Api::SpacesController, 'show' do
   before(:each) do
+    @user = stub(:user,
+         id: 'user-1',
+         email: 'member1@cobot.me'
+       )
+    User.stub(find: @user)
+
     @membership = stub(:membership, class: Membership,
          id: 'member-1',
          to_param: 'member-1',
@@ -14,30 +20,25 @@ describe Api::SpacesController, 'show' do
          skills: 'all',
          picture: 'http://example.com/pic.jpg',
          messenger_type: 'Twitter',
-         messenger_account: 'cobot_me'
+         messenger_account: 'cobot_me',
+         user: @user
     )
     @space = stub(:space, class: Space,
       name: 'space 1',
-      _id: 'space-1',
-      to_param: 'space-1',
-      memberships: [@membership]).as_null_object
-    db = stub_db load!: @space
-
-    @user = stub(:user,
-         id: 'user-1',
-         email: 'member1@cobot.me'
-       )
-    db.stub_view(User, :by_id).with(keys: ['user-1']) {[@user]}
+      id: 'space-1',
+      to_param: 'space-1').as_null_object
+    @space.stub_chain(:memberships, :includes) { [@membership] }
+    Space.stub_chain(:by_subdomain, :first!) { @space }
 
     answer = stub(:answer, question: 'achievements', text: 'ran 5k', membership_id: 'member-1')
-    db.stub_view(Answer, :by_membership_id).with(keys: ['member-1']) {[answer]}
+    @membership.stub(answers: [answer])
   end
 
   it "returns the space and member parameters as json" do
     get :show, id: 'space-1'
 
-    response.code.should eql('200')
-    response.body.should eql({
+    expect(response.code).to eql('200')
+    expect(response.body).to eql({
       id: "space-1", name: "space 1", url: "http://test.host/spaces/space-1",
       memberships: [
         {id: "member-1", name: "member 1", url:"http://test.host/spaces/space-1/memberships/member-1",
@@ -49,7 +50,7 @@ describe Api::SpacesController, 'show' do
   it "returns the spaces parameters in jsonp" do
     get :show, id: 'space-1', callback: 'myFunction'
 
-    response.body.should include('myFunction(')
+    expect(response.body).to include('myFunction(')
   end
 
   it 'renders no messenger if user has none' do
@@ -57,7 +58,7 @@ describe Api::SpacesController, 'show' do
 
     get :show, id: 'space-1'
 
-    JSON.parse(response.body)['memberships'][0]['messenger'].should be_nil
+    expect(JSON.parse(response.body)['memberships'][0]['messenger']).to be_nil
   end
 
   it 'returns 403 if the space is not viewable' do
@@ -65,7 +66,7 @@ describe Api::SpacesController, 'show' do
 
     get :show, id: 'space-1', format: :json
 
-    response.status.should == 403
+    expect(response.status).to eql(403)
   end
 
   it 'returns 200 if the space is not viewable but the secret matches' do
@@ -74,6 +75,6 @@ describe Api::SpacesController, 'show' do
 
     get :show, id: 'space-1', secret: '123', format: :json
 
-    response.status.should == 200
+    expect(response.status).to eql(200)
   end
 end

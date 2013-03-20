@@ -27,7 +27,7 @@
 <h2>Add Field</h2>
 <%= simple_form_for @question, url: [@space, @question] do |f| %>
   <%= f.input :text %>
-  <%= f.input :type, collection: {'Short Text' => 'short_text', 'Long Text' => 'long_text'}, prompt: false %>
+  <%= f.input :question_type, collection: {'Short Text' => 'short_text', 'Long Text' => 'long_text'}, prompt: false %>
   <%= f.submit 'Add Field', class: 'btn' %>
 <% end %>
 

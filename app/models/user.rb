@@ -1,29 +1,20 @@
-class User
-  include CouchPotato::Persistence
-
+class User < ActiveRecord::Base
   Admin = Struct.new(:name)
-
-  property :cobot_id
-  property :email
-  property :admin_of, default: [] # space ids
-  property :access_token
-
-  view :by_email, key: :email
-  view :by_cobot_id, key: :cobot_id
-  view :by_id, key: :_id
+  serialize :admin_of
+  has_many :memberships
 
   def admin_of?(space)
-    admin_of.map{|attributes| attributes['space_id']}.include?(space.id)
+    admin_of.map{|attributes| attributes[:space_id]}.include?(space.cobot_id)
   end
 
   def membership_for(space)
-    database.first Membership.by_space_id_and_user_id([space.id, id])
+    Membership.where(space_id: space.id, user_id: id).first
   end
   alias_method :member_of?, :membership_for
 
   def admin_for(space)
-    if attributes = admin_of.find{|attr| attr['space_id'] == space.id}
-      Admin.new(attributes['name'])
+    if attributes = admin_of.find{|attr| attr[:space_id] == space.cobot_id}
+      Admin.new(attributes[:name])
     end
   end
 end

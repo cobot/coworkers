@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe MembershipImportsController, 'create' do
   before(:each) do
-    db = stub_db load!: stub(:space, id: 'space-1')
+    Space.stub_chain(:by_subdomain, :first!) {stub(:space, id: 'space-1')}
   end
 
   it "denies access if user is not a space admin" do

@@ -5,7 +5,7 @@ module Api
     skip_before_filter :require_authentication, only: :show
 
     def show
-      space = db.load! params[:id]
+      space = Space.by_subdomain(params[:id]).first!
       if space.viewable_by?(nil) || space.secret == params[:secret]
         render_space(space)
       else
@@ -24,17 +24,15 @@ module Api
     end
 
     def space_hash(space)
-      users = db.view(User.by_id(keys: space.memberships.map(&:user_id)))
-      memberships = space.memberships
-      answers = db.view(Answer.by_membership_id(keys: memberships.map(&:id)))
+      memberships = space.memberships.includes(:user, :answers)
       {
-        id: space._id,
+        id: space.id,
         name: space.name,
         url: url_for(space),
         memberships: memberships.map {|membership|
           membership_hash(space, membership,
-            users.find{|user| user.id == membership.user_id},
-            answers.select{|answer| answer.membership_id == membership.id}
+            membership.user,
+            membership.answers
         )}
       }
     end

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'importing members as admins' do
   before(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean_with :truncation
   end
 
   it 'imports the data from cobot' do
@@ -17,7 +17,6 @@ describe 'importing members as admins' do
     click_button 'Import Members'
 
     visit space_memberships_path(space)
-
     page.should have_content('Jane')
   end
 

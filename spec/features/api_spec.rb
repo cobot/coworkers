@@ -2,16 +2,13 @@ require 'spec_helper'
 
 describe 'space api' do
   before(:each) do
-    @db = CouchPotato.database
+    DatabaseCleaner.clean_with :truncation
   end
 
   it 'returns the members' do
-    space = Space.new
-    @db.save! space
-    user = User.new
-    @db.save! user
-    membership = Membership.new space_id: space.id, user_id: user.id, name: 'joe doe'
-    @db.save! membership
+    space = Space.create! subdomain: 'co-up'
+    user = User.create!
+    membership = Membership.create! space_id: space.id, user_id: user.id, name: 'joe doe'
 
     visit api_space_path(space)
 

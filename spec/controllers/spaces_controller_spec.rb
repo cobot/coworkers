@@ -1,12 +1,8 @@
 require 'spec_helper'
 
 describe SpacesController, 'show' do
-  before(:each) do
-    @db = stub_db view: []
-  end
-
   it 'renders show' do
-    @db.stub(:load!) {stub(:space, viewable_by?: true).as_null_object}
+    Space.stub_chain(:by_subdomain, :first!) {stub(:space, viewable_by?: true).as_null_object}
 
     get :show, id: '1'
 
@@ -14,7 +10,7 @@ describe SpacesController, 'show' do
   end
 
   it 'redirects to the login if not allowed to view the space' do
-    @db.stub(:load!) {stub(:space, viewable_by?: false).as_null_object}
+    Space.stub_chain(:by_subdomain, :first!) {stub(:space, viewable_by?: false)}
 
     get :show, id: '1'
 
@@ -22,7 +18,7 @@ describe SpacesController, 'show' do
   end
 
   it 'redirects to edit profile if the profile has not been completed' do
-    @db.stub(:load!) {stub(:space, viewable_by?: true, to_param: 'co-up').as_null_object}
+    Space.stub_chain(:by_subdomain, :first!) {stub(:space, viewable_by?: true, to_param: 'co-up').as_null_object}
     log_in stub(:user, membership_for: stub(:membership, to_param: 'mem-1', profile_completed?: false), admin_of?: false)
 
     get :show, id: '1'
@@ -34,7 +30,7 @@ describe SpacesController, 'show' do
     space = stub(:space, viewable_by?: true).as_null_object
     user = stub(:user, profile_completed?: false)
     user.stub(:admin_of?).with(space) {true}
-    @db.stub(:load!) {space}
+    Space.stub_chain(:by_subdomain, :first!) { space }
     log_in user
 
     get :show, id: '1'
@@ -47,7 +43,7 @@ describe SpacesController, 'show' do
     space = stub(:space).as_null_object
     log_in user
     space.stub(:viewable_by?).with(user) {false}
-    @db.stub(:load!) {space}
+    Space.stub_chain(:by_subdomain, :first!) { space }
 
     get :show, id: '1'
 
@@ -58,15 +54,9 @@ end
 describe SpacesController, 'update' do
   before(:each) do
     @space = stub(:space, to_param: 'space-1').as_null_object
-    @db = stub_db load!: @space, save!: nil
+    Space.stub_chain(:by_subdomain, :first!) { @space }
     @user = stub(:user)
     log_in @user
-  end
-
-  it 'loads the space' do
-    @db.should_receive(:load!).with('space-1') {@space}
-
-    put :update, id: 'space-1', space: {}
   end
 
   it 'updates the space' do
@@ -76,7 +66,7 @@ describe SpacesController, 'update' do
   end
 
   it 'it saves the space' do
-    @db.should_receive(:save!).with(@space)
+    @space.should_receive(:save!)
 
     put :update, id: 'space-1', space: {}
   end
@@ -90,7 +80,7 @@ describe SpacesController, 'update' do
   it 'does nothing if the user isn\'t allowed do update the space' do
     @space.stub(:updatable_by?).with(@user) {false}
 
-    @db.should_not_receive(:save!)
+    @space.should_not_receive(:save!)
 
     put :update, id: 'space-1', space: {}
   end

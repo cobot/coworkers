@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'installing coworkers on cobot' do
   before(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean_with :truncation
   end
 
   it 'sets up navigation links and redirects to cobot' do
@@ -17,15 +17,20 @@ describe 'installing coworkers on cobot' do
     space = space_by_name('co.up')
     visit account_path
     click_link 'Install on Cobot'
+    space = last_space
 
     should_have_installed_link('co-up',
-      section: 'admin/manage', label: 'Coworker Profiles', iframe_url: 'http://www.example.com/spaces/co-up/memberships')
+      section: 'admin/manage', label: 'Coworker Profiles', iframe_url: "http://www.example.com/spaces/co-up/memberships")
     should_have_installed_link('co-up',
-      section: 'admin/setup', label: 'Coworker Profiles', iframe_url: 'http://www.example.com/spaces/co-up/questions')
+      section: 'admin/setup', label: 'Coworker Profiles', iframe_url: "http://www.example.com/spaces/co-up/questions")
     should_have_installed_link('co-up',
-      section: 'members', label: 'Coworkers', iframe_url: 'http://www.example.com/spaces/co-up/memberships')
+      section: 'members', label: 'Coworkers', iframe_url: "http://www.example.com/spaces/co-up/memberships")
 
     expect(current_url).to eql('https://co-up.cobot.me/navigation_links/link-1')
+
+    space.memberships.create! name: 'joe doe'
+    visit 'http://www.example.com/spaces/co-up/memberships'
+    expect(page).to have_content('joe doe')
   end
 
   def should_have_installed_link(subdomain, attributes)

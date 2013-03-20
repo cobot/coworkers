@@ -1,12 +1,4 @@
-class Question
-  include CouchPotato::Persistence
+class Question < ActiveRecord::Base
 
-  property :text
-  property :type # :short_text|:long_text
-  property :space_id
-
-  view :by_space_id_and_created_at, key: [:space_id, :created_at]
-  view :by_space_id, key: :space_id
-
-  validates_presence_of :text, :type
+  validates_presence_of :text, :question_type
 end

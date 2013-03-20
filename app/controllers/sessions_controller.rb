@@ -42,12 +42,12 @@ class SessionsController < ApplicationController
   end
 
   def find_and_update_or_create_user(user_attributes)
-    user = db.first(User.by_cobot_id(user_attributes['id']))
+    user = User.where(cobot_id: user_attributes['id']).first
     if user
       user.email = user_attributes["email"]
       user.admin_of = admin_spaces(user_attributes)
       user.access_token = access_token.token
-      db.save user if user.changed?
+      user.save if user.changed?
     else
       user = User.new(
         cobot_id: user_attributes['id'],
@@ -55,7 +55,7 @@ class SessionsController < ApplicationController
         admin_of: admin_spaces(user_attributes),
         access_token: access_token.token
       )
-      db.save user
+      user.save
     end
     user
   end
@@ -63,30 +63,28 @@ class SessionsController < ApplicationController
   def create_memberships(user, memberships_attributes, picture_url)
     memberships_attributes.each do |membership_attributes|
       membership_details = outh_get(membership_attributes['link'])
-      membership = db.load(membership_details['id'])
+      membership = Membership.where(cobot_id: membership_details['id']).first
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
-        db.save(Membership.new user_id: user.id, id: membership_details['id'],
+        Membership.create user_id: user.id, cobot_id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
           picture: picture_url,
-          name: membership_details['address']['name'])
+          name: membership_details['address']['name']
       elsif membership
         membership.name = membership_details['address']['name']
         membership.picture = picture_url
-
-        db.save! membership
+        membership.save!
       end
     end
   end
 
   def find_or_create_space(space_url)
     space_attributes = outh_get(space_url)
-    unless space = db.load(space_attributes['id'])
-      space = Space.new name: space_attributes['name'], id: space_attributes['id'],
+    unless space = Space.where(cobot_id: space_attributes['id']).first
+      space = Space.create name: space_attributes['name'], cobot_id: space_attributes['id'],
         cobot_url: space_attributes['url']
-      db.save space
     else
       space.cobot_url = space_attributes['url']
-      db.save space, false
+      space.save validate: false
     end
     space
   end

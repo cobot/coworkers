@@ -31,7 +31,6 @@ module CobotApiHelpers
   end
 
   def stub_space(space_id, space_name)
-    
     WebMock.stub_request(:get, "https://www.cobot.me/api/spaces/#{space_id}").to_return(body: {
       name: space_name,
       url: "https://#{space_id}.cobot.me",

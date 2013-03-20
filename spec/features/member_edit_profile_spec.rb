@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'editing my own profile' do
   before(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean_with :truncation
     auth_mock({id: 'user-joe', memberships: [{space_subdomain: "co-up",
       space_link: "https://www.cobot.me/api/spaces/co-up",
       link: "https://co-up.cobot.me/api/memberships/mem-1" }]})
@@ -25,7 +25,7 @@ describe 'editing my own profile' do
   end
 
   it "lets me edit my custom details" do
-    DB.save! Question.new(text: 'Hobbies', space_id: @space.id, type: 'short_text')
+    Question.create!(text: 'Hobbies', space_id: @space.id, question_type: 'short_text')
 
     click_link 'My Profile'
     within('.action-links') { click_link 'Edit' }

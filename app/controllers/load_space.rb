@@ -8,6 +8,6 @@ module LoadSpace
   private
 
   def load_space
-    @space = db.load! params[:space_id]
+    @space = Space.by_subdomain(params[:space_id]).first!
   end
 end

@@ -1,9 +1,0 @@
-development:
-  database: http://127.0.0.1:5984/coworkers_development
-  validation_framework: :active_model
-test:
-  database: coworkers_test
-  validation_framework: :active_model
-production:
-  validation_framework: :active_model
-  database: <%= ENV['CLOUDANT_URL'] %>/coworkers_production

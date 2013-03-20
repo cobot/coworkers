@@ -3,7 +3,6 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'webmock/rspec'
-require 'couch_potato/rspec'
 require 'capybara/rspec'
 Dir[Rails.root.join('features', 'support', '*_helpers.rb')].each {|f| require f}
 require Rails.root.join('features', 'support', 'id_generators')
@@ -29,4 +28,3 @@ def log_in(user)
 end
 
 WebMock.disable_net_connect!(allow_localhost: true)
-DB = CouchPotato.database

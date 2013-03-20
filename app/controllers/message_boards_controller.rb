@@ -15,7 +15,7 @@ class MessageBoardsController < ApplicationController
   def create
     @message_board = MessageBoard.new params[:message_board]
     @message_board.space_id = @space.id
-    if db.save @message_board
+    if @message_board.save
       redirect_to space_message_boards_path(@space)
     else
       render 'new'
@@ -23,13 +23,13 @@ class MessageBoardsController < ApplicationController
   end
 
   def show
-    @message_board = db.first! MessageBoard.by_space_id_and_id([@space.id, params[:id]])
+    @message_board = @space.message_boards.find params[:id]
     @message = Message.new
   end
 
   def destroy
-    @message_board = db.first! MessageBoard.by_space_id_and_id([@space.id, params[:id]])
-    db.destroy @message_board
+    @message_board = @space.message_boards.find params[:id]
+    @message_board.destroy
     redirect_to [@space, :message_boards]
   end
 

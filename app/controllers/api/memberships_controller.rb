@@ -3,8 +3,8 @@ module Api
     skip_before_filter :require_authentication, only: :show
 
     def show
-      @space = db.load params[:space_id]
-      @membership = db.load params[:id]
+      @space = Space.find params[:space_id]
+      @membership = @space.memberships.find params[:id]
       unless params[:callback].blank?
         render js: "#{params[:callback]}(#{membership_hash(@membership).to_json});"
       else
@@ -14,7 +14,7 @@ module Api
 
     def membership_hash(membership)
       {
-        id: membership._id,
+        id: membership.id,
         name: membership.name,
         image_url: membership.picture,
         website: membership.website,

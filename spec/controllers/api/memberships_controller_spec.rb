@@ -2,29 +2,27 @@ require 'spec_helper'
 
 describe Api::MembershipsController, 'show' do
   before(:each) do
-    db = stub_db
-    db.stub(:load).with('space-1') {
-      stub(:space, class: Space, name: 'space 1', _id: 'space-1', to_param: 'space-1')
-    }
+    space = stub(:space, class: Space, name: 'space 1', id: 'space-1', to_param: 'space-1')
+    Space.stub(:find).with('space-1') { space }
 
-    @membership = stub(:membership, class: Membership, _id: 'member-1', to_param: 'member-1', name: 'member 1',
+    @membership = stub(:membership, class: Membership, id: 'member-1', to_param: 'member-1', name: 'member 1',
       website: 'http://member1.test/', bio: nil, profession: 'Web', industry: 'Web', skills: 'all',
       picture: 'http://example.com/pic.jpg', user: stub(:user, email: 'member1@cobot.me'))
-    db.stub(:load).with('member-1') {@membership}
+    space.stub_chain(:memberships, :find) { @membership }
   end
 
   it "returns the membership parameters in json" do
     get :show, space_id: 'space-1', id: 'member-1'
 
-    response.code.should == '200'
-    response.body.should == '{"id":"member-1","name":"member 1","image_url":"http://example.com/pic.jpg","website":"http://member1.test/","bio":null,"profession":"Web","industry":"Web","skills":"all"}'
+    expect(response.code).to eql('200')
+    expect(response.body).to eql('{"id":"member-1","name":"member 1","image_url":"http://example.com/pic.jpg","website":"http://member1.test/","bio":null,"profession":"Web","industry":"Web","skills":"all"}')
   end
 
   it "returns the membership parameters in jsonp" do
     get :show, space_id: 'space-1', id: 'member-1', callback: 'myFunction'
 
-    response.code.should == '200'
-    response.body.should == 'myFunction({"id":"member-1","name":"member 1","image_url":"http://example.com/pic.jpg","website":"http://member1.test/","bio":null,"profession":"Web","industry":"Web","skills":"all"});'
+    expect(response.code).to eql('200')
+    expect(response.body).to eql('myFunction({"id":"member-1","name":"member 1","image_url":"http://example.com/pic.jpg","website":"http://member1.test/","bio":null,"profession":"Web","industry":"Web","skills":"all"});')
   end
 
 end

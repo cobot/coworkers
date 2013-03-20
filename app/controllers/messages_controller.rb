@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
-  before_filter :load_space_and_board
+  include LoadSpace
+  before_filter :load_board
   before_filter :load_message, only: [:edit, :update, :show]
   param_protected({message: [:message_board_id, :author_id, :author_name]}, only: :update)
 
@@ -14,7 +15,7 @@ class MessagesController < ApplicationController
       message.author_name = admin.name
     end
     if membership || admin
-      if db.save message
+      if message.save
         flash[:notice] = 'Message added.'
       end
       redirect_to [@space, @message_board]
@@ -28,7 +29,7 @@ class MessagesController < ApplicationController
 
   def update
     @message.attributes = params[:message]
-    db.save @message
+    @message.save
     redirect_to [@space, @message_board, @message]
   end
 
@@ -38,12 +39,11 @@ class MessagesController < ApplicationController
   private
 
   def load_message
-    @message = db.first! Message.by_message_board_id_and_id([@message_board.id, params[:id]])
+    @message = @message_board.messages.find params[:id]
     not_allowed unless @message.editable_by?(current_user, @space)
   end
 
-  def load_space_and_board
-    @space = db.load! params[:space_id]
-    @message_board = db.first! MessageBoard.by_space_id_and_id([@space.id, params[:message_board_id]])
+  def load_board
+    @message_board = @space.message_boards.find params[:message_board_id]
   end
 end

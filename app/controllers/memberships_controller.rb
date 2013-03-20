@@ -9,38 +9,36 @@ class MembershipsController < ApplicationController
     if !@space.viewable_by?(current_user)
       not_allowed
     else
-      @memberships = @space.memberships
-      users = db.view(User.by_id(keys: @memberships.map(&:user_id)))
-      @memberships.each {|m| m.user = users.find{|u| u.id == m.user_id}}
+      @memberships = @space.memberships.includes(:user)
       @memberships.sort_by!{|m| m.name.downcase}
     end
   end
 
   def edit
     check_access
-    @membership = db.load! params[:id]
-    @questions = db.view(Question.by_space_id_and_created_at(startkey: [@space.id], endkey: [@space.id, {}]))
-    @answers = db.view(Answer.by_membership_id_and_created_at(startkey: [@membership.id], endkey: [@membership.id, {}]))
+    @membership = Membership.find params[:id]
+    @questions = Question.where(space_id: @space.id)
+    @answers = Answer.where(membership_id: @membership.id)
   end
 
   def picture
     check_access
-    @membership = db.load! params[:id]
+    @membership = Membership.find params[:id]
     @membership.picture = cobot_client(@membership.user.access_token).get('/api/user').parsed['picture']
-    db.save @membership, false
+    @membership.save validate: false
     redirect_to [:edit, @space, @membership], notice: 'Picture updated.'
   end
 
   def update
-    @membership = db.load! params[:id]
+    @membership = Membership.find params[:id]
     @membership.attributes = params[:membership]
-    if db.save(@membership)
+    if @membership.save
       (params[:answers] || {}).values.each do |answer_params|
-        question = db.load answer_params[:question]
-        answer = db.first(Answer.by_question_id_and_membership_id([answer_params[:question], @membership.id])) || Answer.new(question_id: answer_params[:question], membership_id: @membership.id)
+        question = Question.where(id: answer_params[:question]).first
+        answer = Answer.where(question_id: answer_params[:question], membership_id: @membership.id).first || Answer.new(question_id: answer_params[:question], membership_id: @membership.id)
         answer.text = answer_params[:text]
         answer.question = question.text
-        db.save answer
+        answer.save
       end
       redirect_to [@space, @membership]
     else
@@ -49,13 +47,13 @@ class MembershipsController < ApplicationController
   end
 
   def show
-    @membership = db.load! params[:id]
+    @membership = Membership.find params[:id]
     @user = @membership.user
   end
 
   def destroy
-    @membership = db.load! params[:id]
-    db.destroy @membership
+    @membership = Membership.find params[:id]
+    @membership.destroy
     redirect_to [@space, :memberships], notice: 'The profile was removed.'
   end
 

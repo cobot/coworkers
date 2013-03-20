@@ -1,13 +1,11 @@
 source 'http://rubygems.org'
 ruby "2.0.0"
 
-gem 'railties', '~>3.2.12'
-gem 'actionpack'
-gem 'activemodel'
+gem 'rails', '~>3.2.13'
+gem 'pg'
 gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.2'
 
-gem 'couch_potato'
 gem 'simple_form'
 gem "sentry-raven"
 gem 'param_protected'

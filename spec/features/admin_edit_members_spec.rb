@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'editing members as admin' do
   before(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.clean_with :truncation
   end
 
   it "lets me edit a member's basic details" do
@@ -11,8 +11,7 @@ describe 'editing members as admin' do
     sign_in
 
     space = space_by_name 'co.up'
-    DB.save! Membership.new(name: 'Jane', space_id: space.id)
-
+    Membership.create!(name: 'Jane', space_id: space.id)
     click_link 'co.up'
     within('#menu') { click_link 'Members' }
     first(:link, 'Jane').click
@@ -28,9 +27,8 @@ describe 'editing members as admin' do
     stub_cobot_admin 'co.up', 'joe'
     sign_in
     space = space_by_name 'co.up'
-    membership = Membership.new(name: 'Jane', space_id: space.id)
-    DB.save! membership
-    DB.save! Question.new(text: 'Hobbies', space_id: space.id, type: 'short_text')
+    membership = Membership.create!(name: 'Jane', space_id: space.id)
+    Question.create!(text: 'Hobbies', space_id: space.id, question_type: 'short_text')
 
     click_link 'co.up'
     within('#menu') { click_link 'Members' }
@@ -48,10 +46,8 @@ describe 'editing members as admin' do
     stub_user 'token-123', picture: 'http://example.com/new_picture.jpg'
     sign_in
     space = space_by_name 'co.up'
-    user = User.new access_token: 'token-123'
-    DB.save! user
-    membership = Membership.new(name: 'Jane', space_id: space.id, user_id: user.id)
-    DB.save! membership
+    user = User.create! access_token: 'token-123'
+    membership = Membership.create!(name: 'Jane', space_id: space.id, user_id: user.id)
 
     click_link 'co.up'
     within('#menu') { click_link 'Members' }

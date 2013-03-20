@@ -28,14 +28,14 @@ class SpacesController < ApplicationController
 
   def update
     @space.members_only = params[:space][:members_only]
-    db.save! @space
+    @space.save!
     redirect_to space_path(@space), notice: 'Settings Saved.'
   end
 
   private
 
   def load_space
-    @space = db.load! params[:id]
+    @space = Space.by_subdomain(params[:id]).first!
   end
 
   def check_access
@@ -43,19 +43,10 @@ class SpacesController < ApplicationController
   end
 
   def load_new_memberships
-    new_memberships = @space.new_memberships
-    users = db.view(User.by_id(keys: new_memberships.map(&:user_id)))
-    new_memberships.each {|m| m.user = users.find{|u| u.id == m.user_id}}
-    new_memberships
+    @space.new_memberships.includes(:user)
   end
 
   def load_new_messages
-    new_messages = db.view(Message.by_space_id_and_created_at(
-        startkey: [@space.id, {}], endkey: [@space.id], descending: true, limit: 3))
-    message_boards = db.view(MessageBoard.by_id(keys: new_messages.map(&:message_board_id).uniq))
-    new_messages.each do |m|
-      m.message_board = message_boards.find{|b| b.id == m.message_board_id}
-    end
-    new_messages
+    @space.messages.order('created_at DESC').limit(3).includes(:message_board)
   end
 end

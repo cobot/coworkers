@@ -6,8 +6,8 @@
   <%= simple_form_for :memberships, url: space_membership_import_url do |f| %>
     <% @memberships.each do |membership| %>
       <p class="check-box">
-        <%= check_box_tag :"memberships[#{membership.id}]" %>
-        <%= label_tag :"memberships[#{membership.id}]", membership.name %>
+        <%= check_box_tag :"memberships[#{membership.cobot_id}]" %>
+        <%= label_tag :"memberships[#{membership.cobot_id}]", membership.name %>
       </p>
     <% end %>
     <%= f.button :submit, 'Import Members', class: 'btn' %>

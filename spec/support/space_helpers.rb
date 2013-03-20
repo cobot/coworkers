@@ -1,6 +1,6 @@
 module SpaceHelpers
   def last_space
-    DB.first!(Space.by_name)
+    Space.first!
   end
 end
 
