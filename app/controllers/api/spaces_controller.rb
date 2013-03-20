@@ -5,7 +5,7 @@ module Api
     skip_before_filter :require_authentication, only: :show
 
     def show
-      space = Space.by_subdomain(params[:id]).first!
+      space = Space.by_cobot_id(params[:id]).first!
       if space.viewable_by?(nil) || space.secret == params[:secret]
         render_space(space)
       else

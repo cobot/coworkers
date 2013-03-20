@@ -6,7 +6,7 @@ describe 'space api' do
   end
 
   it 'returns the members' do
-    space = Space.create! subdomain: 'co-up'
+    space = Space.create! cobot_id: 'space-co-up'
     user = User.create!
     membership = Membership.create! space_id: space.id, user_id: user.id, name: 'joe doe'
 

@@ -35,7 +35,7 @@ class SpacesController < ApplicationController
   private
 
   def load_space
-    @space = Space.by_subdomain(params[:id]).first!
+    @space = Space.by_cobot_id(params[:id]).first!
   end
 
   def check_access

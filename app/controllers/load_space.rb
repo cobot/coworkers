@@ -8,6 +8,6 @@ module LoadSpace
   private
 
   def load_space
-    @space = Space.by_subdomain(params[:space_id]).first!
+    @space = Space.by_cobot_id(params[:space_id]).first!
   end
 end

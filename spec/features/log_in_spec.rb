@@ -7,7 +7,8 @@ describe 'logging in' do
 
   it 'redirects to the originally requested page' do
     stub_cobot_admin 'co.up', 'joe'
-    space = Space.create! name: 'co.up', cobot_url: 'http://co-up.cobot.me'
+    space = Space.create! name: 'co.up', cobot_url: 'http://co-up.cobot.me',
+      cobot_id: 'space-co-up'
     user = User.create!
 
     visit space_memberships_path(space, embed: true)

@@ -8,10 +8,10 @@ class Space < ActiveRecord::Base
 
   before_create :set_secret, :set_subdomain
 
-  scope :by_subdomain, ->(subdomain) { where(subdomain: subdomain) }
+  scope :by_cobot_id, ->(cobot_id) { where(cobot_id: cobot_id) }
 
   def to_param
-    subdomain
+    cobot_id
   end
 
   def new_memberships

@@ -28,7 +28,7 @@ describe Api::SpacesController, 'show' do
       id: 'space-1',
       to_param: 'space-1').as_null_object
     @space.stub_chain(:memberships, :includes) { [@membership] }
-    Space.stub_chain(:by_subdomain, :first!) { @space }
+    Space.stub_chain(:by_cobot_id, :first!) { @space }
 
     answer = stub(:answer, question: 'achievements', text: 'ran 5k', membership_id: 'member-1')
     @membership.stub(answers: [answer])
