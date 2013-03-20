@@ -5,9 +5,7 @@
 <%= simple_form_for [@space, @membership] do |f| %>
 
   <p><%= image_tag @membership.picture %></p>
-  <% if @membership.can_update_picture? %>
-    <p><%= link_to 'Update Picture', picture_space_membership_path(@space, @membership), class: 'btn', method: 'put' %></p>
-  <% end %>
+  <p><%= link_to 'Update Picture', picture_space_membership_path(@space, @membership), class: 'btn', method: 'put' %></p>
 
   <fieldset>
     <legend>Profile</legend>

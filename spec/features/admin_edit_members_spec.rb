@@ -43,11 +43,11 @@ describe 'editing members as admin' do
 
   it "lets me update a member's picture" do
     stub_cobot_admin 'co.up', 'joe'
-    stub_user 'token-123', picture: 'http://example.com/new_picture.jpg'
+    stub_cobot_membership 'co.up', nil, 'mem-1', picture: 'http://example.com/new_picture.jpg'
     sign_in
     space = space_by_name 'co.up'
     user = User.create! access_token: 'token-123'
-    membership = Membership.create!(name: 'Jane', space_id: space.id, user_id: user.id)
+    membership = Membership.create!(name: 'Jane', space_id: space.id, user_id: user.id, cobot_id: 'mem-1')
 
     click_link 'co.up'
     within('#menu') { click_link 'Members' }

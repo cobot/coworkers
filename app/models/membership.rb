@@ -9,10 +9,6 @@ class Membership < ActiveRecord::Base
     bio?
   end
 
-  def can_update_picture?
-    user.try(:access_token?)
-  end
-
   def last_name
     name.to_s.split(' ').last
   end

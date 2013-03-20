@@ -24,7 +24,7 @@ class MembershipsController < ApplicationController
   def picture
     check_access
     @membership = Membership.find params[:id]
-    @membership.picture = cobot_client(@membership.user.access_token).get('/api/user').parsed['picture']
+    @membership.picture = cobot_client(current_user.access_token).get("#{@space.cobot_url}/api/memberships/#{@membership.cobot_id}").parsed['picture']
     @membership.save validate: false
     redirect_to [:edit, @space, @membership], notice: 'Picture updated.'
   end

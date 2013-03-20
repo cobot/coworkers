@@ -17,7 +17,7 @@ class MembershipImportsController < ApplicationController
       ids.each do |id|
         membership_details = access_token.get("#{@space.cobot_url}/api/memberships/#{id}").parsed
         @space.memberships.create cobot_id: membership_details['id'],
-          picture: membership_details['user'].try(:[], 'picture'),
+          picture: membership_details['picture'],
           name: membership_details['address']['name']
       end
       flash[:notice] = 'Members successfully imported.'
