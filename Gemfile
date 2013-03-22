@@ -24,7 +24,6 @@ group :assets do
   gem 'uglifier'
 end
 
-
 group :development do
   gem 'rspec-rails', "~> 2.4"
   gem 'foreman'
