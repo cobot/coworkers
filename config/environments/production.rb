@@ -33,7 +33,6 @@ Coworkers::Application.configure do
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
   config.assets.js_compressor  = :uglifier
-  config.assets.css_compressor = :scss
   config.assets.compress = true
   config.assets.compile = false
   config.assets.digest = true
