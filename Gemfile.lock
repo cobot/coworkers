@@ -113,7 +113,7 @@ GEM
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
-    omniauth_cobot (0.0.2)
+    omniauth_cobot (0.0.3)
       omniauth-oauth2
     param_protected (4.0.0)
     pg (0.14.1)
@@ -222,7 +222,7 @@ DEPENDENCIES
   jquery-rails
   launchy
   omniauth
-  omniauth_cobot (~> 0.0.2)
+  omniauth_cobot (~> 0.0.3)
   param_protected
   pg
   rails (~> 3.2.13)

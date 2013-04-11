@@ -4,7 +4,7 @@ ruby "2.0.0"
 gem 'rails', '~>3.2.13'
 gem 'pg'
 gem 'omniauth'
-gem 'omniauth_cobot', '~>0.0.2'
+gem 'omniauth_cobot', '~>0.0.3'
 
 gem 'simple_form'
 gem "sentry-raven"
