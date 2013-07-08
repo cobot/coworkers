@@ -3,6 +3,8 @@ class Membership < ActiveRecord::Base
   has_many :answers
   belongs_to :space
 
+  validates :cobot_id, uniqueness: true, on: :create
+
   scope :by_space_id_and_user_id, ->(space_id, user_id) {where(space_id: space_id, user_id: user_id)}
 
   def profile_completed?
