@@ -28,4 +28,19 @@ describe 'logging in' do
     expect(page.body).to eql('user-jane')
   end
 
+  it 'connects the memberships already imported before to a newly created user account' do
+    stub_cobot_membership 'co-up', 'joe', 'mem-123'
+    auth_mock_raw_info["memberships"] = [
+      {
+        space_link: "https://www.cobot.me/api/spaces/co-up",
+        link: "https://co-up.cobot.me/api/memberships/mem-123"
+      }
+    ]
+    space = Space.create! name: 'co.up', cobot_url: 'http://co-up.cobot.me', cobot_id: 'space-co-up'
+    space.memberships.create! cobot_id: 'mem-123'
+
+    visit new_session_path
+
+    expect(page).to have_content('co.up')
+  end
 end

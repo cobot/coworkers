@@ -26,8 +26,8 @@ class SessionsController < ApplicationController
     redirect_to root_path
   end
 
-
   private
+
   def sign_up(user_attributes)
     user = find_and_update_or_create_user user_attributes
     create_memberships user, user_attributes["memberships"]
@@ -62,7 +62,7 @@ class SessionsController < ApplicationController
 
   def create_memberships(user, memberships_attributes)
     memberships_attributes.each do |membership_attributes|
-      membership_details = outh_get(membership_attributes['link'])
+      membership_details = oauth_get(membership_attributes['link'])
       membership = Membership.where(cobot_id: membership_details['id']).first
       if !membership_details['confirmed_at'].nil? && !membership_details['canceled_to'] && !membership
         Membership.create user_id: user.id, cobot_id: membership_details['id'],
@@ -72,13 +72,14 @@ class SessionsController < ApplicationController
       elsif membership
         membership.name = membership_details['address']['name']
         membership.picture = membership_details['picture']
+        membership.user_id = user.id
         membership.save!
       end
     end
   end
 
   def find_or_create_space(space_url)
-    space_attributes = outh_get(space_url)
+    space_attributes = oauth_get(space_url)
     unless space = Space.where(cobot_id: space_attributes['id']).first
       space = Space.create name: space_attributes['name'], cobot_id: space_attributes['id'],
         cobot_url: space_attributes['url']
@@ -92,7 +93,7 @@ class SessionsController < ApplicationController
   def admin_spaces(user_attributes)
     user_attributes['admin_of'].map{|space_attributes|
       {
-        space_id: outh_get(space_attributes['space_link'])['id'],
+        space_id: oauth_get(space_attributes['space_link'])['id'],
         name: space_attributes['name']
       }
     }
@@ -102,7 +103,7 @@ class SessionsController < ApplicationController
     @access_token ||= OAuth2::AccessToken.new(oauth_client, request.env['omniauth.auth']['credentials']['token'])
   end
 
-  def outh_get(url)
+  def oauth_get(url)
     access_token.get(url).parsed
   end
 end
