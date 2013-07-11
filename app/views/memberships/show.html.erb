@@ -14,28 +14,32 @@
 
 <div class="profile_info">
   <h2>General Information</h2>
-  <%= markdown @membership.bio %>
-  <dl>
-    <% if @membership.website? %>
-      <dt>Website</dt>
-      <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
-    <% end %>
-    <% [:profession, :industry, :skills].each do |attribute| %>
-      <% if @membership.send("#{attribute}?") %>
-        <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-        <dd class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></dd>
+  <% unless @space.hide_default_fields? %>
+    <%= markdown @membership.bio %>
+    <dl>
+      <% if @membership.website? %>
+        <dt>Website</dt>
+        <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
       <% end %>
-    <% end %>
-    <% if @membership.messenger_account? && @membership.messenger_type? %>
-      <dt class="messenger"><%= @membership.messenger_type %></dt>
-      <dd class="messenger">
-        <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
-      </dd>
-    <% end %>
-  </dl>
+      <% [:profession, :industry, :skills].each do |attribute| %>
+        <% if @membership.send("#{attribute}?") %>
+          <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
+          <dd class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></dd>
+        <% end %>
+      <% end %>
+      <% if @membership.messenger_account? && @membership.messenger_type? %>
+        <dt class="messenger"><%= @membership.messenger_type %></dt>
+        <dd class="messenger">
+          <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
+        </dd>
+      <% end %>
+    </dl>
+  <% end %>
 
   <% if @membership.answers.any? %>
-    <h2>Additional information</h2>
+    <% unless @space.hide_default_fields? %>
+      <h2>Additional information</h2>
+    <% end %>
     <dl>
       <% @membership.answers.each do |answer| %>
         <% if answer.text? %>

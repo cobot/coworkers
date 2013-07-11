@@ -7,19 +7,21 @@
   <p><%= image_tag @membership.picture %></p>
   <p><%= link_to 'Update Picture', picture_space_membership_path(@space, @membership), class: 'btn', method: 'put' %> will pull the photo from your <a target="_TOP" href="https://www.cobot.me/account">Cobot account</a></p>
 
-  <fieldset>
-    <legend>Profile</legend>
-    <%= f.input :website, placeholder: 'http://...' %>
-    <%= f.input :profession %>
-    <%= f.input :industry %>
-    <%= f.input :bio, as: :text, required: true, placeholder: 'A few lines about you.' %>
-    <%= f.input :skills, as: :text %>
-  </fieldset>
-  <fieldset>
-    <legend>Messenger</legend>
-    <%= f.input :messenger_type, label: 'Type', collection: ['Skype', 'Twitter', 'Jabber']  %>
-    <%= f.input :messenger_account, label: 'Account' %>
-  </fieldset>
+  <% unless @space.hide_default_fields? %>
+    <fieldset>
+      <legend>Profile</legend>
+      <%= f.input :website, placeholder: 'http://...' %>
+      <%= f.input :profession %>
+      <%= f.input :industry %>
+      <%= f.input :bio, as: :text, required: true, placeholder: 'A few lines about you.' %>
+      <%= f.input :skills, as: :text %>
+    </fieldset>
+    <fieldset>
+      <legend>Messenger</legend>
+      <%= f.input :messenger_type, label: 'Type', collection: ['Skype', 'Twitter', 'Jabber']  %>
+      <%= f.input :messenger_account, label: 'Account' %>
+    </fieldset>
+  <% end %>
 
   <% if @questions.any? %>
     <fieldset>

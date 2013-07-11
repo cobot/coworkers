@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130319143634) do
+ActiveRecord::Schema.define(:version => 20130711145711) do
 
   create_table "answers", :force => true do |t|
     t.text     "question"
@@ -86,8 +86,9 @@ ActiveRecord::Schema.define(:version => 20130319143634) do
     t.string   "cobot_id"
     t.string   "subdomain"
     t.boolean  "members_only"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+    t.boolean  "hide_default_fields"
   end
 
   add_index "spaces", ["name"], :name => "index_spaces_on_name"
