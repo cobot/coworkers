@@ -12,9 +12,9 @@ describe 'importing members as admins' do
     space = space_by_name('co.up')
     click_link 'co.up'
     within('#menu') { click_link 'Members' }
-    click_link 'Import Members'
+    click_link 'Set up Profiles'
     check 'Jane'
-    click_button 'Import Members'
+    click_button 'Create Member Profiles'
 
     visit space_memberships_path(space)
     page.should have_content('Jane')
@@ -27,9 +27,9 @@ describe 'importing members as admins' do
     space = space_by_name('co.up')
     click_link 'co.up'
     within('#menu') { click_link 'Members' }
-    click_link 'Import Members'
+    click_link 'Set up Profiles'
     check 'Jane'
-    click_button 'Import Members'
+    click_button 'Create Member Profiles'
 
     visit space_memberships_path(space)
 

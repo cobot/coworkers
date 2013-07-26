@@ -1,6 +1,7 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="path"><%= link_to @space.name, @space %> » Import Members</div>
+<div class="path"><%= link_to @space.name, @space %> » Set up profiles</div>
+<p>Members can set up their profile themselves. Alternatively admins can do it for them here.</p>
 
 <% if @memberships.any? %>
   <%= simple_form_for :memberships, url: space_membership_import_url do |f| %>
@@ -10,10 +11,10 @@
         <%= label_tag :"memberships[#{membership.cobot_id}]", membership.name %>
       </p>
     <% end %>
-    <%= f.button :submit, 'Import Members', class: 'btn' %>
+    <%= f.button :submit, 'Create Member Profiles', class: 'btn' %>
   <% end %>
 <% else %>
-  <p>No members to import from Cobot.</p>
+  <p>No members wthout a profile.</p>
 <% end %>
 
 <p><%= link_to 'back', space_memberships_path(@space) %></p>

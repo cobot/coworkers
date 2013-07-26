@@ -4,7 +4,7 @@
   <div class="action-links">
     <ul>
       <% if current_user.admin_of?(@space) %>
-        <li><%= link_to 'Import Members', new_space_membership_import_path(@space), class: 'btn' %></li>
+        <li><%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn' %></li>
       <% end %>
       <% if membership = current_user.membership_for(@space) %>
         <li><%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn' %></li>
