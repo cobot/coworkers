@@ -60,4 +60,12 @@ describe Space, 'creation' do
 
     space.secret.should be_present
   end
+
+  it 'sets the subdomain' do
+    space = Space.new cobot_url: 'https://some-space.cobot.me'
+
+    space.run_callbacks :create
+
+    expect(space.subdomain).to eql('some-space')
+  end
 end
