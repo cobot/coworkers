@@ -64,7 +64,7 @@ class SignupService
       space = Space.create name: space_attributes['name'], cobot_id: space_attributes['id'],
         cobot_url: space_attributes['url']
     else
-      space.cobot_url = space_attributes['link']
+      space.cobot_url = space_attributes['url'] # for old spaces who don't have it set yet
       space.save validate: false
     end
     space
