@@ -1,0 +1,9 @@
+<%= render 'spaces/navigation', space: @space %>
+<div class="path"><%= link_to @space.name, @space %> » <%= link_to 'Settings', [@space, :questions] %> » Edit Question</div>
+
+<h2>Edit Question</h2>
+
+<%= simple_form_for @question, url: [@space, @question] do |f| %>
+  <%= render 'form', f: f %>
+  <%= f.submit 'Update field', class: 'btn' %>
+<% end %>

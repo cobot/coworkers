@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'importing members as admins' do
-  before(:each) do
-    DatabaseCleaner.clean_with :truncation
-  end
-
   it 'imports the data from cobot' do
     stub_cobot_admin 'co.up', 'joe'
     stub_cobot_membership 'co.up', 'Jane'

@@ -1,8 +1,8 @@
 module CobotApiHelpers
   def auth_mock(user_attributes = {})
-    unless @auth_mock
+    # unless @auth_mock
       @auth_mock = OmniAuth.config.mock_auth[:cobot] = {}
-      OmniAuth.config.mock_auth[:cobot]["extra"] ={
+      OmniAuth.config.mock_auth[:cobot]["extra"] = {
         raw_info:{
           id: 'user-alex',
           admin_of: [],
@@ -11,8 +11,8 @@ module CobotApiHelpers
         }.merge(user_attributes)
       }.with_indifferent_access
       OmniAuth.config.mock_auth[:cobot]["credentials"] = {"token" => "test_token"}
-    end
-    return @auth_mock
+    # end
+    @auth_mock
   end
 
   def auth_mock_raw_info
@@ -23,10 +23,11 @@ module CobotApiHelpers
     @auth_mock = nil
   end
 
-  def stub_cobot_admin(space_name, name, user_attributes = {})
+  def stub_cobot_admin(space_name, name = 'joe', user_attributes = {})
     space_id = space_name.gsub(/\W+/, '-')
-    auth_mock_raw_info.merge!(user_attributes.with_indifferent_access)
-    auth_mock_raw_info['admin_of'] = [space_link: "https://www.cobot.me/api/spaces/#{space_id}", name: name]
+    raw_info = auth_mock_raw_info
+    raw_info.merge!(user_attributes.with_indifferent_access)
+    raw_info['admin_of'] = [space_link: "https://www.cobot.me/api/spaces/#{space_id}", name: name]
     stub_space(space_id, space_name)
   end
 
@@ -46,10 +47,10 @@ module CobotApiHelpers
         headers: {'Content-Type' => 'application/json'})
   end
 
-  def stub_cobot_membership(space_name, name, membership_id = nil, attributes = {})
-    space_id = space_name.gsub(/\W+/, '-')
+  def stub_cobot_membership(space_name, name = 'jane', membership_id = nil, attributes = {})
+    subdomain = space_name.gsub(/\W+/, '-')
     membership_id ||= next_id
-    WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships").to_return(body: [{
+    WebMock.stub_request(:get, "https://#{subdomain}.cobot.me/api/memberships").to_return(body: [{
       id: membership_id,
       address: {
         name: name
@@ -57,7 +58,7 @@ module CobotApiHelpers
       confirmed_at: '2010-01-01'
     }.merge(attributes)].to_json, headers: {'Content-Type' => 'application/json'})
 
-    WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships/#{membership_id}").to_return(body: {
+    WebMock.stub_request(:get, "https://#{subdomain}.cobot.me/api/memberships/#{membership_id}").to_return(body: {
       id: membership_id,
       address: {
         name: name

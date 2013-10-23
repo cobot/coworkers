@@ -102,16 +102,48 @@ nav a.last {
   border-radius: 0 0 1em 0;
 }
 
-.flash.notice {
-  color: darkgreen;
-  background: #CFB;
-  padding: 5px;
-  position: absolute;
-  top: 50px;
-  left: 500px;
-  -webkit-border-radius: 0.3em;
-  -moz-border-radius: 0.3em;
-  border-radius: 0.3em;
+#flash {
+  margin-bottom: 1em;
+  width: 100%;
+
+  .flash {
+    position: relative;
+    border-radius: 5px;
+    width: 75%;
+    margin: 0 auto;
+    border: 0px;
+    padding: 10px;
+    padding-left: 48px;
+    color: #fff;
+
+    &.notice {
+      background: rgb(59, 148, 163);
+
+      .flash-icon {
+        background-color: rgb(109, 216, 227);
+        background-image: image-url('flash_notice.png');
+      }
+    }
+
+    a, a:visited {
+      color: white;
+    }
+
+    .flash-icon {
+      position: absolute;
+      display: block;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 100%;
+      border: none;
+      padding: 0;
+      border-radius: 5px 0 0 5px;
+      background-repeat: no-repeat;
+      background-position: 50%;
+    }
+  }
+
 }
 
 .logo {
@@ -290,6 +322,10 @@ form textarea {
 
 form input.string {
   width: 300px;
+}
+
+ol {
+  width: 90%;
 }
 
 textarea.embed {

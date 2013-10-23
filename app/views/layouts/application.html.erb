@@ -29,7 +29,12 @@
     <% end %>
     <div class="main <%= ' with-menu' if menu %>">
       <% if flash[:notice] %>
-        <p class="flash notice"><%= flash[:notice] %></p>
+        <div id="flash">
+          <p class="flash notice">
+            <span class="flash-icon"></span>
+              <%= flash[:notice] %>
+          </p>
+        </div>
       <% end %>
       <%= yield %>
     </div>

@@ -15,6 +15,7 @@ RSpec.configure do |config|
   config.include CobotApiHelpers
   config.include SessionHelpers
   config.include SpaceHelpers
+  config.include CobotHelpers
   config.include IdGenerators
   config.mock_with :rspec
 

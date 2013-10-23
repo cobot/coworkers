@@ -15,8 +15,10 @@
   <ol>
     <% @questions.each do |question| %>
       <li>
+        <%= link_to 'Remove', [@space, question], method: 'delete', confirm: 'Really remove that question?', class: 'right btn' %>
+        <%= link_to 'Edit', [:edit, @space, question], class: 'right btn' %>
         <%= question.text %>
-        <%= link_to 'remove', [@space, question], method: 'delete', confirm: 'Really remove that question?' %>
+
       </li>
     <% end %>
   </ol>
@@ -35,13 +37,13 @@
   <h2>Visibility</h2>
 
   <%= simple_form_for @space do |f| %>
-    <p class="check-box">
+    <div class="check-box input">
       <%= f.check_box :members_only %>
-      <%= f.label :members_only, 'Visible for Members only' %>
-    </p>
-    <p>
+      <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
+    </div>
+    <div>
       <%= f.submit 'Save', class: 'btn' %>
-    </p>
+    </div>
   <% end %>
 <% end %>
 

@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'editing members as admin' do
-  before(:each) do
-    DatabaseCleaner.clean_with :truncation
-  end
-
   it "lets me edit a member's basic details" do
     stub_cobot_admin 'co.up', 'joe'
 

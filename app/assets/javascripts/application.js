@@ -8,10 +8,6 @@
 //= require_self
 
 jQuery(function($) {
-  window.setTimeout(function() {
-    $('.flash').fadeOut();
-  }, 5000);
-
   $('a[rel*=facebox]').facebox();
 
   $('.embed').live('focus', function(e) {

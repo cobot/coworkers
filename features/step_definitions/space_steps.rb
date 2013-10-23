@@ -4,7 +4,7 @@ end
 
 When /^I change the visibility to members only$/ do
   click_link 'Settings'
-  check 'Visible for Members only'
+  check 'Profiles are only visible for members, not publicly.'
   click_button 'Save'
 end
 

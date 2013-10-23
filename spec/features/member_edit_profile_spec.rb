@@ -2,10 +2,7 @@ require 'spec_helper'
 
 describe 'editing my own profile' do
   before(:each) do
-    DatabaseCleaner.clean_with :truncation
-    auth_mock({id: 'user-joe', memberships: [{space_subdomain: "co-up",
-      space_link: "https://www.cobot.me/api/spaces/co-up",
-      link: "https://co-up.cobot.me/api/memberships/mem-1" }]})
+    stub_user_membership subdomain: 'co-up', membership_id: 'mem-1'
     stub_cobot_membership 'co.up', 'joe', 'mem-1'
     stub_space 'co-up', 'co.up'
     sign_in

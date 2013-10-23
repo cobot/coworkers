@@ -1,15 +1,11 @@
 require 'spec_helper'
 
 describe 'logging in' do
-  before(:each) do
-    DatabaseCleaner.clean_with :truncation
-  end
-
   it 'redirects to the originally requested page' do
     stub_cobot_admin 'co.up', 'joe'
     space = Space.create! name: 'co.up', cobot_url: 'http://co-up.cobot.me',
       cobot_id: 'space-co-up'
-    user = User.create!
+    User.create!
 
     visit space_memberships_path(space, embed: true)
 

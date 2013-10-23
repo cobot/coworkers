@@ -1,10 +1,6 @@
 require 'spec_helper'
 
 describe 'installing coworkers on cobot' do
-  before(:each) do
-    DatabaseCleaner.clean_with :truncation
-  end
-
   it 'sets up navigation links and redirects to cobot' do
     WebMock.stub_request(:get, 'https://co-up.cobot.me/api/navigation_links').to_return(headers: default_headers, body: [].to_json)
     WebMock.stub_request(:post, 'https://co-up.cobot.me/api/navigation_links').to_return(headers: default_headers, body:

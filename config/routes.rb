@@ -15,7 +15,7 @@ Coworkers::Application.routes.draw do
         put :picture
       end
     end
-    resources :questions, only: [:index, :create, :destroy]
+    resources :questions, only: [:index, :create, :destroy, :edit, :update]
     resources :message_boards, only: [:index, :new, :create, :show, :destroy] do
       resources :messages, only: [:create, :edit, :update, :show]
     end
