@@ -14,7 +14,7 @@
 <% if @questions.any? %>
   <ol>
     <% @questions.each do |question| %>
-      <li>
+      <li class="buttons">
         <%= link_to 'Remove', [@space, question], method: 'delete', confirm: 'Really remove that question?', class: 'right btn' %>
         <%= link_to 'Edit', [:edit, @space, question], class: 'right btn' %>
         <%= question.text %>

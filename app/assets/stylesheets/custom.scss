@@ -36,6 +36,13 @@
   display: block;
 }
 
+/* elements that have buttons */
+.buttons {
+  clear: both;
+  margin-bottom: .5em;
+  min-height: 31px;
+}
+
 
 /* Links */
 a,a:link,a:visited{color:#429ACC;text-decoration:none;}
@@ -349,11 +356,6 @@ textarea.embed {
 .screen img {
   border: 1px solid #AAA;
   margin-bottom: .5em;
-}
-
-
-.clear {
-  clear: both;
 }
 
 .message-board {
