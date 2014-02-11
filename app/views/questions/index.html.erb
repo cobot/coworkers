@@ -54,12 +54,8 @@
 <textarea class="embed" rows="12">
 &lt;div id=&quot;coworkers_widget&quot;&gt;&lt;/div&gt;
 <%= stylesheet_link_tag "http://#{request.host_with_port}/stylesheets/widget.css" %>
-<script>
-  (function(){
-    load_async('http://<%= request.host_with_port %>/javascripts/widget.js'); load_async('<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>');
-    function load_async(url) {var a = document.createElement('script'); a.type = 'text/javascript'; a.async = true; a.src = url; var b = document.getElementsByTagName('script')[0]; b.parentNode.insertBefore(a, b);}
-  })();
-</script>
+<script src="http://<%= request.host_with_port %>/javascripts/widget.js"></script>
+<script src="<%= api_space_url(@space, callback: 'CoworkersWidget', format: :json, secret: @space.secret) %>"></script>
 </textarea>
 
   <p>You can change the look of the widget through CSS. Take a look at <%= link_to 'widget.css', "http://#{request.host_with_port}/stylesheets/widget.css" %> to see how it is styled. You can even change the HTML by replacing <%= link_to 'widget.js', "http://#{request.host_with_port}/javascripts/widget.js" %> with your own version.</p>
