@@ -1,0 +1,79 @@
+    <style>
+      #coworkers_widget {
+        -moz-border-radius: 3px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        background: #f3f2ee;
+        vertical-align: top;
+        line-height: 15px;
+        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+        font-size: 12pt;
+        border: 1px solid #d5d4d1;
+      }
+      #coworkers_widget ul {
+        padding: 5px 10px;
+        margin: 0;
+      }
+      #coworkers_widget ul li {
+        list-style: none;
+        background-color: rgb(255, 255, 255);
+        padding: 10px;
+        width: 500px;
+        margin: 5px auto;
+      }
+      #coworkers_widget ul li p {
+        font-size: 14px;
+      }
+      #coworkers_widget img {
+        width: 100px;
+        height: 100px;
+        margin: 0 10px 0 0;
+        display: inline-block;
+      }
+      #coworkers_widget ul li a, #coworkers_widget ul li a:link, #coworkers_widget ul li a:visited {
+        text-decoration: none;
+        vertical-align: top;
+        margin: 0 10px 0 0;
+        color: #3a6180;
+        font-family: "Museo", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+      }
+      #coworkers_widget ul li a:hover, #coworkers_widget ul li a:active, #coworkers_widget ul li a:focus {  color: #476d92 }
+
+      #coworkers_widget span {
+        display: block;
+        width: 100%;
+        min-height: 15px;
+        vertical-align: top;
+        font-size: 9pt;
+        color: #9a978b;
+      }
+      .description {
+        display: inline-block;
+        vertical-align: top;
+      }
+  </style>
+  <script type="text/x-template" id="coworkers-template">
+    <div id="coworkers_widget">
+      <ul>
+        {{#memberships}}
+          <li>
+            <a href="{{url}}"><img src="{{image_url}}"/></a>
+            <div class="description">
+              <a href="{{url}}">{{name}}</a>
+              <p>{{profession}}</p>
+            </div>
+          </li>
+        {{/memberships}}
+      </ul>
+    </div>
+  </script>
+  <script src="http://<%= request.host_with_port %>/javascripts/dug.js"></script>
+  <script>
+    dug({
+      endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret) %>',
+      error: function( data ){
+        document.getElementById('error-dug').innerHTML = 'Error loading member profiles, sorry.';
+      },
+      template: '#coworkers-template'
+    });
+  </script>
