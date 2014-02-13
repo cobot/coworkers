@@ -26,7 +26,7 @@ end
 
 group :development do
   gem 'rspec-rails', "~> 2.4"
-  gem 'foreman'
+  gem 'dotenv-rails'
   gem 'sass-rails'
   gem 'compass-rails'
 end
