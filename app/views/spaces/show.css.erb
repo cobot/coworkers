@@ -7,12 +7,12 @@ body, body.embed, input {
   font-family: <%== @customization[:fonts][:text_font] %>
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, h3 a, h3 a:visited, h3 a:link {
   color: <%= @customization[:general][:headline_color] %>;
   font-family: <%== @customization[:fonts][:headline_font] %>
 }
 
-a.btn, button.btn, input.btn, a.btn:hover, button.btn:hover, input.btn:hover, a.action, input.action {
+a.btn, a.btn:link, a.btn:visited, button.btn, input.btn, a.btn:hover, button.btn:hover, input.btn:hover, a.action, input.action {
   background-color: <%= @customization[:buttons][:background_color] %>;
   color: <%= @customization[:buttons][:text_color] %>;
   border: none;
