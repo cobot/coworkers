@@ -2,12 +2,12 @@ require 'spec_helper'
 
 describe Api::MembershipsController, 'show' do
   before(:each) do
-    space = stub(:space, class: Space, name: 'space 1', id: 'space-1', to_param: 'space-1')
+    space = double(:space, class: Space, name: 'space 1', id: 'space-1', to_param: 'space-1')
     Space.stub(:find).with('space-1') { space }
 
-    @membership = stub(:membership, class: Membership, id: 'member-1', to_param: 'member-1', name: 'member 1',
+    @membership = double(:membership, class: Membership, id: 'member-1', to_param: 'member-1', name: 'member 1',
       website: 'http://member1.test/', bio: nil, profession: 'Web', industry: 'Web', skills: 'all',
-      picture: 'http://example.com/pic.jpg', user: stub(:user, email: 'member1@cobot.me'))
+      picture: 'http://example.com/pic.jpg', user: double(:user, email: 'member1@cobot.me'))
     space.stub_chain(:memberships, :find) { @membership }
   end
 

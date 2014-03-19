@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe SpacesController, 'show' do
   it 'renders show' do
-    Space.stub_chain(:by_cobot_id, :first!) {stub(:space, viewable_by?: true).as_null_object}
+    Space.stub_chain(:by_cobot_id, :first!) {double(:space, viewable_by?: true).as_null_object}
 
     get :show, id: '1'
 
@@ -10,7 +10,7 @@ describe SpacesController, 'show' do
   end
 
   it 'redirects to the login if not allowed to view the space' do
-    Space.stub_chain(:by_cobot_id, :first!) {stub(:space, viewable_by?: false)}
+    Space.stub_chain(:by_cobot_id, :first!) {double(:space, viewable_by?: false)}
 
     get :show, id: '1'
 
@@ -18,8 +18,8 @@ describe SpacesController, 'show' do
   end
 
   it 'redirects to edit profile if the profile has not been completed' do
-    Space.stub_chain(:by_cobot_id, :first!) {stub(:space, viewable_by?: true, to_param: 'co-up').as_null_object}
-    log_in stub(:user, membership_for: stub(:membership, to_param: 'mem-1', profile_completed?: false), admin_of?: false)
+    Space.stub_chain(:by_cobot_id, :first!) {double(:space, viewable_by?: true, to_param: 'co-up').as_null_object}
+    log_in double(:user, membership_for: double(:membership, to_param: 'mem-1', profile_completed?: false), admin_of?: false)
 
     get :show, id: '1'
 
@@ -27,8 +27,8 @@ describe SpacesController, 'show' do
   end
 
   it 'does not redirect to profile if admin' do
-    space = stub(:space, viewable_by?: true).as_null_object
-    user = stub(:user, profile_completed?: false)
+    space = double(:space, viewable_by?: true).as_null_object
+    user = double(:user, profile_completed?: false)
     user.stub(:admin_of?).with(space) {true}
     Space.stub_chain(:by_cobot_id, :first!) { space }
     log_in user
@@ -39,8 +39,8 @@ describe SpacesController, 'show' do
   end
 
   it 'renders 403 if logged in and not allowed to view the space' do
-    user = stub(:user).as_null_object
-    space = stub(:space).as_null_object
+    user = double(:user).as_null_object
+    space = double(:space).as_null_object
     log_in user
     space.stub(:viewable_by?).with(user) {false}
     Space.stub_chain(:by_cobot_id, :first!) { space }
@@ -53,9 +53,9 @@ end
 
 describe SpacesController, 'update' do
   before(:each) do
-    @space = stub(:space, to_param: 'space-1').as_null_object
+    @space = double(:space, to_param: 'space-1').as_null_object
     Space.stub_chain(:by_cobot_id, :first!) { @space }
-    @user = stub(:user)
+    @user = double(:user)
     log_in @user
   end
 

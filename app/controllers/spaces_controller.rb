@@ -4,15 +4,26 @@ class SpacesController < ApplicationController
   before_filter :check_access, except: :show
 
   def show
-    if !@space.viewable_by?(current_user)
-      not_allowed
-    elsif current_user && !current_user.admin_of?(@space) &&
-      (membership = current_user.membership_for(@space)) && !membership.profile_completed?
-      flash[:notice] = 'Please fill in your profile first.'
-      redirect_to edit_space_membership_path(@space, membership)
-    else
-      @new_memberships = load_new_memberships
-      @new_messages = load_new_messages
+    respond_to do |f|
+      f.html do
+        if !@space.viewable_by?(current_user)
+          not_allowed
+        elsif current_user && !current_user.admin_of?(@space) &&
+          (membership = current_user.membership_for(@space)) && !membership.profile_completed?
+          flash[:notice] = 'Please fill in your profile first.'
+          redirect_to edit_space_membership_path(@space, membership)
+        else
+          @new_memberships = load_new_memberships
+          @new_messages = load_new_messages
+        end
+      end
+      f.css do
+        begin
+          @customization = CobotClient::ApiClient.new(nil).get(@space.subdomain, '/customization')
+        rescue RestClient::ResourceNotFound
+          head :not_found
+        end
+      end
     end
   end
 

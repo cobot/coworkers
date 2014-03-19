@@ -3,6 +3,9 @@
 <head>
   <title>Coworkers</title>
   <%= stylesheet_link_tag 'application' %>
+  <% if @space %>
+    <%= stylesheet_link_tag space_path(@space, format: 'css') %>
+  <% end %>
   <%= csrf_meta_tag %>
   <style>
     .path {

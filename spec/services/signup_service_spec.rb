@@ -1,21 +1,21 @@
 require 'spec_helper'
 
 describe SignupService, '#run' do
-  let(:access_token) { stub(:access_token).as_null_object }
+  let(:access_token) { double(:access_token).as_null_object }
 
   before(:each) do
     Space.stub(where: [])
     User.stub(where: [])
-    User.stub(new: stub(:user).as_null_object)
+    User.stub(new: double(:user).as_null_object)
     Membership.stub(where: [])
-    Membership.stub(create: stub.as_null_object)
+    Membership.stub(create: double.as_null_object)
 
     access_token.stub(:get).with('https://some-space.cobot.me/api/memberships/some-membership') {
-      stub(parsed: {'confirmed_at' => '2013-01-01 12:00', 'address' => {}})
+      double(parsed: {'confirmed_at' => '2013-01-01 12:00', 'address' => {}})
     }
 
     access_token.stub(:get).with('https://www.cobot.me/api/spaces/some-space') {
-      stub(parsed: {
+      double(parsed: {
           "name" => "Some Space",
           "id" => "space-some-space",
           "url" => "https://some-space.cobot.me",
@@ -40,7 +40,7 @@ describe SignupService, '#run' do
     }
 
     Space.should_receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
-      cobot_url: 'https://some-space.cobot.me') { stub.as_null_object }
+      cobot_url: 'https://some-space.cobot.me') { double.as_null_object }
 
     SignupService.new(attributes, access_token).run
   end
@@ -60,7 +60,7 @@ describe SignupService, '#run' do
     }
 
     Space.should_receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
-      cobot_url: 'https://some-space.cobot.me') { stub.as_null_object }
+      cobot_url: 'https://some-space.cobot.me') { double.as_null_object }
 
     SignupService.new(attributes, access_token).run
   end

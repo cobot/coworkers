@@ -2,13 +2,13 @@ require 'spec_helper'
 
 describe Api::SpacesController, 'show' do
   before(:each) do
-    @user = stub(:user,
+    @user = double(:user,
          id: 'user-1',
          email: 'member1@cobot.me'
        )
     User.stub(find: @user)
 
-    @membership = stub(:membership, class: Membership,
+    @membership = double(:membership, class: Membership,
          id: 'member-1',
          to_param: 'member-1',
          name: 'member 1',
@@ -23,14 +23,14 @@ describe Api::SpacesController, 'show' do
          messenger_account: 'cobot_me',
          user: @user
     )
-    @space = stub(:space, class: Space,
+    @space = double(:space, class: Space,
       name: 'space 1',
       id: 'space-1',
       to_param: 'space-1').as_null_object
     @space.stub_chain(:memberships, :includes) { [@membership] }
     Space.stub_chain(:by_cobot_id, :first!) { @space }
 
-    answer = stub(:answer, question: 'achievements', text: 'ran 5k', membership_id: 'member-1')
+    answer = double(:answer, question: 'achievements', text: 'ran 5k', membership_id: 'member-1')
     @membership.stub(answers: [answer])
   end
 
