@@ -1,7 +1,7 @@
-source 'http://rubygems.org'
-ruby "2.0.0"
+source 'https://rubygems.org'
+ruby "2.1.0"
 
-gem 'rails', '~>3.2.13'
+gem 'rails', '~>3.2.16'
 gem 'pg'
 gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.3'
@@ -13,7 +13,7 @@ gem 'rdiscount'
 gem 'tzinfo'
 gem 'rinku', require: 'rails_rinku'
 gem 'virtus'
-gem 'cobot_client', '~>0.1.0'
+gem 'cobot_client', '~>0.6.0'
 gem 'jquery-rails'
 
 # Gems used only for assets and not required
