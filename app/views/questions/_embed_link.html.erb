@@ -70,7 +70,7 @@
   <script src="http://<%= request.host_with_port %>/javascripts/dug.js"></script>
   <script>
     dug({
-      endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret) %>',
+      endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil) %>',
       error: function( data ){
         document.getElementById('error-dug').innerHTML = 'Error loading member profiles, sorry.';
       },
