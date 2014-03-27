@@ -189,8 +189,10 @@ h2 {
 }
 
 .member .bio {
-  min-height: 140px;
-  margin-left: 200px;
+  margin-left: 20px;
+  display: inline-block;
+  width: 530px;
+  vertical-align: top;
 }
 
 .profile_info {
@@ -205,7 +207,7 @@ h2 {
   clear: both;
   background: #3681B6;
   border-radius: 0.5em 0.5em 0px 0px;
-  -mox-border-radius: 0.5em 0.5em 0px 0px;
+  -moz-border-radius: 0.5em 0.5em 0px 0px;
   -webkit-border-radius: 0.5em 0.5em 0px 0px;
   padding: 0.4em 20px 0.4em 20px;
 }
