@@ -10,11 +10,7 @@ Coworkers::Application.routes.draw do
       put :install
     end
     resource :membership_import, only: [:new, :create]
-    resources :memberships, only: [:index, :show, :destroy, :edit, :update] do
-      member do
-        put :picture
-      end
-    end
+    resources :memberships, only: [:index, :show, :destroy, :edit, :update]
     resources :questions, only: [:index, :create, :destroy, :edit, :update]
     resources :message_boards, only: [:index, :new, :create, :show, :destroy] do
       resources :messages, only: [:create, :edit, :update, :show]
