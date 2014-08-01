@@ -23,7 +23,7 @@ describe MembershipImportsController, 'create' do
 
     @access_token.stub(:get).with('co-up/api/memberships') {
       double(:result, parsed: [
-        {'id' => '123'}, {'id' => '456', 'address' => {'name' => 'joe'}}
+        {'id' => '123'}, {'id' => '456', 'name' => 'joe'}
       ])
     }
 

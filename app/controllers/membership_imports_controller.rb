@@ -7,7 +7,7 @@ class MembershipImportsController < ApplicationController
       m['canceled_to'].present? && Date.parse(m['canceled_to']) < Date.today ||
         existing_memberships.map(&:cobot_id).include?(m['id'])
     }.map{|attributes|
-      Membership.new(cobot_id: attributes['id'], name: attributes['address']['name'])
+      Membership.new(cobot_id: attributes['id'], name: attributes['name'].to_s)
     }.sort_by(&:name)
   end
 
