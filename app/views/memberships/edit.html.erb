@@ -3,11 +3,10 @@
 <div class="path"><%= link_to @space.name, @space %> » <%= link_to @membership.name, [@space, @membership] %> » Edit Profile</div>
 
 <%= simple_form_for [@space, @membership] do |f| %>
-
-  <%= f.input :name %>
-
   <p><%= image_tag @membership.picture %></p>
   <p>You can change your picture in your <a target="_TOP" href="https://www.cobot.me/account/edit">account settings</a>.</p>
+
+  <%= f.input :name %>
 
   <% unless @space.hide_default_fields? %>
     <fieldset>
