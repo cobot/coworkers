@@ -53,6 +53,7 @@ class SignupService
         membership.name = membership_details['address']['name']
         membership.picture = membership_details['picture']
         membership.user_id = user.id
+        membership.canceled_to = membership_details['canceled_to']
         membership.save!
       end
     end

@@ -24,7 +24,7 @@ module Api
     end
 
     def space_hash(space)
-      memberships = space.memberships.includes(:user, :answers)
+      memberships = space.memberships.active.includes(:user, :answers)
       {
         id: space.id,
         name: space.name,

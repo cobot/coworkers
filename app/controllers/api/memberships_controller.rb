@@ -4,7 +4,7 @@ module Api
 
     def show
       @space = Space.find params[:space_id]
-      @membership = @space.memberships.find params[:id]
+      @membership = @space.memberships.active.find params[:id]
       unless params[:callback].blank?
         render js: "#{params[:callback]}(#{membership_hash(@membership).to_json});"
       else

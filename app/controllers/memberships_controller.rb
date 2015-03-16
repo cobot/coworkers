@@ -9,8 +9,8 @@ class MembershipsController < ApplicationController
     if !@space.viewable_by?(current_user)
       not_allowed
     else
-      @memberships = @space.memberships.includes(:user)
-      @memberships.sort_by!{|m| m.name.downcase}
+      @memberships = @space.memberships.active.includes(:user)
+      @memberships.sort_by! {|m| m.name.downcase }
     end
   end
 

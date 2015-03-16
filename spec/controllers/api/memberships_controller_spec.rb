@@ -8,7 +8,7 @@ describe Api::MembershipsController, 'show' do
     @membership = double(:membership, class: Membership, id: 'member-1', to_param: 'member-1', name: 'member 1',
       website: 'http://member1.test/', bio: nil, profession: 'Web', industry: 'Web', skills: 'all',
       picture: 'http://example.com/pic.jpg', user: double(:user, email: 'member1@cobot.me'))
-    space.stub_chain(:memberships, :find) { @membership }
+    space.stub_chain(:memberships, :active, :find) { @membership }
   end
 
   it "returns the membership parameters in json" do
