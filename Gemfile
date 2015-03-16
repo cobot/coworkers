@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby "2.1.5"
 
-gem 'rails', '~>3.2.16'
+gem 'rails', '~>3.2.21'
 gem 'pg'
 gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.3'
