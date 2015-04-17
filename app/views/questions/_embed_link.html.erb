@@ -60,7 +60,11 @@
             <a href="{{url}}"><img src="{{image_url}}"/></a>
             <div class="description">
               <a href="{{url}}">{{name}}</a>
+              {{#website}}
+                <p>{{website}}</p>
+              {{/website}}
               <p>{{profession}}</p>
+              <p>{{bio}}</p>
             </div>
           </li>
         {{/memberships}}
