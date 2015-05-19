@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby "2.1.5"
+ruby '2.1.5'
 
 gem 'rails', '~>3.2.21'
 gem 'pg'
@@ -8,9 +8,9 @@ gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.3'
 
 gem 'simple_form'
-gem "sentry-raven"
+gem 'sentry-raven'
 gem 'param_protected'
-gem 'rdiscount'
+gem 'redcarpet'
 gem 'tzinfo'
 gem 'rinku', require: 'rails_rinku'
 gem 'virtus'
@@ -26,7 +26,7 @@ group :assets do
 end
 
 group :development do
-  gem 'rspec-rails', "~> 2.4"
+  gem 'rspec-rails', '~> 2.4'
   gem 'dotenv-rails'
   gem 'sass-rails'
   gem 'compass-rails'
@@ -38,8 +38,8 @@ group :production do
 end
 
 group :test do
-  gem 'rspec-rails', "~> 2.4"
-  gem 'cucumber-rails', :require => false
+  gem 'rspec-rails', '~> 2.4'
+  gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'webmock'
   gem 'timecop'
