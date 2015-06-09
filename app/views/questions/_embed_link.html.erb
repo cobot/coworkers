@@ -21,7 +21,8 @@
         width: 500px;
         margin: 5px auto;
       }
-      #coworkers_widget ul li p {
+      #coworkers_widget ul, #coworkers_widget li, #coworkers_widget p,
+        #coworkers_widget dd, #coworkers_widget dt {
         font-size: 14px;
       }
       #coworkers_widget img {
@@ -65,6 +66,14 @@
               {{/website}}
               <p>{{profession}}</p>
               <p>{{bio}}</p>
+              <dl>
+              {{#questions}}
+                {{#answer}}
+                  <dt>{{question}}</dt>
+                  <dd class="pre">{{answer}}</dd>
+                {{/answer}}
+              {{/questions}}
+              </dl>
             </div>
           </li>
         {{/memberships}}
@@ -77,6 +86,20 @@
       endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil) %>',
       error: function( data ){
         document.getElementById('error-dug').innerHTML = 'Error loading member profiles, sorry.';
+      },
+      beforeRender: function(data) {
+        data.memberships.forEach(function(m) {
+          if(m.questions) {
+            m.questions.forEach(function(q) {
+              for(var key in q) {
+                if(q.hasOwnProperty(key)) {
+                  q.question = key;
+                  q.answer = q[key];
+                }
+              }
+            });
+          }
+        });
       },
       template: '#coworkers-template'
     });
