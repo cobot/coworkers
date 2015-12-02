@@ -4,33 +4,33 @@ describe Space, '#updatable_by?' do
   it 'returns true if the user is an admin of the space' do
     space = Space.new(id: 'co-up')
     user = double(:user)
-    user.stub(:admin_of?).with(space) {true}
+    allow(user).to receive(:admin_of?).with(space) {true}
 
-    space.should be_updatable_by(user)
+    expect(space).to be_updatable_by(user)
   end
 
   it 'returns false if the user is not an admin' do
     space = Space.new(id: 'co-up')
     user = double(:user)
-    user.stub(:admin_of?).with(space) {false}
+    allow(user).to receive(:admin_of?).with(space) {false}
 
-    space.should_not be_updatable_by(user)
+    expect(space).not_to be_updatable_by(user)
   end
 end
 
 describe Space, 'viewable_by?' do
   before(:each) do
-    Membership.stub(by_space_id_and_user_id: [])
+    allow(Membership).to receive_messages(by_space_id_and_user_id: [])
   end
 
   it 'returns true if the space is not members only' do
-    Space.new(members_only: false).should be_viewable_by(double(:user))
+    expect(Space.new(members_only: false)).to be_viewable_by(double(:user))
   end
 
   it 'returns true if the space is members only and the user is an admin' do
     space = Space.new(id: 'co-up', members_only: true)
     user = double(:user).as_null_object
-    user.stub(:admin_of?).with(space) {true}
+    allow(user).to receive(:admin_of?).with(space) {true}
 
     expect(space).to be_viewable_by(user)
   end
@@ -45,7 +45,7 @@ describe Space, 'viewable_by?' do
   end
 
   it 'returns true if the space is members only and the user is a member' do
-    Membership.stub(:by_space_id_and_user_id).with(1, 'user-1') { [double(:membership)] }
+    allow(Membership).to receive(:by_space_id_and_user_id).with(1, 'user-1') { [double(:membership)] }
     user = double(:user, id: 'user-1')
 
     expect(Space.new(members_only: true) {|s| s.id = 1}).to be_viewable_by(user)
@@ -58,7 +58,7 @@ describe Space, 'creation' do
 
     space.run_callbacks :create
 
-    space.secret.should be_present
+    expect(space.secret).to be_present
   end
 
   it 'sets the subdomain' do

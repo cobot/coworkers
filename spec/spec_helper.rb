@@ -25,7 +25,7 @@ RSpec.configure do |config|
 end
 
 def log_in(user)
-  controller.stub(:current_user) {user}
+  allow(controller).to receive(:current_user) { user }
 end
 
 WebMock.disable_net_connect!(allow_localhost: true)

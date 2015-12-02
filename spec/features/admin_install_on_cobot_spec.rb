@@ -30,7 +30,7 @@ describe 'installing coworkers on cobot' do
   end
 
   def should_have_installed_link(subdomain, attributes)
-    WebMock.should have_requested(:post, "https://#{subdomain}.cobot.me/api/navigation_links").with(
+    expect(WebMock).to have_requested(:post, "https://#{subdomain}.cobot.me/api/navigation_links").with(
       body: attributes)
   end
 

@@ -9,7 +9,7 @@ end
 
 Then /^"([^"]*)" should have a "([^"]*)" board$/ do |space_name, board_name|
   space = space_by_name(space_name)
-  visit url_for(space)
+  visit space_url(space)
   click_link 'Message Board'
   page.should have_css('*', text: board_name)
 end
@@ -75,7 +75,7 @@ end
 
 Then /^"([^"]*)" should have no "([^"]*)" board$/ do |space_name, board_name|
   space = space_by_name(space_name)
-  visit url_for(space)
+  visit space_url(space)
   click_link 'Message Board'
   page.should have_no_css('*', text: board_name)
 end

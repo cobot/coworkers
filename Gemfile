@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 ruby '2.2.2'
 
-gem 'rails', '~>3.2.22'
+gem 'rails', '~>4.2.5'
 gem 'pg'
 gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.3'
@@ -26,7 +26,7 @@ group :assets do
 end
 
 group :development do
-  gem 'rspec-rails', '~> 2.4'
+  gem 'rspec-rails', '~> 3.2.0'
   gem 'dotenv-rails'
   gem 'sass-rails'
   gem 'compass-rails'
@@ -38,7 +38,7 @@ group :production do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 2.4'
+  gem 'rspec-rails', '~> 3.2.0'
   gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'webmock'

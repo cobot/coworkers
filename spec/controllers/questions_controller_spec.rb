@@ -1,8 +1,8 @@
 require 'spec_helper'
 
-describe QuestionsController, 'create' do
+describe QuestionsController, 'create', type: :controller do
   before(:each) do
-    Space.stub_chain(:by_cobot_id, :first!) {double(:space, id: 'space-1')}
+    allow(Space).to receive_message_chain(:by_cobot_id, :first!) {double(:space, id: 'space-1')}
   end
 
   it "denies access if user is not a space admin" do
@@ -10,14 +10,14 @@ describe QuestionsController, 'create' do
 
     post :create, space_id: 'space-1'
 
-    response.code.should == '403'
+    expect(response.code).to eq('403')
   end
 end
 
 
 describe QuestionsController, 'destroy' do
   before(:each) do
-    Space.stub_chain(:by_cobot_id, :first!) { double(:space, id: 'space-1') }
+    allow(Space).to receive_message_chain(:by_cobot_id, :first!) { double(:space, id: 'space-1') }
   end
 
   it "denies access if user is not a space admin" do
@@ -25,6 +25,6 @@ describe QuestionsController, 'destroy' do
 
     delete :destroy, space_id: 'space-1', id: '1'
 
-    response.code.should == '403'
+    expect(response.code).to eq('403')
   end
 end

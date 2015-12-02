@@ -13,7 +13,7 @@ class MessageBoardsController < ApplicationController
   end
 
   def create
-    @message_board = MessageBoard.new params[:message_board]
+    @message_board = MessageBoard.new message_board_params
     @message_board.space_id = @space.id
     if @message_board.save
       redirect_to space_message_boards_path(@space)
@@ -34,6 +34,10 @@ class MessageBoardsController < ApplicationController
   end
 
   private
+
+  def message_board_params
+    params[:message_board].permit(:name)
+  end
 
   def check_admin_or_member
     unless current_user && current_user.admin_of?(@space) || @space.member?(current_user)

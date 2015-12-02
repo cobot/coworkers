@@ -1,12 +1,9 @@
 require 'spec_helper'
 
-describe Api::SpacesController, 'show' do
+describe Api::SpacesController, 'show', type: :controller do
   before(:each) do
-    @user = double(:user,
-         id: 'user-1',
-         email: 'member1@cobot.me'
-       )
-    User.stub(find: @user)
+    @user = double(:user, id: 'user-1', email: 'member1@cobot.me')
+    allow(User).to receive_messages(find: @user)
 
     @membership = double(:membership, class: Membership,
          id: 'member-1',
@@ -22,19 +19,19 @@ describe Api::SpacesController, 'show' do
          messenger_type: 'Twitter',
          messenger_account: 'cobot_me',
          user: @user
-    )
+    ).as_null_object
     @space = double(:space, class: Space,
       name: 'space 1',
       id: 'space-1',
       to_param: 'space-1').as_null_object
-    @space.stub_chain(:memberships, :active, :includes) { [@membership] }
-    Space.stub_chain(:by_cobot_id, :first!) { @space }
+    allow(@space).to receive_message_chain(:memberships, :active, :includes) { [@membership] }
+    allow(Space).to receive_message_chain(:by_cobot_id, :first!) { @space }
 
     answer = double(:answer, question: 'achievements', text: 'ran 5k', membership_id: 'member-1')
-    @membership.stub(answers: [answer])
+    allow(@membership).to receive_messages(answers: [answer])
   end
 
-  it "returns the space and member parameters as json" do
+  it 'returns the space and member parameters as json' do
     get :show, id: 'space-1'
 
     expect(response.code).to eql('200')
@@ -47,14 +44,14 @@ describe Api::SpacesController, 'show' do
           questions: [{'achievements' => 'ran 5k'}]}]}.to_json)
   end
 
-  it "returns the spaces parameters in jsonp" do
+  it 'returns the spaces parameters in jsonp' do
     get :show, id: 'space-1', callback: 'myFunction'
 
     expect(response.body).to include('myFunction(')
   end
 
   it 'renders no messenger if user has none' do
-    @membership.stub(messenger_type: '')
+    allow(@membership).to receive_messages(messenger_type: '')
 
     get :show, id: 'space-1'
 
@@ -62,7 +59,7 @@ describe Api::SpacesController, 'show' do
   end
 
   it 'returns 403 if the space is not viewable' do
-    @space.stub(:viewable_by?).with(nil) {false}
+    allow(@space).to receive(:viewable_by?).with(nil) {false}
 
     get :show, id: 'space-1', format: :json
 
@@ -70,8 +67,8 @@ describe Api::SpacesController, 'show' do
   end
 
   it 'returns 200 if the space is not viewable but the secret matches' do
-    @space.stub(:viewable_by?).with(nil) {false}
-    @space.stub(:secret) {'123'}
+    allow(@space).to receive(:viewable_by?).with(nil) {false}
+    allow(@space).to receive(:secret) {'123'}
 
     get :show, id: 'space-1', secret: '123', format: :json
 

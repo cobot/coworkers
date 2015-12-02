@@ -5,7 +5,7 @@ class MessagesController < ApplicationController
   param_protected({message: [:message_board_id, :author_id, :author_name]}, only: :update)
 
   def create
-    message = Message.new params[:message]
+    message = Message.new message_params
     message.message_board_id = @message_board.id
     message.space_id = @message_board.space_id
     if membership = @space.membership_for(current_user)
@@ -28,7 +28,7 @@ class MessagesController < ApplicationController
   end
 
   def update
-    @message.attributes = params[:message]
+    @message.attributes = message_params
     @message.save
     redirect_to [@space, @message_board, @message]
   end
@@ -37,6 +37,10 @@ class MessagesController < ApplicationController
   end
 
   private
+
+  def message_params
+    params[:message].permit(:text)
+  end
 
   def load_message
     @message = @message_board.messages.find params[:id]

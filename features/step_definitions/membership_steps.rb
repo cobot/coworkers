@@ -31,5 +31,5 @@ When(/^I visit the profile page of "([^"]*)"$/) do |email|
   user = User.where(email: email).first!
   membership = user.memberships.first!
   space = membership.space
-  visit url_for([space, membership])
+  visit space_membership_url(space, membership)
 end

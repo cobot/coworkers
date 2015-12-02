@@ -1,6 +1,7 @@
 module Api
   class MembershipsController < ApplicationController
     skip_before_filter :require_authentication, only: :show
+    skip_before_filter :verify_authenticity_token, only: :show
 
     def show
       @space = Space.find params[:space_id]

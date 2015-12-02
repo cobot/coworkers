@@ -3,6 +3,7 @@ require 'digest/md5'
 module Api
   class SpacesController < ApplicationController
     skip_before_filter :require_authentication, only: :show
+    skip_before_filter :verify_authenticity_token, only: :show
 
     def show
       space = Space.by_cobot_id(params[:id]).first!
@@ -28,7 +29,7 @@ module Api
       {
         id: space.id,
         name: space.name,
-        url: url_for(space),
+        url: space_url(space),
         memberships: memberships.map {|membership|
           membership_hash(space, membership,
             membership.user,
@@ -41,7 +42,7 @@ module Api
       {
         id: membership.id,
         name: membership.name,
-        url: url_for([space, membership]),
+        url: space_membership_url(space, membership),
         image_url: membership.picture,
         website: membership.website,
         bio: membership.bio,

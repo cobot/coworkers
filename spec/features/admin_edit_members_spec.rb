@@ -16,7 +16,7 @@ describe 'editing members as admin' do
     click_button 'Update Profile'
     click_link 'Members'
 
-    page.should have_content('Senor Programmer')
+    expect(page).to have_content('Senor Programmer')
   end
 
   it "lets me edit a member's custom details" do

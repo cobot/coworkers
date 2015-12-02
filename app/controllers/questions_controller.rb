@@ -7,7 +7,7 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    question = Question.new params[:question]
+    question = Question.new question_params
     question.space_id = @space.id
     question.save
     redirect_to space_questions_path(@space), notice: ('The question was added.' if question.valid?)
@@ -19,7 +19,7 @@ class QuestionsController < ApplicationController
 
   def update
     @question = @space.questions.find params[:id]
-    @question.attributes = params[:question]
+    @question.attributes = question_params
     if @question.save
       flash[:notice] = 'Question updated.'
       redirect_to space_questions_path(@space)
@@ -32,5 +32,11 @@ class QuestionsController < ApplicationController
     question = @space.questions.find params[:id]
     question.destroy
     redirect_to space_questions_path(@space), notice: 'The question was removed.'
+  end
+
+  private
+
+  def question_params
+    params[:question].permit(:text, :question_type)
   end
 end

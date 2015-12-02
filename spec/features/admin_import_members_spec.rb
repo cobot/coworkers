@@ -13,6 +13,6 @@ describe 'importing members as admins' do
     click_button 'Create Member Profiles'
 
     visit space_memberships_path(space)
-    page.should have_content('Jane')
+    expect(page).to have_content('Jane')
   end
 end

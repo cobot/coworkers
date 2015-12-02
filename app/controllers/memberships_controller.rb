@@ -9,8 +9,7 @@ class MembershipsController < ApplicationController
     if !@space.viewable_by?(current_user)
       not_allowed
     else
-      @memberships = @space.memberships.active.includes(:user)
-      @memberships.sort_by! {|m| m.name.downcase }
+      @memberships = @space.memberships.active.includes(:user).sort_by {|m| m.name.downcase }
     end
   end
 
@@ -23,7 +22,7 @@ class MembershipsController < ApplicationController
 
   def update
     @membership = Membership.find params[:id]
-    @membership.attributes = params[:membership]
+    @membership.attributes = membership_params
     if @membership.save
       (params[:answers] || {}).values.each do |answer_params|
         question = Question.where(id: answer_params[:question]).first
@@ -55,5 +54,11 @@ class MembershipsController < ApplicationController
 
   def cobot_client(access_token)
     @cobot_client ||= OAuth2::AccessToken.new oauth_client, access_token
+  end
+
+  def membership_params
+    params[:membership].permit(:name, :website, :picture,
+      :messenger_type, :messenger_account, :bio,
+      :profession, :industry, :skills)
   end
 end

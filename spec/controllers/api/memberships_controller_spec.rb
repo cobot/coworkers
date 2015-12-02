@@ -1,14 +1,14 @@
 require 'spec_helper'
 
-describe Api::MembershipsController, 'show' do
+describe Api::MembershipsController, 'show', type: :controller do
   before(:each) do
     space = double(:space, class: Space, name: 'space 1', id: 'space-1', to_param: 'space-1')
-    Space.stub(:find).with('space-1') { space }
+    allow(Space).to receive(:find).with('space-1') { space }
 
     @membership = double(:membership, class: Membership, id: 'member-1', to_param: 'member-1', name: 'member 1',
       website: 'http://member1.test/', bio: nil, profession: 'Web', industry: 'Web', skills: 'all',
       picture: 'http://example.com/pic.jpg', user: double(:user, email: 'member1@cobot.me'))
-    space.stub_chain(:memberships, :active, :find) { @membership }
+    allow(space).to receive_message_chain(:memberships, :active, :find) { @membership }
   end
 
   it "returns the membership parameters in json" do
