@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.1.5'
+ruby '2.2.2'
 
-gem 'rails', '~>3.2.21'
+gem 'rails', '~>3.2.22'
 gem 'pg'
 gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.3'
@@ -33,7 +33,7 @@ group :development do
 end
 
 group :production do
-  gem 'thin'
+  gem 'puma'
   gem 'rails_12factor'
 end
 
@@ -45,4 +45,5 @@ group :test do
   gem 'timecop'
   gem 'launchy'
   gem 'database_cleaner'
+  gem 'test-unit'
 end
