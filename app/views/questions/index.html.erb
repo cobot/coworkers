@@ -15,7 +15,7 @@
   <ol>
     <% @questions.each do |question| %>
       <li class="buttons">
-        <%= link_to 'Remove', [@space, question], method: 'delete', confirm: 'Really remove that question?', class: 'right btn' %>
+        <%= link_to 'Remove', [@space, question], data: {method: 'delete'}, confirm: 'Really remove that question?', class: 'right btn' %>
         <%= link_to 'Edit', [:edit, @space, question], class: 'right btn' %>
         <%= question.text %>
 
@@ -56,4 +56,3 @@
 </textarea>
 
 <p>To change the look of the member list just change the CSS/HTML in the embed code.</p>
-

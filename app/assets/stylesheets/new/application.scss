@@ -1,0 +1,11 @@
+@import "cobot_assets/imports";
+
+
+nav {
+  @extend .grid, .grid--gutters--big, .grid--1of2, .tablet-grid--1of6-autoSize;
+
+  .nav-cell {
+    @extend .grid-cell;
+  }
+
+}

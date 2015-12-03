@@ -2,46 +2,56 @@
 <html>
 <head>
   <title>Coworkers</title>
-  <%= stylesheet_link_tag 'application' %>
-  <%= csrf_meta_tag %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" type="image/x-icon" href="<%= image_path 'cobot_assets/favicon.ico' %>" />
+  <link rel="icon" type="image/ico" href="<%= image_path 'cobot_assets/favicon.ico' %>" />
+  <%= stylesheet_link_tag    'new/application', media: 'all' %>
+  <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class="container">
-    <h1 class="logo">
-      <%= link_to 'Coworkers', root_path %>
-    </h1>
-    <div class="header">
-      <nav>
+  <% [:notice, :success, :failure].each do |flash_type| %>
+    <% if flash[flash_type] %>
+      <div id="flash" class="cb-top-notice <%= flash_type %>">
+        <div class="cb-container">
+          <p><%== flash[flash_type] %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <div class="cb-section cb-section--top-bar">
+    <div class="cb-container">
+      <div class="nav__logo">
+        <%= link_to image_tag('cobot_assets/cobot-logo.svg'), root_url, class: 'logo-small logo__brand' %>
+        <%= link_to 'Coworkers', root_url, class: 'logo__badge' %>
+      </div>
+    </div>
+  </div>
+  <div class="cb-section">
+    <div class="cb-container top--padded">
+      <nav id="menu">
+        <%= yield :menu %>
         <% if current_user %>
-          <%= link_to 'Account', account_path %>
-          <%= link_to 'Sign out', session_path, method: :delete %>
-        <% else %>
-          <%= link_to 'Home', root_path %>
-          <%= link_to 'Sign in', new_session_path %>
+          <div class="nav-cell">
+            <%= link_to 'Account', account_path, class: 'link--nav' %>
+          </div>
+          <div class="nav-cell">
+            <%= link_to 'Sign out', session_path, data: {method: :delete}, class: 'link--nav' %>
+          </div>
+        <% elsif request.path != root_path %>
+          <div class="nav-cell">
+            <%= link_to 'Home', root_path, class: 'link--nav' %>
+          </div>
+          <div class="nav-cell">
+            <%= link_to 'Sign in', new_session_path, class: 'link--nav' %>
+          </div>
         <% end %>
       </nav>
     </div>
-    <% if menu = yield(:menu) %>
-      <div id="menu">
-        <%= menu %>
-        &nbsp;
-      </div>
-    <% end %>
-    <div class="main <%= ' with-menu' if menu %>">
-      <% if flash[:notice] %>
-        <div id="flash">
-          <p class="flash notice">
-            <span class="flash-icon"></span>
-              <%= flash[:notice] %>
-          </p>
-        </div>
-      <% end %>
-      <%= yield %>
-    </div>
-    <div class="footer">
-      <p class="right">This software is <a href="http://github.com/cobot/coworkers">open source</a>.</p>
-      <p>&copy; <%= Date.today.year %> <%= link_to 'Upstream - Agile GmbH', 'http://upstre.am' %></p>
-    </div>
+  </div>
+
+  <div class="cb-site-main">
+    <%= yield %>
   </div>
   <%= javascript_include_tag 'application' %>
 </body>

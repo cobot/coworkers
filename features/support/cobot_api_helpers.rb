@@ -58,9 +58,7 @@ module CobotApiHelpers
 
     WebMock.stub_request(:get, "https://#{subdomain}.cobot.me/api/memberships/#{membership_id}").to_return(body: {
       id: membership_id,
-      address: {
-        name: name
-      },
+      name: name,
       confirmed_at: '2010-01-01'
     }.merge(attributes).to_json, headers: {'Content-Type' => 'application/json'})
   end

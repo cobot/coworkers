@@ -11,9 +11,9 @@ jQuery(function($) {
   $('a[rel*=facebox]').facebox();
 
   $('.embed').live('focus', function(e) {
-    var input = this;
+    var $input = $(this);
     window.setTimeout(function() {
-      input.select();
+      $input.select();
     }, 1);
   });
 

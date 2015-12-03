@@ -1,0 +1,22 @@
+<% if memberships.any? %>
+  <div class="grid grid--gutters grid--full tablet-grid--1of2 desktop-grid--1of2">
+    <% memberships.each do |membership| %>
+      <div class="grid-cell">
+        <%= link_to image_tag(membership_picture_url(membership), size: '150x150',
+          class: :member), [space, membership], title: membership.name, class: 'photo' %>
+      </div>
+      <div class="grid-cell">
+        <p>
+          <%= link_to membership.name, [space, membership] %>
+        </p>
+        <p>
+          <%= membership.profession %><%= ', ' if membership.profession? && membership.website? %><!--
+          --><%= link_to membership.website, membership.website, target: '_top' if membership.website? %>
+        </p>
+        <%= markdown truncate(membership.bio, length: 400) %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p>There are no members yet. Members of the space are added automatically when they log in the first time.</p>
+<% end%>

@@ -49,11 +49,12 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    cobot_client (0.6.7)
-      json
-      oauth2
-      rest-client
-      virtus (~> 1.0.0)
+    cobot_assets (0.1.2)
+    cobot_client (1.2.2)
+      json (~> 1.8)
+      oauth2 (~> 1.0)
+      rest-client (~> 1.7)
+      virtus (~> 1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
     crack (0.4.2)
@@ -243,7 +244,8 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
-  cobot_client (~> 0.6.0)
+  cobot_assets (~> 0.1.2)
+  cobot_client
   cucumber-rails
   database_cleaner
   dotenv-rails

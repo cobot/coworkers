@@ -1,4 +1,6 @@
 module ApplicationHelper
+  include CobotClient::UrlHelper
+
   def markdown(text)
     renderer = Redcarpet::Render::HTML.new(safe_links_only: true,
       link_attributes: {target: '_top'})
@@ -8,5 +10,10 @@ module ApplicationHelper
 
   def menu(&block)
     content_for :menu, &block
+  end
+
+  def membership_picture_url(membership, size: :small)
+    cobot_url membership.space.subdomain, "/api/memberships/#{membership.cobot_id}/picture",
+      params: {picture_size: size}
   end
 end

@@ -1,13 +1,29 @@
 class ApplicationController < ActionController::Base
   include CobotClient::XdmHelper
   protect_from_forgery
-  before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded
+  before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded,
+    :set_variant
 
   helper_method :current_user
 
   layout :current_layout
 
   private
+
+  def set_variant
+    if params[:cobot_layout_version] == '2'
+      session[:new_variant] = true
+    elsif params[:cobot_layout_version] == '1'
+      session[:new_variant] = false
+    end
+    if session[:new_variant]
+      new_variant
+    end
+  end
+
+  def new_variant
+    request.variant = :new
+  end
 
   def match_user_against_cobot_iframe
     if current_user && params[:cobot_embed] && params[:cobot_user_id]
@@ -18,7 +34,13 @@ class ApplicationController < ActionController::Base
   end
 
   def set_embedded
-    @embedded = true if params[:cobot_embed] == 'true'
+    if params[:cobot_embed] == 'true'
+      session[:embedded] = true
+    end
+    if session[:embedded]
+      @embedded = true
+      response.headers.except! 'X-Frame-Options'
+    end
   end
 
   def current_layout

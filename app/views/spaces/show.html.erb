@@ -1,6 +1,14 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="path"><%= link_to @space.name, @space %> » Dashboard</div>
+<div class="cb-section">
+  <div class="cb-container">
+    <h1>New Members</h1>
+  </div>
+</div>
 
-<h2><%= link_to 'New Members', [@space, :memberships] %></h2>
-<%= render 'memberships/memberships', memberships: @new_memberships, space: @space %>
+<div class="cb-section">
+  <div class="cb-container">
+    <p><%= link_to 'All Members', [@space, :memberships] %></p>
+    <%= render 'memberships/memberships', memberships: @new_memberships, space: @space %>
+  </div>
+</div>

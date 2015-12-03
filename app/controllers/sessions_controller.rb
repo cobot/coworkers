@@ -1,7 +1,10 @@
 class SessionsController < ApplicationController
   skip_before_filter :require_authentication
+  before_filter :new_variant
 
   def new
+    session[:embedded] = nil
+    session[:new_variant] = nil
     redirect_to '/auth/cobot'
   end
 

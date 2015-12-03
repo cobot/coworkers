@@ -1,34 +1,43 @@
-<div class="path">Your Spaces</div>
+<div class="cb-section">
+  <div class="cb-container">
+    <h1>Your Spaces</h1>
+  </div>
+</div>
 
-<% if @spaces.any? %>
-  <table class="list">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>No. of Members</th>
-        <% if @admin_of_any_space %>
-          <th></th>
+<div class="cb-section">
+  <div class="cb-container">
+
+    <% if @spaces.any? %>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>No. of Members</th>
+            <% if @admin_of_any_space %>
+              <th></th>
+            <% end %>
+          </tr>
+        </head>
+        <tbody>
+        <% @spaces.each do |space| %>
+          <tr>
+            <td class="space"><%= link_to space.name, space %></td>
+            <td><%= space.memberships.length %></td>
+            <td>
+              <% if current_user.admin_of?(space) %>
+                <%= link_to 'Install on Cobot', install_space_path(space), data: {method: :put}, class: 'btn btn--small' %>
+              <% end %>
+            </td>
+          </tr>
         <% end %>
-      </tr>
-    </head>
-    <tbody>
-    <% @spaces.each do |space| %>
-      <tr>
-        <td class="space"><%= link_to space.name, space %></td>
-        <td><%= space.memberships.length %></td>
-        <td>
-          <% if current_user.admin_of?(space) %>
-            <%= link_to 'Install on Cobot', install_space_path(space), method: :put %>
-          <% end %>
-        </td>
-      </tr>
-    <% end %>
-    </tbody>
-  </table>
-  <% if @admin_of_any_space %>
-    <h2>Install on Cobot</h2>
-    <p>Installing on Cobot will allow you and your members to access the profiles from within Cobot.</p>
-  <% end %>
-<% else %>
-  <p>You are not a member of any space yet.</p>
-<% end%>
+        </tbody>
+      </table>
+      <% if @admin_of_any_space %>
+        <h2>Install on Cobot</h2>
+        <p>Installing on Cobot will allow you and your members to access the profiles from within Cobot.</p>
+      <% end %>
+    <% else %>
+      <p>You are not a member of any space yet.</p>
+    <% end%>
+  </div>
+</div>

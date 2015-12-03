@@ -2,10 +2,13 @@ require 'spec_helper'
 
 describe 'installing coworkers on cobot' do
   it 'sets up navigation links and redirects to cobot' do
-    WebMock.stub_request(:get, 'https://co-up.cobot.me/api/navigation_links').to_return(headers: default_headers, body: [].to_json)
-    WebMock.stub_request(:post, 'https://co-up.cobot.me/api/navigation_links').to_return(headers: default_headers, body:
+    WebMock.stub_request(:get, 'https://co-up.cobot.me/api/navigation_links')
+      .to_return(headers: default_headers, body: [].to_json)
+    WebMock.stub_request(:post, 'https://co-up.cobot.me/api/navigation_links')
+      .to_return(headers: default_headers, body:
       ->(request) {
-        Hash[URI.decode_www_form(request.body)].merge(user_url: 'https://co-up.cobot.me/navigation_links/link-1').to_json
+        JSON.parse(request.body)
+          .merge(user_url: 'https://co-up.cobot.me/navigation_links/link-1').to_json
       })
 
     stub_cobot_admin 'co.up', 'joe'

@@ -2,6 +2,7 @@ class SpacesController < ApplicationController
   skip_before_filter :require_authentication, only: :show
   before_filter :load_space
   before_filter :check_access, except: :show
+  before_filter :new_variant
 
   def show
     respond_to do |f|
@@ -28,7 +29,7 @@ class SpacesController < ApplicationController
 
   def install
     space_url = space_memberships_url(@space)
-    links = CobotClient::NavigationLinkService.new(oauth_client, current_user.access_token, @space.subdomain).install_links [
+    links = CobotClient::NavigationLinkService.new(cobot_client, @space.subdomain).install_links [
       CobotClient::NavigationLink.new(section: 'admin/manage', label: 'Coworker Profiles', iframe_url: space_url),
       CobotClient::NavigationLink.new(section: 'admin/setup', label: 'Coworker Profiles', iframe_url: space_questions_url(@space)),
       CobotClient::NavigationLink.new(section: 'members', label: 'Coworkers', iframe_url: space_url)
@@ -43,6 +44,10 @@ class SpacesController < ApplicationController
   end
 
   private
+
+  def cobot_client
+    CobotClient::ApiClient.new current_user.access_token
+  end
 
   def load_space
     @space = Space.by_cobot_id(params[:id]).first!

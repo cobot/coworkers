@@ -48,9 +48,9 @@ class SignupService
         Membership.create user_id: user.id, cobot_id: membership_details['id'],
           space_id: find_or_create_space(membership_attributes['space_link']).id,
           picture: membership_details['picture'],
-          name: membership_details['address']['name']
+          name: membership_details['name']
       elsif membership
-        membership.name = membership_details['address']['name']
+        membership.name = membership_details['name']
         membership.picture = membership_details['picture']
         membership.user_id = user.id
         membership.canceled_to = membership_details['canceled_to']

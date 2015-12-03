@@ -19,9 +19,7 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"(?: 
   headers: {'Content-Type' => 'application/json'},
   body: {
     id: member_name.gsub(/\W+/, '-'),
-    address: {
-      name: member_name
-    },
+    name: member_name,
     confirmed_at: '2010-01-01'
   }.to_json)
 end

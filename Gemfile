@@ -14,8 +14,9 @@ gem 'redcarpet'
 gem 'tzinfo'
 gem 'rinku', require: 'rails_rinku'
 gem 'virtus'
-gem 'cobot_client', '~>0.6.0'
+gem 'cobot_client'
 gem 'jquery-rails'
+gem 'cobot_assets', '~>0.1.2'
 
 # Gems used only for assets and not required
 # in production environments by default.

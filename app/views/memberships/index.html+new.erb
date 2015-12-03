@@ -1,0 +1,18 @@
+<%= render 'spaces/navigation', space: @space %>
+
+<div class="cb-section">
+  <div class="cb-container">
+    <% if current_user %>
+      <p>
+        <% if current_user.admin_of?(@space) %>
+          <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn' %>
+        <% end %>
+        <% if membership = current_user.membership_for(@space) %>
+          <%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn' %>
+        <% end %>
+      </p>
+    <% end %>
+
+    <%= render 'memberships/memberships', memberships: @memberships, edit_links: true, space: @space %>
+  </div>
+</div>

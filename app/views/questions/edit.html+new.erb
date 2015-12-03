@@ -1,0 +1,17 @@
+<%= render 'spaces/navigation', space: @space %>
+<div class="cb-section">
+  <div class="cb-container">
+
+    <h1>Edit Question</h1>
+
+    <%= form_for @question, url: [@space, @question] do |f| %>
+      <div class="form-block--wide">
+        <%= render 'form', f: f %>
+      </div>
+      <p>
+        <%= f.submit 'Update field', class: 'btn btn--full btn--blue' %>
+        <%= link_to 'back', [@space, :questions] %>
+      </p>
+    <% end %>
+  </div>
+</div>

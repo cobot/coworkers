@@ -1,0 +1,9 @@
+<p>
+  <%= f.label :text %>
+  <%= f.text_field :text, class: 'input--stretch' %>
+</p>
+<p>
+  <%= f.label :question_type %>
+  <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
+    {prompt: false}, class: 'input--stretch' %>
+</p>
