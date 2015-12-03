@@ -10,7 +10,6 @@ end
 
 Then(/^"([^"]+)" should be listed as a member of the space "([^"]+)"(?: once)?$/) do |membership_name, space_name|
   visit space_memberships_path(space_by_name(space_name))
-
   expect(page.all('.member', text: membership_name).size).to eq(1)
 end
 
