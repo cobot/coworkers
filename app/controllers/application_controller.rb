@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
     elsif params[:cobot_layout_version] == '1'
       session[:new_variant] = false
     end
-    if session[:new_variant]
+    if session[:new_variant] || !@embedded
       new_variant
     end
   end
