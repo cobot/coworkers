@@ -9,100 +9,81 @@
 # from scratch. The latter is a flawed and unsustainable approach (the more migrations
 # you'll amass, the slower it'll run and the greater likelihood for issues).
 #
-# It's strongly recommended to check this file into your version control system.
+# It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20150316111003) do
+ActiveRecord::Schema.define(version: 20151203095210) do
 
-  create_table "answers", :force => true do |t|
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
     t.text     "question"
     t.text     "text"
     t.integer  "membership_id"
     t.integer  "question_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
 
-  add_index "answers", ["created_at"], :name => "index_answers_on_created_at"
-  add_index "answers", ["membership_id"], :name => "index_answers_on_membership_id"
-  add_index "answers", ["question_id"], :name => "index_answers_on_question_id"
+  add_index "answers", ["created_at"], name: "index_answers_on_created_at", using: :btree
+  add_index "answers", ["membership_id"], name: "index_answers_on_membership_id", using: :btree
+  add_index "answers", ["question_id"], name: "index_answers_on_question_id", using: :btree
 
-  create_table "memberships", :force => true do |t|
+  create_table "memberships", force: :cascade do |t|
     t.integer  "space_id"
     t.integer  "user_id"
-    t.string   "name"
-    t.string   "website"
-    t.string   "messenger_type"
-    t.string   "messenger_account"
-    t.string   "picture"
-    t.string   "cobot_id"
+    t.string   "name",              limit: 255
+    t.string   "website",           limit: 255
+    t.string   "messenger_type",    limit: 255
+    t.string   "messenger_account", limit: 255
+    t.string   "picture",           limit: 255
+    t.string   "cobot_id",          limit: 255
     t.text     "bio"
     t.text     "profession"
     t.text     "industry"
     t.text     "skills"
-    t.datetime "created_at",        :null => false
-    t.datetime "updated_at",        :null => false
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
     t.date     "canceled_to"
   end
 
-  add_index "memberships", ["created_at"], :name => "index_memberships_on_created_at"
-  add_index "memberships", ["space_id"], :name => "index_memberships_on_space_id"
-  add_index "memberships", ["user_id"], :name => "index_memberships_on_user_id"
+  add_index "memberships", ["created_at"], name: "index_memberships_on_created_at", using: :btree
+  add_index "memberships", ["space_id"], name: "index_memberships_on_space_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
 
-  create_table "message_boards", :force => true do |t|
-    t.string   "name"
-    t.integer  "space_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
-  end
-
-  add_index "message_boards", ["space_id"], :name => "index_message_boards_on_space_id"
-
-  create_table "messages", :force => true do |t|
+  create_table "questions", force: :cascade do |t|
     t.text     "text"
-    t.string   "author_name"
-    t.integer  "author_id"
+    t.string   "question_type", limit: 255
     t.integer  "space_id"
-    t.integer  "message_board_id"
-    t.datetime "created_at",       :null => false
-    t.datetime "updated_at",       :null => false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
-  add_index "messages", ["message_board_id"], :name => "index_messages_on_message_board_id"
-  add_index "messages", ["space_id"], :name => "index_messages_on_space_id"
+  add_index "questions", ["space_id"], name: "index_questions_on_space_id", using: :btree
 
-  create_table "questions", :force => true do |t|
-    t.text     "text"
-    t.string   "question_type"
-    t.integer  "space_id"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
-  end
-
-  add_index "questions", ["space_id"], :name => "index_questions_on_space_id"
-
-  create_table "spaces", :force => true do |t|
-    t.string   "name"
-    t.string   "secret"
-    t.string   "cobot_url"
-    t.string   "cobot_id"
-    t.string   "subdomain"
+  create_table "spaces", force: :cascade do |t|
+    t.string   "name",                limit: 255
+    t.string   "secret",              limit: 255
+    t.string   "cobot_url",           limit: 255
+    t.string   "cobot_id",            limit: 255
+    t.string   "subdomain",           limit: 255
     t.boolean  "members_only"
-    t.datetime "created_at",          :null => false
-    t.datetime "updated_at",          :null => false
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
     t.boolean  "hide_default_fields"
   end
 
-  add_index "spaces", ["name"], :name => "index_spaces_on_name"
-  add_index "spaces", ["subdomain"], :name => "index_spaces_on_subdomain"
+  add_index "spaces", ["name"], name: "index_spaces_on_name", using: :btree
+  add_index "spaces", ["subdomain"], name: "index_spaces_on_subdomain", using: :btree
 
-  create_table "users", :force => true do |t|
-    t.string "cobot_id"
-    t.string "email"
-    t.string "access_token"
+  create_table "users", force: :cascade do |t|
+    t.string "cobot_id",     limit: 255
+    t.string "email",        limit: 255
+    t.string "access_token", limit: 255
     t.text   "admin_of"
   end
 
-  add_index "users", ["cobot_id"], :name => "index_users_on_cobot_id"
-  add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["cobot_id"], name: "index_users_on_cobot_id", using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", using: :btree
 
 end

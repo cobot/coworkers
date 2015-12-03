@@ -21,7 +21,6 @@ gem 'jquery-rails'
 # in production environments by default.
 group :assets do
   gem 'sass-rails'
-  gem 'compass-rails'
   gem 'uglifier'
 end
 
@@ -29,7 +28,6 @@ group :development do
   gem 'rspec-rails', '~> 3.2.0'
   gem 'dotenv-rails'
   gem 'sass-rails'
-  gem 'compass-rails'
 end
 
 group :production do

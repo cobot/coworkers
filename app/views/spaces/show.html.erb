@@ -2,10 +2,5 @@
 
 <div class="path"><%= link_to @space.name, @space %> » Dashboard</div>
 
-<% if @new_messages.any? %>
-  <h2><%= link_to 'New Messages', [@space, :message_boards] %></h2>
-  <%= render 'messages/messages', messages: @new_messages, space: @space %>
-<% end %>
-
 <h2><%= link_to 'New Members', [@space, :memberships] %></h2>
 <%= render 'memberships/memberships', memberships: @new_memberships, space: @space %>

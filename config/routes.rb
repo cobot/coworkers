@@ -1,8 +1,8 @@
 Coworkers::Application.routes.draw do
-  root to: "sessions#show"
+  root to: 'sessions#show'
 
-  get '/auth/:provider/callback', :to => 'sessions#create', as: :authenticate
-  get '/auth/failure', :to => 'sessions#failure'
+  get '/auth/:provider/callback', to: 'sessions#create', as: :authenticate
+  get '/auth/failure', to: 'sessions#failure'
 
   resource :account, only: :show
   resources :spaces, only: [:show, :update] do
@@ -12,9 +12,6 @@ Coworkers::Application.routes.draw do
     resource :membership_import, only: [:new, :create]
     resources :memberships, only: [:index, :show, :destroy, :edit, :update]
     resources :questions, only: [:index, :create, :destroy, :edit, :update]
-    resources :message_boards, only: [:index, :new, :create, :show, :destroy] do
-      resources :messages, only: [:create, :edit, :update, :show]
-    end
   end
   resource :session, only: [:destroy, :new]
 

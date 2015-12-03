@@ -14,7 +14,6 @@ class SpacesController < ApplicationController
           redirect_to edit_space_membership_path(@space, membership)
         else
           @new_memberships = load_new_memberships
-          @new_messages = load_new_messages
         end
       end
       f.css do
@@ -55,9 +54,5 @@ class SpacesController < ApplicationController
 
   def load_new_memberships
     @space.new_memberships.includes(:user)
-  end
-
-  def load_new_messages
-    @space.messages.order('created_at DESC').limit(3).includes(:message_board)
   end
 end

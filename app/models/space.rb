@@ -1,9 +1,7 @@
 require 'securerandom'
 
 class Space < ActiveRecord::Base
-  has_many :message_boards
   has_many :memberships
-  has_many :messages
   has_many :questions
 
   before_create :set_secret, :set_subdomain
