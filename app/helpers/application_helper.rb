@@ -16,4 +16,8 @@ module ApplicationHelper
     cobot_url membership.space.subdomain, "/api/memberships/#{membership.cobot_id}/picture",
       params: {picture_size: size}
   end
+
+  def space_css_url(space)
+    ENV['CSS_URL'].to_s.sub(':subdomain', space.subdomain)
+  end
 end
