@@ -9,7 +9,7 @@ namespace :cobot_scss do
     end
     if (bundle_url = ENV['SCSS_BUNDLE_URL'])
       puts 'Updating SCSS bundle…'
-      RestClient.put bundle_url, {assets: assets}.to_json,
+      RestClient.put bundle_url, {assets: assets}.to_json, accept: :json,
         content_type: :json, authorization: "Bearer #{ENV['SCSS_ACCESS_TOKEN']}"
       puts 'done.'
     else
@@ -19,10 +19,15 @@ namespace :cobot_scss do
 
   task create_scss_bundle: :environment do
     puts 'Creating new SCSS bundle…'
-    res = JSON.parse(RestClient.post('https://scss.cobot.me/scss_bundles', {assets: []}.to_json,
-      content_type: :json, authorization: "Bearer #{ENV.fetch('SCSS_ACCESS_TOKEN')}"))
-    puts "Now set ENV[SCSS_BUNDLE_URL] to #{res['bundle_url']} so that we can upload scss."
-    puts "Add a link to #{res['css_url']} to fetch CSS, replacing :subdomain with the space's subdomain."
+    begin
+      res = JSON.parse(RestClient.post('https://scss.cobot.me/scss_bundles', {assets: []}.to_json,
+        accept: :json,
+        content_type: :json, authorization: "Bearer #{ENV.fetch('SCSS_ACCESS_TOKEN')}"))
+      puts "Now set ENV[SCSS_BUNDLE_URL] to #{res['bundle_url']} so that we can upload scss."
+      puts "Add a link to #{res['css_url']} to fetch CSS, replacing :subdomain with the space's subdomain."
+    rescue RestClient::BadRequest => e
+      puts "Error: #{JSON.parse(e.response)['error']}"
+    end
   end
 
   def exclude_file?(path)
