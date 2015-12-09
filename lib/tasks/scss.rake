@@ -35,26 +35,9 @@ namespace :cobot_scss do
   end
 
   def scss_imports(file)
-    path = find_scss_file(file)
-    content = File.read(path)
-    imports = content.scan(/@import\s+\"([^"]+)\"/).flatten
-    ([{file => path}] + imports.map do |import|
-      scss_imports(import)
-    end).flatten
-  end
-
-  def find_scss_file(name)
-    underscored = "#{File.dirname(name)}/_#{File.basename(name)}"
-    potential_paths = Rails.application.config.assets.paths.flat_map do |path|
-      [
-        "#{path}/#{name}.scss",
-        "#{path}/#{underscored}.scss"
-      ]
-    end
-    found = potential_paths.find do |path|
-      File.exist?(path)
-    end
-    found || fail("sccs import not found: #{name}")
+    require 'cobot_assets/scss_import_resolver'
+    CobotAssets::ScssImportResolver.new(Rails.application.config.assets.paths, /colors|color_shades/)
+      .scss_imports(file: file)
   end
 end
 

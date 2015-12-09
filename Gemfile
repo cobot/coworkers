@@ -16,7 +16,7 @@ gem 'rinku', require: 'rails_rinku'
 gem 'virtus'
 gem 'cobot_client'
 gem 'jquery-rails'
-gem 'cobot_assets', '~>0.1.2'
+gem 'cobot_assets', '~>0.1.3'
 gem 'sass-rails'
 gem 'uglifier'
 
