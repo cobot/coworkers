@@ -1,8 +1,0 @@
-.bundle
-db/*.sqlite3
-log/*.log
-tmp/
-.rvmrc
-*.sublime-*
-.env
-.sass-cache

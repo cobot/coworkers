@@ -1,9 +1,0 @@
-<%= render 'spaces/navigation', space: @space %>
-
-<div class="path"><%= link_to @space.name, @space %> » <%= link_to 'Message Boards', [@space, :message_boards] %> » Add Message Board</div>
-
-
-<%= simple_form_for [@space, @message_board] do |f| %>
-  <%= f.input :name %>
-  <%= f.submit 'Add Message Board', class: 'btn' %>
-<% end %>
