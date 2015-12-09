@@ -36,7 +36,7 @@ namespace :cobot_scss do
 
   def scss_imports(file)
     require 'cobot_assets/scss_import_resolver'
-    CobotAssets::ScssImportResolver.new(Rails.application.config.assets.paths, /colors|color_shades/)
+    CobotAssets::ScssImportResolver.new(Rails.application.config.assets.paths)
       .scss_imports(file: file)
   end
 end
