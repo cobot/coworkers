@@ -9,3 +9,60 @@ nav {
   }
 
 }
+
+// _grid.scss
+
+.grid-cell.member {
+  margin-top: 1rem;
+  &:nth-child(2n+1) {
+    border-top: 1px solid $color-secondary-20;
+  }
+  @include media-query($screen-tablet) {
+    border-top: 1px solid $color-secondary-20;
+  }
+}
+
+.member img {
+  max-width: 200px;
+}
+
+@include media-query($screen-tablet) {
+  .tablet-grid--1of4-oneFourth > .grid-cell {
+    flex-basis: 25%;
+    &:nth-child(2n) {
+      flex-basis: 75%;
+    }
+  }
+}
+
+// DAS MUSS NOCH IN DIE SHARED ASSETS IMPORTIERT WERDEN.
+
+dl {
+  background-color: $color-background;
+  border: 1px solid $color-primary-20;
+  border-radius: $border-radius;
+}
+
+dt, dd {
+  border-top: 1px solid $color-primary-20;
+  padding: 0.6em 0.4em 0.6em 0.8em;
+}
+
+dt {
+  font-weight: 700;
+  color: $color-primary-80;
+  float: left;
+  clear: left;
+}
+
+dt:first-of-type, dd:first-of-type {
+  border-top: none;
+}
+
+dl.no-border {
+  border: none;
+  dt, dd {
+    border: none;
+    padding-left: 0;
+  }
+}

@@ -3,7 +3,7 @@
 <div class="cb-section">
   <div class="cb-container">
     <% if current_user %>
-      <p>
+      <p class="text--right">
         <% if current_user.admin_of?(@space) %>
           <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn' %>
         <% end %>

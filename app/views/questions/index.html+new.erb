@@ -1,66 +1,70 @@
 <%= render 'spaces/navigation', space: @space %>
 <div class="cb-section">
   <div class="cb-container">
-    <h2>Fields</h2>
+    <h2 class="heading--special">Settings</h2>
 
-    <p>Here you can add additional fields to the member profiles of your space.</p>
+    <div class="grid grid--gutters--huge grid--full tablet-grid--1of2">
+      <div class="grid-cell">
+        <h3>Fields</h3>
+        <p>Here you can add additional fields to the member profiles of your space.</p>
 
-    <% if @questions.any? %>
-      <ol>
-        <% @questions.each do |question| %>
-          <li class="buttons">
-            <%= link_to 'Remove', [@space, question],
-              data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn btn--small' %>
-            <%= link_to 'Edit', [:edit, @space, question], class: 'btn btn--small' %>
-            <%= question.text %>
-          </li>
+        <% if @questions.any? %>
+          <ol>
+            <% @questions.each do |question| %>
+              <li class="pad--bottom--default">
+                  <%= question.text %>
+                <div>
+                  <%= link_to 'Remove', [@space, question],
+                    data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn btn--small' %>
+                  <%= link_to 'Edit', [:edit, @space, question], class: 'btn btn--small' %>
+                </div>
+              </li>
+            <% end %>
+          </ol>
+        <% else %>
+          <p>No fields set up at the moment.</p>
         <% end %>
-      </ol>
-    <% else %>
-      <p>No fields set up at the moment.</p>
-    <% end %>
 
-    <h3>Add Field</h3>
-    <%= form_for @question, url: [@space, @question] do |f| %>
-      <div class="form-block--wide">
-        <p>
-          <%= f.label :text, 'Text' %>
-          <%= f.text_field :text, class: 'input--stretch' %>
-        </p>
-        <p>
-          <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
-            {prompt: false}, class: 'input--stretch' %>
-        </p>
-        <p>
-          <%= f.submit 'Add Field', class: 'btn btn--full btn--blue' %>
-        </p>
+        <h3 class="top--padded">Add Field</h3>
+        <%= form_for @question, url: [@space, @question] do |f| %>
+          <p>
+            <%= f.label :text, 'Text' %>
+            <%= f.text_field :text, class: 'input--stretch' %>
+          </p>
+          <p>
+            <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
+              {prompt: false}, class: 'input--stretch' %>
+          </p>
+          <p>
+            <%= f.submit 'Add Field', class: 'btn btn--full btn--blue btn--stretch' %>
+          </p>
+        <% end %>
+
+        <% unless @embedded %>
+          <h3 class="top--padded">Visibility</h3>
+
+          <%= form_for @space do |f| %>
+            <p>
+              <%= f.check_box :members_only %>
+              <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
+            </p>
+            <p>
+              <%= f.submit 'Save', class: 'btn btn--full btn--blue btn--stretch' %>
+            </p>
+          <% end %>
+        <% end %>
       </div>
-    <% end %>
+      <div class="grid-cell">
+        <h3>Embed on your website</h3>
 
-    <% unless @embedded %>
-      <h2>Visibility</h2>
+        <p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
 
-      <%= form_for @space do |f| %>
-        <div class="form-block--wide">
-          <p>
-            <%= f.check_box :members_only %>
-            <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
-          </p>
-          <p>
-            <%= f.submit 'Save', class: 'btn btn--full btn--blue' %>
-          </p>
-        </div>
-      <% end %>
-    <% end %>
+        <textarea class="embed input--stretch" rows="12">
+          <%= render('embed_link') %>
+        </textarea>
 
-    <h2>Embed on your website</h2>
-
-    <p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
-
-    <textarea class="embed input--stretch" rows="12">
-      <%= render('embed_link') %>
-    </textarea>
-
-    <p>To change the look of the member list just change the CSS/HTML in the embed code.</p>
+        <p>To change the look of the member list just change the CSS/HTML in the embed code.</p>
+      </div>
+    </div>
   </div>
 </div>
