@@ -15,6 +15,7 @@ describe 'editing members as admin' do
     fill_in 'Profession', with: 'Senor Programmer'
     click_button 'Update Profile'
     click_link 'Members'
+    first(:link, 'Jane').click
 
     expect(page).to have_content('Senor Programmer')
   end

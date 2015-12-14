@@ -10,31 +10,6 @@ nav {
 
 }
 
-// _grid.scss
-
-.grid-cell.member {
-  margin-top: 1rem;
-  &:nth-child(2n+1) {
-    border-top: 1px solid $color-secondary-20;
-  }
-  @include media-query($screen-tablet) {
-    border-top: 1px solid $color-secondary-20;
-  }
-}
-
-.member img {
-  max-width: 200px;
-}
-
-@include media-query($screen-tablet) {
-  .tablet-grid--1of4-oneFourth > .grid-cell {
-    flex-basis: 25%;
-    &:nth-child(2n) {
-      flex-basis: 75%;
-    }
-  }
-}
-
 // DAS MUSS NOCH IN DIE SHARED ASSETS IMPORTIERT WERDEN.
 
 dl {
