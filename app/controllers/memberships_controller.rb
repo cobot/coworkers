@@ -21,6 +21,7 @@ class MembershipsController < ApplicationController
   end
 
   def update
+    check_access
     @membership = Membership.find params[:id]
     @membership.attributes = membership_params
     if @membership.save

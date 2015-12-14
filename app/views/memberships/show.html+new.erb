@@ -46,9 +46,11 @@
         <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
       <% end %>
     </div>
-    <p>
-      <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--blue btn--stretch' %>
-    </p>
+    <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
+      <p>
+        <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--blue btn--stretch' %>
+      </p>
+    <% end %>
   </div>
 </div>
 
