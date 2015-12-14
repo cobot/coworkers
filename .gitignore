@@ -6,3 +6,4 @@ tmp/
 *.sublime-*
 .env
 .sass-cache
+.ruby-version
