@@ -6,7 +6,8 @@
         <h3>
           <%= link_to membership.name, [space, membership] %>
         </h3>
-        <p><%= membership.profession %><%= ', ' if membership.profession? && membership.website? %><%= link_to membership.website, membership.website, target: '_top' if membership.website? %></p>
+        <p><%= membership.profession %><%= ', ' if membership.profession? && membership.website? %><!--
+        --><%= link_to membership.website, add_scheme(membership.website), target: '_top' if membership.website? %></p>
         <%= markdown truncate(membership.bio, length: 400) %>
       </div>
     </div>
