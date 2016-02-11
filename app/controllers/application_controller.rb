@@ -2,13 +2,17 @@ class ApplicationController < ActionController::Base
   include CobotClient::XdmHelper
   protect_from_forgery
   before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded,
-    :set_variant
+    :set_variant, :set_p3p_header
 
   helper_method :current_user
 
   layout :current_layout
 
   private
+
+  def set_p3p_header
+    response.headers['P3P'] = 'CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"'
+  end
 
   def set_variant
     if params[:cobot_layout_version] == '2'
