@@ -1,7 +1,7 @@
 <% if memberships.any? %>
   <% memberships.each do |membership| %>
     <div class="member">
-      <%= link_to image_tag(membership_picture_url(membership), width: 150, class: :member), [space, membership], title: membership.name, class: 'photo' %>
+      <%= link_to image_tag(membership_picture_url(membership, size: :large), width: 150, class: :member), [space, membership], title: membership.name, class: 'photo' %>
       <div class="bio">
         <h3>
           <%= link_to membership.name, [space, membership] %>
