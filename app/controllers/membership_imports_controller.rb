@@ -30,6 +30,6 @@ class MembershipImportsController < ApplicationController
   end
 
   def cobot_memberships
-    cobot_client.get(@space.subdomain, '/memberships', attributes: [:name, :id])
+    cobot_client.get(@space.subdomain, '/memberships', attributes: 'name,id')
   end
 end
