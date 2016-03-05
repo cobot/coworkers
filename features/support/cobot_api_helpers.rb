@@ -50,7 +50,7 @@ module CobotApiHelpers
   def stub_cobot_membership(space_name, name = 'jane', membership_id = nil, attributes = {})
     subdomain = space_name.gsub(/\W+/, '-')
     membership_id ||= next_id
-    WebMock.stub_request(:get, "https://#{subdomain}.cobot.me/api/memberships").to_return(body: [{
+    WebMock.stub_request(:get, %r{https://#{subdomain}.cobot.me/api/memberships}).to_return(body: [{
       id: membership_id,
       name: name,
       confirmed_at: '2010-01-01'

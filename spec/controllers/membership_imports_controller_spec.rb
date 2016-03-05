@@ -21,7 +21,7 @@ describe MembershipImportsController, 'create', type: :controller do
     log_in double(:user, admin_of?: true).as_null_object
     allow(Membership).to receive(:where) { [double(:membership, cobot_id: '123')] }
 
-    allow(@client).to receive(:get).with('co-up', '/memberships') {
+    allow(@client).to receive(:get).with('co-up', '/memberships', attributes: 'name,id') {
       [
         {id: '123'}, {id: '456', name: 'joe'}
       ]
