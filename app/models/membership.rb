@@ -1,9 +1,9 @@
 class Membership < ActiveRecord::Base
   belongs_to :user
-  has_many :answers
+  has_many :answers, dependent: :destroy
   belongs_to :space
-
-  validates :cobot_id, uniqueness: true, on: :create
+  #scope by space_id for if space changes subdomain and readds the add-on
+  validates :cobot_id, uniqueness: true, on: :create, scope: :space_id
 
   scope :by_space_id_and_user_id, ->(space_id, user_id) { where(space_id: space_id, user_id: user_id) }
   scope :active, ->() { where('memberships.canceled_to IS NULL or memberships.canceled_to > ?', Date.current) }
