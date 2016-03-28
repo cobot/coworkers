@@ -1,8 +1,8 @@
 require 'securerandom'
 
 class Space < ActiveRecord::Base
-  has_many :memberships
-  has_many :questions
+  has_many :memberships, dependent: :destroy
+  has_many :questions, dependent: :destroy
 
   before_create :set_secret, :set_subdomain
 
