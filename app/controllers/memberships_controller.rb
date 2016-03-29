@@ -15,14 +15,14 @@ class MembershipsController < ApplicationController
 
   def edit
     check_access
-    @membership = Membership.find params[:id]
+    @membership = @space.memberships.find params[:id]
     @questions = Question.where(space_id: @space.id)
     @answers = Answer.where(membership_id: @membership.id)
   end
 
   def update
     check_access
-    @membership = Membership.find params[:id]
+    @membership = @space.memberships.find params[:id]
     @membership.attributes = membership_params
     if @membership.save
       (params[:answers] || {}).values.each do |answer_params|
@@ -39,12 +39,12 @@ class MembershipsController < ApplicationController
   end
 
   def show
-    @membership = Membership.find params[:id]
+    @membership = @space.memberships.find params[:id]
     @user = @membership.user
   end
 
   def destroy
-    @membership = Membership.find params[:id]
+    @membership = @space.memberships.find params[:id]
     @membership.destroy
     redirect_to [@space, :memberships], notice: 'The profile was removed.'
   end
