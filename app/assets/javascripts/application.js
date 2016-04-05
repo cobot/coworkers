@@ -4,7 +4,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require facebox
-//= require cobot_client/easyxdm
 //= require_self
 
 jQuery(function($) {

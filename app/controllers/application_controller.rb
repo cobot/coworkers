@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  include CobotClient::XdmHelper
   protect_from_forgery
   before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded,
     :set_variant, :set_p3p_header
