@@ -1,7 +1,6 @@
 class MembershipsController < ApplicationController
   include LoadSpace
   skip_before_filter :require_authentication, only: :show
-  before_filter :check_access, except: [:index, :show]
   param_protected({membership: [:space_id, :user_id]}, only: :update)
   param_protected({user: [:cobot_id, :admin_of, :email, :access_token]}, only: :update)
 
@@ -14,15 +13,15 @@ class MembershipsController < ApplicationController
   end
 
   def edit
-    check_access
     @membership = @space.memberships.find params[:id]
+    return not_allowed unless check_access @membership
     @questions = Question.where(space_id: @space.id)
     @answers = Answer.where(membership_id: @membership.id)
   end
 
   def update
-    check_access
     @membership = @space.memberships.find params[:id]
+    return not_allowed unless check_access @membership
     @membership.attributes = membership_params
     if @membership.save
       (params[:answers] || {}).values.each do |answer_params|
@@ -45,12 +44,14 @@ class MembershipsController < ApplicationController
 
   def destroy
     @membership = @space.memberships.find params[:id]
+    return not_allowed unless check_access @membership
     @membership.destroy
     redirect_to [@space, :memberships], notice: 'The profile was removed.'
   end
 
-  def check_access
-    not_allowed unless current_user.try(:admin_of?, @space) || current_user.try(:member_of?, @space)
+  def check_access(membership)
+    current_user&.admin_of?(@space) ||
+      (current_user&.member_of?(@space) && current_user&.membership_for(@space).id == membership.id)
   end
 
   def cobot_client(access_token)
