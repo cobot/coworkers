@@ -9,9 +9,13 @@ namespace :cobot_scss do
     end
     if (bundle_url = ENV['SCSS_BUNDLE_URL'])
       puts 'Updating SCSS bundle…'
-      RestClient.put bundle_url, {assets: assets}.to_json, accept: :json,
-        content_type: :json, authorization: "Bearer #{ENV['SCSS_ACCESS_TOKEN']}"
-      puts 'done.'
+      begin
+        RestClient.put bundle_url, {assets: assets}.to_json, accept: :json,
+          content_type: :json, authorization: "Bearer #{ENV['SCSS_ACCESS_TOKEN']}"
+        puts 'done.'
+      rescue RestClient::UnprocessableEntity => e
+        puts "Error posting SCSS: #{JSON.parse(e.response)['error']}"
+      end
     else
       fail 'ENV[SCSS_BUNDLE_URL] not set. Run the create_scss_bundle task to create a bundle.'
     end
@@ -31,7 +35,7 @@ namespace :cobot_scss do
   end
 
   def exclude_file?(path)
-    path.include?('colors') || path.include?('color_shades')
+    path.include?('/_colors.scss') || path.include?('default_color_shades.scss')
   end
 
   def scss_imports(file)
