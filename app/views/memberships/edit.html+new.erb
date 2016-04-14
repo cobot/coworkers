@@ -58,10 +58,10 @@
       </div>
       <div class="grid grid--gutters grid--full tablet-grid--1of2 top--padded">
         <div class="grid-cell">
-          <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--blue input--stretch' %>
+          <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--primary input--stretch' %>
         </div>
         <div class="grid-cell">
-          <%= link_to 'Remove Profile', [@space, @membership], data: {method: 'delete'}, confirm: 'Really remove that membership?', class: 'remove btn btn--blue input--stretch' %>
+          <%= link_to 'Remove Profile', [@space, @membership], data: {method: 'delete'}, confirm: 'Really remove that membership?', class: 'remove btn btn--primary input--stretch' %>
         </div>
       </div>
     </div>

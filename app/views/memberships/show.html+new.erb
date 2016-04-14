@@ -48,7 +48,7 @@
     </div>
     <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
       <p>
-        <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--blue btn--stretch' %>
+        <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--primary btn--stretch' %>
       </p>
     <% end %>
   </div>
