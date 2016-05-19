@@ -18,6 +18,6 @@ module ApplicationHelper
   end
 
   def space_css_url(space)
-    ENV['CSS_URL'].to_s.sub(':subdomain', space.subdomain)
+    ENV['CSS_URL'] && ENV['CSS_URL'].sub(':subdomain', space.subdomain)
   end
 end
