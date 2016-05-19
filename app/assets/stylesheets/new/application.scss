@@ -7,14 +7,18 @@
 
 nav {
   @extend .grid, .grid--gutters--big, .grid--1of2, .tablet-grid--1of6-autoSize;
-
   .nav-cell {
     @extend .grid-cell;
   }
-
 }
 
-// DAS MUSS NOCH IN DIE SHARED ASSETS IMPORTIERT WERDEN.
+.img--avatar {
+  img {
+    min-height: 131px;
+  }
+}
+
+// DAS MUSS NOCH IN COBOT_ASSETS IMPORTIERT WERDEN.
 
 dl {
   background-color: $color-background;
