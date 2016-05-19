@@ -1,14 +1,13 @@
 <%= render 'spaces/navigation', space: @space %>
 
+<h2 class="heading--special">Edit Profile</h2>
 <%= form_for [@space, @membership] do |f| %>
   <div class="grid grid--gutters--huge grid--reverseDirection grid--full tablet-grid--1of2">
     <div class="grid-cell">
-      <h2 class="heading--special"><%= @membership.name %></h2>
       <p class="img--avatar"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
       <p class="font--smaller">You can change your picture in your <a target="_TOP" href="https://www.cobot.me/account/edit">account settings</a>.</p>
     </div>
     <div class="grid-cell">
-      <h2 class="heading--special">General Information</h2>
       <div class="form-block--wide">
         <div class="admin-form">
           <%= f.label :name, 'Name' %>

@@ -1,59 +1,52 @@
 <%= render 'spaces/navigation', space: @space %>
 
+<% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
+  <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--primary btn_edit f--right' %>
+<% end %>
+<h2 class="heading--special"><%= @membership.name %></h2>
 <div class="grid grid--gutters--huge grid--reverseDirection grid--full tablet-grid--1of2">
   <div class="grid-cell">
-    <h2 class="heading--special"><%= @membership.name %></h2>
     <p class="img--avatar"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
   </div>
   <div class="grid-cell">
-    <div class="profile_info">
-      <h2 class="heading--special">General Information</h2>
-      <% unless @space.hide_default_fields? %>
+    <% unless @space.hide_default_fields? %>
+      <% if @membership.bio? %>
+        <span class="admin-label">Bio</span>
         <%= markdown @membership.bio %>
-        <dl class="no-border">
-          <% if @membership.website? %>
-            <span>Website</dt>
-            <span class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
-          <% end %>
-          <% [:profession, :industry, :skills].each do |attribute| %>
-            <% if @membership.send("#{attribute}?") %>
-              <span class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-              <span class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></dd>
-            <% end %>
-          <% end %>
-          <% if @membership.messenger_account? && @membership.messenger_type? %>
-            <span class="messenger"><%= @membership.messenger_type %></dt>
-            <span class="messenger">
-              <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
-            </dd>
-          <% end %>
-        </dl>
       <% end %>
-
-      <% if @membership.answers.any? %>
-        <% unless @space.hide_default_fields? %>
-          <h3>Additional information</h3>
+      <% if @membership.website? %>
+        <span class="admin-label">Website</span>
+        <p class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></p>
+      <% end %>
+      <% [:profession, :industry, :skills].each do |attribute| %>
+        <% if @membership.send("#{attribute}?") %>
+          <span class="admin-label <%= attribute %>"><%= attribute.to_s.humanize %></span>
+          <p class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></p>
         <% end %>
-        <dl class="no-border">
-          <% @membership.answers.each do |answer| %>
-            <% if answer.text? %>
-              <span class="question"><%= answer.question %></dt>
-              <span class="answer"><%= answer.text %></dd>
-            <% end %>
-          <% end %>
-        </dl>
-      <% elsif @membership.user == current_user && @space.questions.any? %>
-        <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
       <% end %>
-    </div>
-    <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
-      <p>
-        <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--primary btn--stretch' %>
-      </p>
+      <% if @membership.messenger_account? && @membership.messenger_type? %>
+        <span class="messenger"><%= @membership.messenger_type %></span>
+        <p class="messenger">
+          <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
+        </p>
+      <% end %>
     <% end %>
+
+    <% if @membership.answers.any? %>
+      <% unless @space.hide_default_fields? %>
+        <h3>Additional information</h3>
+      <% end %>
+      <% @membership.answers.each do |answer| %>
+        <% if answer.text? %>
+          <span class="admin-label"><%= answer.question %></span>
+          <p><%= answer.text %></p>
+        <% end %>
+      <% end %>
+    <% elsif @membership.user == current_user && @space.questions.any? %>
+      <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
+    <% end %>
+
   </div>
 </div>
-
-<div class="clear"></div>
 
 <p><%= link_to 'back', space_memberships_path(@space), class: 'link--back' %></p>
