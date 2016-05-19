@@ -1,10 +1,10 @@
 <%= render 'spaces/navigation', space: @space %>
 
 <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
-  <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--full btn--primary btn_edit f--right' %>
+  <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn_edit f--right' %>
 <% end %>
 <h2 class="heading--special"><%= @membership.name %></h2>
-<div class="grid grid--gutters--huge grid--full tablet-grid--1of2">
+<div class="grid grid--reverseDirection grid--full tablet-grid--1of2">
   <div class="grid-cell">
     <p class="img--avatar"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
   </div>
