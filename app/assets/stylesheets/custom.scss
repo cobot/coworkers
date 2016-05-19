@@ -209,7 +209,7 @@ h2 {
   clear: both;
   background: #3681B6;
   border-radius: 0.5em 0.5em 0px 0px;
-  -mox-border-radius: 0.5em 0.5em 0px 0px;
+  -moz-border-radius: 0.5em 0.5em 0px 0px;
   -webkit-border-radius: 0.5em 0.5em 0px 0px;
   padding: 0.4em 20px 0.4em 20px;
 }
@@ -367,14 +367,8 @@ textarea.embed {
   margin-bottom: 0px;
 }
 
-/* A font by Jos Buivenga (exljbris) -> www.exljbris.com */
-@font-face {
-  font-family: "Museo";
-  src: url(/fonts/museo500.otf);
-}
-
 h1, h2, h3 {
-  font-family: "Museo", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 }
 
 h1 {

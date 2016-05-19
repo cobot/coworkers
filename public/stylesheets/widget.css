@@ -32,7 +32,7 @@
   margin: 0 10px 0 0;
   display: block;
   color: #3a6180;
-  font-family: "Museo", "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
+  font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 }
 #coworkers_widget ul li a:hover, #coworkers_widget ul li a:active, #coworkers_widget ul li a:focus {  color: #476d92 }
 #coworkers_widget .pagination {
