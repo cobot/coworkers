@@ -25,7 +25,7 @@
             <td><%= space.memberships.length %></td>
             <td>
               <% if current_user.admin_of?(space) %>
-                <%= link_to 'Install on Cobot', install_space_path(space), data: {method: :put}, class: 'btn btn--small' %>
+                <%= link_to 'Install on Cobot', install_space_path(space), data: {method: :put}, class: 'btn btn--small btn_wrench' %>
               <% end %>
             </td>
           </tr>

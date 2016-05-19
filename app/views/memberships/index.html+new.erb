@@ -3,10 +3,10 @@
 <% if current_user %>
   <p class="text--right">
     <% if current_user.admin_of?(@space) %>
-      <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn' %>
+      <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn btn_edit' %>
     <% end %>
     <% if membership = current_user.membership_for(@space) %>
-      <%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn' %>
+      <%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn btn_show' %>
     <% end %>
   </p>
 <% end %>

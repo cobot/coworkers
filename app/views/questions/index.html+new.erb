@@ -15,8 +15,8 @@
                   <%= question.text %>
                 <div>
                   <%= link_to 'Remove', [@space, question],
-                    data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn btn--small' %>
-                  <%= link_to 'Edit', [:edit, @space, question], class: 'btn btn--small' %>
+                    data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn btn--small btn_x' %>
+                  <%= link_to 'Edit', [:edit, @space, question], class: 'btn btn--small btn_edit' %>
                 </div>
               </li>
             <% end %>

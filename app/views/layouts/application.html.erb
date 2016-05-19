@@ -32,19 +32,11 @@
       <nav id="menu">
         <%= yield :menu %>
         <% if current_user %>
-          <div class="nav-cell">
-            <%= link_to 'Account', account_path, class: 'link--nav' %>
-          </div>
-          <div class="nav-cell">
-            <%= link_to 'Sign out', session_path, data: {method: :delete}, class: 'link--nav' %>
-          </div>
+          <%= link_to 'Account', account_path, class: 'link--nav' %>
+          <%= link_to 'Sign out', session_path, data: {method: :delete}, class: 'link--nav' %>
         <% elsif request.path != root_path %>
-          <div class="nav-cell">
-            <%= link_to 'Home', root_path, class: 'link--nav' %>
-          </div>
-          <div class="nav-cell">
-            <%= link_to 'Sign in', new_session_path, class: 'link--nav' %>
-          </div>
+          <%= link_to 'Home', root_path, class: 'link--nav' %>
+          <%= link_to 'Sign in', new_session_path, class: 'link--nav' %>
         <% end %>
       </nav>
     </div>
