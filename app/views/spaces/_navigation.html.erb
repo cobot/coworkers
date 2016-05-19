@@ -1,17 +1,9 @@
 <% menu do %>
-  <div class="nav-cell">
-    <%= link_to space.name, space, class: 'link--nav' %>
-  </div>
-  <div class="nav-cell">
-    <%= link_to "Members", [space, :memberships], class: 'link--nav' %>
-  </div>
-  <% if current_user && current_user.admin_of?(space) %>
-    <div class="nav-cell">
-      <%= link_to 'Settings', space_questions_path(space), class: 'link--nav' %>
-    </div>
-  <% end %>
-  <div class="nav-cell">
-    <%= link_to "Edit Profile",
-      edit_space_membership_path(space, current_user.membership_for(space)), class: 'link--nav' if space && space.member?(current_user) %>
-  </div>
+  <%= link_to space.name, space, class: 'link--nav' %>
+  <%= link_to "Members", [space, :memberships], class: 'link--nav' %>
+<% if current_user && current_user.admin_of?(space) %>
+    <%= link_to 'Settings', space_questions_path(space), class: 'link--nav' %>
+<% end %>
+  <%= link_to "Edit Profile",
+    edit_space_membership_path(space, current_user.membership_for(space)), class: 'link--nav' if space && space.member?(current_user) %>
 <% end %>

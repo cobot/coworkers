@@ -1,14 +1,6 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<div class="cb-section">
-  <div class="cb-container">
-    <h1>New Members</h1>
-  </div>
-</div>
+<h1>New Members</h1>
 
-<div class="cb-section">
-  <div class="cb-container">
-    <p><%= link_to 'All Members', [@space, :memberships] %></p>
-    <%= render 'memberships/memberships', memberships: @new_memberships, space: @space %>
-  </div>
-</div>
+<p><%= link_to 'All Members', [@space, :memberships] %></p>
+<%= render 'memberships/memberships', memberships: @new_memberships, space: @space %>

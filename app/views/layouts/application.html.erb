@@ -31,19 +31,25 @@
     <div class="cb-container top--padded">
       <nav id="menu">
         <%= yield :menu %>
-        <% if current_user %>
-          <%= link_to 'Account', account_path, class: 'link--nav' %>
-          <%= link_to 'Sign out', session_path, data: {method: :delete}, class: 'link--nav' %>
-        <% elsif request.path != root_path %>
-          <%= link_to 'Home', root_path, class: 'link--nav' %>
-          <%= link_to 'Sign in', new_session_path, class: 'link--nav' %>
-        <% end %>
+        <div class="f--right">
+          <% if current_user %>
+            <%= link_to 'Account', account_path, class: 'link--nav' %>
+            <%= link_to 'Sign out', session_path, data: {method: :delete}, class: 'link--nav' %>
+          <% elsif request.path != root_path %>
+            <%= link_to 'Home', root_path, class: 'link--nav' %>
+            <%= link_to 'Sign in', new_session_path, class: 'link--nav' %>
+          <% end %>
+        </div>
       </nav>
     </div>
   </div>
 
   <div class="cb-site-main">
-    <%= yield %>
+    <div class="cb-section">
+      <div class="cb-container">
+        <%= yield %>
+      </div>
+    </div>
   </div>
   <%= javascript_include_tag 'application' %>
 </body>
