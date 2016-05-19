@@ -9,59 +9,59 @@
     </div>
     <div class="grid-cell">
       <h2 class="heading--special">General Information</h2>
-      <div class="form-block--full">
-        <%= f.label :name, 'Name' %>
-        <%= f.text_field :name, class: 'input--stretch' %>
+      <div class="form-block--wide">
+        <div class="admin-form">
+          <%= f.label :name, 'Name' %>
+          <%= f.text_field :name, class: 'input--stretch' %>
 
-        <% unless @space.hide_default_fields? %>
-          <h4>Profile</h4>
-          <p>
-            <%= f.label :website %>
-            <%= f.text_field :website, placeholder: 'http://...', class: 'input--stretch' %>
-          </p>
-          <p>
-            <%= f.label :profession %>
-            <%= f.text_field :profession, class: 'input--stretch' %>
-          </p>
-          <p>
-            <%= f.label :industry %>
-            <%= f.text_field :industry, class: 'input--stretch' %>
-          </p>
-          <p>
-            <%= f.label :bio %>
-            <%= f.text_area :bio, placeholder: 'A few lines about you.', class: 'input--stretch' %>
-          </p>
-          <p>
-            <%= f.label :skills %>
-            <%= f.text_area :skills, class: 'input--stretch' %>
-          </p>
+          <% unless @space.hide_default_fields? %>
+            <h4>Profile</h4>
+            <div class="form__text-field">
+              <%= f.label :website %>
+              <%= f.text_field :website, placeholder: 'http://…', class: 'input--stretch' %>
+            </div>
+            <div class="form__text-field">
+              <%= f.label :profession %>
+              <%= f.text_field :profession, class: 'input--stretch' %>
+            </div>
+            <div class="form__text-field">
+              <%= f.label :industry %>
+              <%= f.text_field :industry, class: 'input--stretch' %>
+            </div>
+            <div class="form__text-field">
+              <%= f.label :bio %>
+              <%= f.text_area :bio, placeholder: 'A few lines about you.', class: 'input--stretch' %>
+            </div>
+            <div class="form__text-field">
+              <%= f.label :skills %>
+              <%= f.text_area :skills, class: 'input--stretch' %>
+            </div>
 
-          <h4>Messenger</h4>
-          <p>
-            <%= f.label :messenger_type, 'Type' %>
-            <%= f.select :messenger_type, ['Skype', 'Twitter', 'Jabber'], {}, class: 'input--stretch'  %>
-          </p>
-          <p>
-            <%= f.label :messenger_account, 'Account' %>
-            <%= f.text_field :messenger_account, class: 'input--stretch' %>
-          </p>
-        <% end %>
-
-        <% if @questions.any? %>
-          <h4>Additional</h4>
-          <% @questions.each.with_index do |question, i| %>
-            <p>
-              <%= question_input_tags question, i, @answers %>
-            </p>
+            <h4>Messenger</h4>
+            <div class="form__text-field">
+              <%= f.label :messenger_type, 'Type' %>
+              <%= f.select :messenger_type, ['Skype', 'Twitter', 'Jabber'], {}, class: 'input--stretch'  %>
+            </div>
+            <div class="form__text-field">
+              <%= f.label :messenger_account, 'Account' %>
+              <%= f.text_field :messenger_account, class: 'input--stretch' %>
+            </div>
           <% end %>
-        <% end %>
-      </div>
-      <div class="grid grid--gutters grid--full tablet-grid--1of2 top--padded">
-        <div class="grid-cell">
-          <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--primary input--stretch' %>
-        </div>
-        <div class="grid-cell">
-          <%= link_to 'Remove Profile', [@space, @membership], data: {method: 'delete'}, confirm: 'Really remove that membership?', class: 'remove btn btn--primary input--stretch' %>
+
+          <% if @questions.any? %>
+            <h4>Additional</h4>
+            <% @questions.each.with_index do |question, i| %>
+              <div class="form__text-field">
+                <%= question_input_tags question, i, @answers %>
+              </div>
+            <% end %>
+          <% end %>
+          <p>
+            <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--primary btn--stretch' %>
+          </p>
+          <p>
+            <%= link_to 'Remove Profile', [@space, @membership], data: {method: 'delete'}, confirm: 'Really remove that membership?', class: 'font--smaller f--right link--hl btn_x' %>
+          </p>
         </div>
       </div>
     </div>
