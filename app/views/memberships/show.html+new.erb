@@ -12,18 +12,18 @@
         <%= markdown @membership.bio %>
         <dl class="no-border">
           <% if @membership.website? %>
-            <dt>Website</dt>
-            <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
+            <span>Website</dt>
+            <span class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
           <% end %>
           <% [:profession, :industry, :skills].each do |attribute| %>
             <% if @membership.send("#{attribute}?") %>
-              <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-              <dd class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></dd>
+              <span class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
+              <span class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></dd>
             <% end %>
           <% end %>
           <% if @membership.messenger_account? && @membership.messenger_type? %>
-            <dt class="messenger"><%= @membership.messenger_type %></dt>
-            <dd class="messenger">
+            <span class="messenger"><%= @membership.messenger_type %></dt>
+            <span class="messenger">
               <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
             </dd>
           <% end %>
@@ -37,8 +37,8 @@
         <dl class="no-border">
           <% @membership.answers.each do |answer| %>
             <% if answer.text? %>
-              <dt class="question"><%= answer.question %></dt>
-              <dd class="answer"><%= answer.text %></dd>
+              <span class="question"><%= answer.question %></dt>
+              <span class="answer"><%= answer.text %></dd>
             <% end %>
           <% end %>
         </dl>
