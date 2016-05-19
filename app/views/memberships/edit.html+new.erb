@@ -2,7 +2,7 @@
 
 <h2 class="heading--special">Edit Profile</h2>
 <%= form_for [@space, @membership] do |f| %>
-  <div class="grid grid--gutters--huge grid--reverseDirection grid--full tablet-grid--1of2">
+  <div class="grid grid--gutters--huge grid--full tablet-grid--1of2">
     <div class="grid-cell">
       <p class="img--avatar"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
       <p class="font--smaller">You can change your picture in your <a target="_TOP" href="https://www.cobot.me/account/edit">account settings</a>.</p>
