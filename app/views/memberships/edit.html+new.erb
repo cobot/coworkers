@@ -5,7 +5,9 @@
   <div class="grid grid--reverseDirection grid--full tablet-grid--1of2">
     <div class="grid-cell">
       <p class="img--avatar img--avatar-center"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
-      <p class="font--smaller">You can change your picture in your <a target="_TOP" href="https://www.cobot.me/account/edit">account settings</a>.</p>
+      <p class="text--center font--smaller">
+        You can change your picture in your <a target="_TOP" href="https://www.cobot.me/account/edit">account settings</a>.
+      </p>
     </div>
     <div class="grid-cell">
       <div class="form-block--wide">
@@ -67,6 +69,8 @@
   </div>
 <% end %>
 
-<p>Note: This information will be visible to your coworkers and every user of this application.</p>
+<p class="pad-top--default font--small">
+  Note: This information will be visible to your coworkers and every user of this application.
+</p>
 
 <p><%= link_to 'back', space_membership_path(@space, @membership), class: 'link--back' %></p>

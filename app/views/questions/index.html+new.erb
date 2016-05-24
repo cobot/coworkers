@@ -24,32 +24,37 @@
       <p>No fields set up at the moment.</p>
     <% end %>
 
-    <h3 class="top--padded">Add Field</h3>
+    <h3 class="pad-top--default">Add Field</h3>
+
     <%= form_for @question, url: [@space, @question] do |f| %>
-      <p>
-        <%= f.label :text, 'Text' %>
-        <%= f.text_field :text, class: 'input--stretch' %>
-      </p>
-      <p>
-        <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
-          {prompt: false}, class: 'input--stretch' %>
-      </p>
-      <p>
-        <%= f.submit 'Add Field', class: 'btn btn--full btn--primary btn--stretch' %>
-      </p>
+      <div class="form-block--wide">
+        <p>
+          <%= f.label :text, 'Text' %>
+          <%= f.text_field :text, class: 'input--stretch' %>
+        </p>
+        <p>
+          <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
+            {prompt: false}, class: 'input--stretch' %>
+        </p>
+        <p>
+          <%= f.submit 'Add Field', class: 'btn btn--full btn--primary btn--stretch' %>
+        </p>
+      </div>
     <% end %>
 
     <% unless @embedded %>
-      <h3 class="top--padded">Visibility</h3>
+      <h3 class="pad-top--default">Visibility</h3>
 
       <%= form_for @space do |f| %>
-        <p>
-          <%= f.check_box :members_only %>
-          <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
-        </p>
-        <p>
-          <%= f.submit 'Save', class: 'btn btn--full btn--primary btn--stretch' %>
-        </p>
+        <div class="form-block--wide">
+          <p>
+            <%= f.check_box :members_only %>
+            <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
+          </p>
+          <p>
+            <%= f.submit 'Save', class: 'btn btn--full btn--primary btn--stretch' %>
+          </p>          
+        </div>
       <% end %>
     <% end %>
   </div>
@@ -62,6 +67,9 @@
       <%= render('embed_link') %>
     </textarea>
 
-    <p>To change the look of the member list just change the CSS/HTML in the embed code.</p>
+    <p class="pad-bottom--huge">
+      To change the look of the member list just change the CSS/HTML in the embed code.
+    </p>
+
   </div>
 </div>
