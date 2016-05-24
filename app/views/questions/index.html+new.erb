@@ -8,18 +8,18 @@
     <p>Here you can add additional fields to the member profiles of your space.</p>
 
     <% if @questions.any? %>
-      <ol>
+      <ul class="admin-list">
         <% @questions.each do |question| %>
-          <li class="pad--bottom--default">
-              <%= question.text %>
-            <div>
+          <li class="admin-item">
+            <div class="actions-right">
               <%= link_to 'Remove', [@space, question],
-                data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn btn--small btn_x' %>
-              <%= link_to 'Edit', [:edit, @space, question], class: 'btn btn--small btn_edit' %>
+                data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn_x' %>
+              <%= link_to 'Edit', [:edit, @space, question], class: 'btn_edit' %>
             </div>
+            <div class="admin-item__title"><%= question.text %></div>
           </li>
         <% end %>
-      </ol>
+      </ul>
     <% else %>
       <p>No fields set up at the moment.</p>
     <% end %>
@@ -36,7 +36,7 @@
           <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
             {prompt: false}, class: 'input--stretch' %>
         </p>
-        <p>
+        <p class="pad-bottom--big">
           <%= f.submit 'Add Field', class: 'btn btn--full btn--primary btn--stretch' %>
         </p>
       </div>
@@ -53,7 +53,7 @@
           </p>
           <p>
             <%= f.submit 'Save', class: 'btn btn--full btn--primary btn--stretch' %>
-          </p>          
+          </p>
         </div>
       <% end %>
     <% end %>
@@ -67,7 +67,7 @@
       <%= render('embed_link') %>
     </textarea>
 
-    <p class="pad-bottom--huge">
+    <p class="pad-bottom--big">
       To change the look of the member list just change the CSS/HTML in the embed code.
     </p>
 
