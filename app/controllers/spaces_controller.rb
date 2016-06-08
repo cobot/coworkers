@@ -17,14 +17,11 @@ class SpacesController < ApplicationController
           @new_memberships = load_new_memberships
         end
       end
-      f.css do
-        begin
-          @customization = CobotClient::ApiClient.new(nil).get(@space.subdomain, '/customization')
-        rescue RestClient::ResourceNotFound
-          head :not_found
-        end
-      end
     end
+  end
+
+  def cobot_client
+    CobotClient::ApiClient.new current_user.access_token
   end
 
   def install
@@ -44,10 +41,6 @@ class SpacesController < ApplicationController
   end
 
   private
-
-  def cobot_client
-    CobotClient::ApiClient.new current_user.access_token
-  end
 
   def load_space
     @space = Space.by_cobot_id(params[:id]).first!
