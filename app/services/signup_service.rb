@@ -1,13 +1,14 @@
 class SignupService
-  def initialize(user_attributes, access_token)
+  def initialize(user_attributes, access_token, routes)
     @user_attributes = user_attributes
     @access_token = access_token
+    @routes = routes
   end
 
   def run
     user = find_and_update_or_create_user user_attributes
     create_memberships user, user_attributes["memberships"]
-    create_spaces user_attributes['admin_of'].map{|admin_of| admin_of['space_link']}
+    create_spaces user_attributes['admin_of'].map {|admin_of| admin_of['space_link'] }
     user
   end
 
@@ -17,7 +18,7 @@ class SignupService
 
   def create_spaces(links)
     links.each do |link|
-      find_or_create_space link
+      find_or_create_space link, create_webhooks: true
     end
   end
 
@@ -59,11 +60,16 @@ class SignupService
     end
   end
 
-  def find_or_create_space(space_url)
+  def find_or_create_space(space_url, create_webhooks: false)
     space_attributes = oauth_get(space_url)
     unless space = Space.where(cobot_id: space_attributes['id']).first
       space = Space.create name: space_attributes['name'], cobot_id: space_attributes['id'],
         cobot_url: space_attributes['url']
+      if create_webhooks
+        cobot_client.post space.subdomain, '/subscriptions',
+          event: 'canceled_membership',
+          callback_url: @routes.space_member_cancellation_webhook_url(space.webhook_secret)
+      end
     else
       space.cobot_url = space_attributes['url'] # for old spaces who don't have it set yet
       space.save validate: false
@@ -78,6 +84,10 @@ class SignupService
         name: space_attributes['name']
       }
     }
+  end
+
+  def cobot_client
+    CobotClient::ApiClient.new @access_token
   end
 
   def oauth_get(url)

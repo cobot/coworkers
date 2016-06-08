@@ -4,12 +4,16 @@ class Space < ActiveRecord::Base
   has_many :memberships, dependent: :destroy
   has_many :questions, dependent: :destroy
 
-  before_create :set_secret, :set_subdomain
+  before_create :set_secrets, :set_subdomain
 
   scope :by_cobot_id, ->(cobot_id) { where(cobot_id: cobot_id) }
 
   def to_param
     cobot_id
+  end
+
+  def access_token
+    User.where("admin_of LIKE '%#{cobot_id}%'").first.access_token # XXX
   end
 
   def new_memberships
@@ -35,7 +39,8 @@ class Space < ActiveRecord::Base
     self.subdomain = URI.parse(cobot_url).host.split('.').first if cobot_url?
   end
 
-  def set_secret
+  def set_secrets
     self.secret = SecureRandom.urlsafe_base64
+    self.webhook_secret = SecureRandom.urlsafe_base64
   end
 end

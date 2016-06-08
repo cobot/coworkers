@@ -42,7 +42,7 @@ describe SignupService, '#run' do
     expect(Space).to receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
       cobot_url: 'https://some-space.cobot.me') { double.as_null_object }
 
-    SignupService.new(attributes, access_token).run
+    SignupService.new(attributes, access_token, nil).run
   end
 
   it 'creates a space for an admin' do
@@ -62,6 +62,6 @@ describe SignupService, '#run' do
     expect(Space).to receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
       cobot_url: 'https://some-space.cobot.me') { double.as_null_object }
 
-    SignupService.new(attributes, access_token).run
+    SignupService.new(attributes, access_token, nil).run
   end
 end

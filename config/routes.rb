@@ -12,6 +12,7 @@ Coworkers::Application.routes.draw do
     resource :membership_import, only: [:new, :create]
     resources :memberships, only: [:index, :show, :destroy, :edit, :update]
     resources :questions, only: [:index, :create, :destroy, :edit, :update]
+    resource :member_cancellation_webhook, only: :create
   end
   resource :session, only: [:destroy, :new]
 

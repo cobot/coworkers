@@ -36,6 +36,6 @@ class SessionsController < ApplicationController
   end
 
   def sign_up(user_attributes)
-    SignupService.new(user_attributes, access_token).run
+    SignupService.new(user_attributes, access_token, self).run
   end
 end

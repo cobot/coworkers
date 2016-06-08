@@ -20,6 +20,7 @@ RSpec.configure do |config|
   config.mock_with :rspec
 
   config.before(:each) do
+    WebMock.stub_request(:post, /subscriptions/).to_return(body: '{}')
     WebMock.stub_request(:post, "https://www.cobot.me/oauth2/access_token").to_return(body: {access_token: '1'}.to_json, headers: {'Content-Type' => 'application/json'})
   end
 end
