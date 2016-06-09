@@ -1,10 +1,9 @@
 class User < ActiveRecord::Base
   Admin = Struct.new(:name)
-  serialize :admin_of
   has_many :memberships
 
   def admin_of?(space)
-    admin_of.map{|attributes| attributes[:space_id]}.include?(space.cobot_id)
+    admin_of.key? space.cobot_id
   end
 
   def membership_for(space)
@@ -13,8 +12,8 @@ class User < ActiveRecord::Base
   alias_method :member_of?, :membership_for
 
   def admin_for(space)
-    if attributes = admin_of.find{|attr| attr[:space_id] == space.cobot_id}
-      Admin.new(attributes[:name])
+    if (name = admin_of[space.cobot_id])
+      Admin.new(name)
     end
   end
 end

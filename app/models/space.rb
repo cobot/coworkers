@@ -13,7 +13,7 @@ class Space < ActiveRecord::Base
   end
 
   def access_token
-    User.where("admin_of LIKE '%#{cobot_id}%'").first.access_token # XXX
+    User.where('(admin_of -> :cobot_id) is not null', cobot_id: cobot_id).first.access_token
   end
 
   def new_memberships

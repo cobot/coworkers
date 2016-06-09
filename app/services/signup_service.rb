@@ -78,12 +78,10 @@ class SignupService
   end
 
   def admin_spaces(user_attributes)
-    user_attributes['admin_of'].map{|space_attributes|
-      {
-        space_id: oauth_get(space_attributes['space_link'])['id'],
-        name: space_attributes['name']
-      }
-    }
+    user_attributes['admin_of'].reduce({}) do |hash, space_attributes|
+      hash[oauth_get(space_attributes['space_link'])['id']] = space_attributes['name']
+      hash
+    end
   end
 
   def cobot_client
