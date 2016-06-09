@@ -8,4 +8,5 @@ before_script:
   - "sh -e /etc/init.d/xvfb start"
   - "bundle exec rake db:migrate"
 script: "bundle exec rake"
-services: postgresql
+addons:
+  postgresql: "9.4"
