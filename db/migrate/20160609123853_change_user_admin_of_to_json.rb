@@ -1,6 +1,6 @@
 class ChangeUserAdminOfToJson < ActiveRecord::Migration
   def up
-    admins = User.all.map {|u| [u.id, u.admin_of] }.reject {|u| u[1].empty? }
+    admins = User.all.map {|u| [u.id, YAML.load(u.admin_of)] }.reject {|u| u[1].empty? }
     remove_column :users, :admin_of
     add_column :users, :admin_of, :jsonb, default: {}
     User.reset_column_information
