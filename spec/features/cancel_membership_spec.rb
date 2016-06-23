@@ -37,4 +37,17 @@ describe 'cancel membership', type: :request do
       expect(page).to have_no_content('jane dane')
     end
   end
+
+  it 'hides deleted members' do
+    stub_request(:get, 'https://co-up.cobot.me/api/memberships/m1')
+      .to_return(status: 404, body: {}.to_json)
+    @space.memberships.create! cobot_id: 'm1', name: 'jane dane'
+
+    post space_member_cancellation_webhook_path(@space.webhook_secret),
+      url: 'https://co-up.cobot.me/api/memberships/m1'
+
+    visit space_memberships_path(@space)
+
+    expect(page).to have_no_content('jane dane')
+  end
 end
