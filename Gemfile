@@ -20,6 +20,7 @@ gem 'cobot_assets', '~>0.8.0'
 gem 'font-awesome-sass'
 gem 'sass-rails'
 gem 'uglifier'
+gem 'lograge'
 
 group :development do
   gem 'rspec-rails', '~> 3.2.0'

@@ -105,6 +105,10 @@ GEM
     jwt (1.5.1)
     launchy (2.4.3)
       addressable (~> 2.3)
+    lograge (0.3.6)
+      actionpack (>= 3)
+      activesupport (>= 3)
+      railties (>= 3)
     loofah (2.0.3)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -254,6 +258,7 @@ DEPENDENCIES
   font-awesome-sass
   jquery-rails
   launchy
+  lograge
   omniauth
   omniauth_cobot (~> 0.0.3)
   param_protected
@@ -274,5 +279,8 @@ DEPENDENCIES
   virtus
   webmock
 
+RUBY VERSION
+   ruby 2.3.0p0
+
 BUNDLED WITH
-   1.12.4
+   1.12.5
