@@ -19,7 +19,7 @@
     <dl>
       <% if @membership.website? %>
         <dt>Website</dt>
-        <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></dd>
+        <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website), target: '_blank' %></dd>
       <% end %>
       <% [:profession, :industry, :skills].each do |attribute| %>
         <% if @membership.send("#{attribute}?") %>

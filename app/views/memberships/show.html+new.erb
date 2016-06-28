@@ -16,7 +16,7 @@
       <% end %>
       <% if @membership.website? %>
         <span class="admin-label">Website</span>
-        <p class="website"><%= link_to @membership.website, add_scheme(@membership.website) %></p>
+        <p class="website"><%= link_to @membership.website, add_scheme(@membership.website), target: '_blank' %></p>
       <% end %>
       <% [:profession, :industry, :skills].each do |attribute| %>
         <% if @membership.send("#{attribute}?") %>
