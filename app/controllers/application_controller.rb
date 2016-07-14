@@ -7,6 +7,11 @@ class ApplicationController < ActionController::Base
 
   layout :current_layout
 
+  def append_info_to_payload(payload)
+    super
+    payload[:params] = params if Rails.application.config.lograge.enabled
+  end
+
   private
 
   def set_p3p_header
