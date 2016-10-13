@@ -22,3 +22,6 @@
 * In command line: bundle
 * restart server
 * compile css
+
+## Maintenance 
+* there is a rake task to remove inactive members if the web hook failed
