@@ -50,4 +50,33 @@ describe 'cancel membership', type: :request do
 
     expect(page).to have_no_content('jane dane')
   end
+
+  it 'removes admin when he can no longer access the space' do
+    admin = User.new(
+            cobot_id: '1',
+            email: 'admin@mail.com',
+            admin_of: {@space.cobot_id => 'Admin Name'},
+            access_token: 'token'
+          )
+    admin.save!
+
+    stub_request(:get, 'https://co-up.cobot.me/api/memberships/m1')
+      .to_return(status: 403, body: {}.to_json).then
+      .to_return(body: {id: 'm1', canceled_to: '2016/10/01'}.to_json)
+
+    post space_member_cancellation_webhook_path(@space.webhook_secret),
+        url: 'https://co-up.cobot.me/api/memberships/m1'
+
+    expect(@space.admins.count).to be(1)
+  end
+
+  it 'returns 403 if no admin has access to the space' do
+    stub_request(:get, 'https://co-up.cobot.me/api/memberships/m1')
+      .to_return(status: 403, body: {}.to_json)
+
+    response = post space_member_cancellation_webhook_path(@space.webhook_secret),
+          url: 'https://co-up.cobot.me/api/memberships/m1'
+
+    expect(response).to eq(403)
+  end
 end
