@@ -13,7 +13,15 @@ class Space < ActiveRecord::Base
   end
 
   def access_token
-    User.where('(admin_of -> :cobot_id) is not null', cobot_id: cobot_id).first.access_token
+    default_admin.access_token
+  end
+
+  def default_admin
+    admins.first
+  end
+  
+  def admins
+    User.where('(admin_of -> :cobot_id) is not null', cobot_id: cobot_id)
   end
 
   def new_memberships
