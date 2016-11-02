@@ -1,7 +1,7 @@
 namespace :cobot_scss do
   desc 'posts scss to the scss server so it can generate per space css'
   task post_scss: :environment do
-    root = 'new/application'
+    root = 'application'
     assets = scss_imports(root).map do |hash|
       import = hash.keys.first
       path = hash[import]

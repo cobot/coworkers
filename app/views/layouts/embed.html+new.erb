@@ -8,7 +8,7 @@
   <% if @space && (css_url = space_css_url(@space)) %>
     <%= stylesheet_link_tag css_url %>
   <% else %>
-    <%= stylesheet_link_tag 'new/application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
   <% end %>
   <%= csrf_meta_tags %>
 </head>
