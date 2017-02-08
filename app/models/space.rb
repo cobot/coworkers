@@ -12,14 +12,14 @@ class Space < ActiveRecord::Base
     cobot_id
   end
 
-  def access_token
+  def admin_access_token
     default_admin.access_token
   end
 
   def default_admin
     admins.first
   end
-  
+
   def admins
     User.where('(admin_of -> :cobot_id) is not null', cobot_id: cobot_id)
   end

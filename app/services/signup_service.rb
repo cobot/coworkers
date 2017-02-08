@@ -64,7 +64,7 @@ class SignupService
     space_attributes = oauth_get(space_url)
     unless space = Space.where(cobot_id: space_attributes[:id]).first
       space = Space.create name: space_attributes[:name], cobot_id: space_attributes[:id],
-        cobot_url: space_attributes[:url]
+        cobot_url: space_attributes[:url], access_token: space_access_token(space_attributes[:id])
       if create_webhooks
         cobot_client.post space.subdomain, '/subscriptions',
           event: 'canceled_membership',
@@ -75,6 +75,10 @@ class SignupService
       space.save validate: false
     end
     space
+  end
+
+  def space_access_token(space_id)
+    CobotClient::ApiClient.new(@access_token).post('www', "/access_tokens/#{access_token}/space", space_id: space_id)[:token]
   end
 
   def admin_spaces(user_attributes)

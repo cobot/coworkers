@@ -4,7 +4,7 @@ class MemberCancellationWebhooksController < ActionController::Base
     membership_id = URI.parse(params[:url]).path.split('/').last
     membership = space.memberships.where(cobot_id: membership_id).first
     begin
-      api_membership = cobot_client(space.access_token).get params[:url]
+      api_membership = cobot_client(space.admin_access_token).get params[:url]
     rescue CobotClient::ResourceNotFound
       membership.destroy if membership
       head 204

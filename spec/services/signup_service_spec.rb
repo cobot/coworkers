@@ -23,6 +23,10 @@ describe SignupService, '#run' do
         subdomain: 'some-space'
       }
     }
+
+    allow(cobot_client).to receive(:post)
+      .with('www', '/access_tokens/token-1/space',
+        space_id: 'space-some-space') { {token: 'space-token-some-space'} }
   end
 
   it 'creates a space for a member' do
@@ -40,7 +44,8 @@ describe SignupService, '#run' do
     }
 
     expect(Space).to receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
-      cobot_url: 'https://some-space.cobot.me') { double.as_null_object }
+      cobot_url: 'https://some-space.cobot.me',
+      access_token: 'space-token-some-space') { double.as_null_object }
 
     SignupService.new(attributes, 'token-1', nil).run
   end
@@ -60,7 +65,8 @@ describe SignupService, '#run' do
     }
 
     expect(Space).to receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
-      cobot_url: 'https://some-space.cobot.me') { double.as_null_object }
+      cobot_url: 'https://some-space.cobot.me',
+      access_token: 'space-token-some-space') { double.as_null_object }
 
     SignupService.new(attributes, 'token-1', nil).run
   end

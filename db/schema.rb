@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160609123853) do
+ActiveRecord::Schema.define(version: 20170208161146) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,7 @@ ActiveRecord::Schema.define(version: 20160609123853) do
     t.datetime "updated_at",                      null: false
     t.boolean  "hide_default_fields"
     t.string   "webhook_secret"
+    t.string   "access_token"
   end
 
   add_index "spaces", ["name"], name: "index_spaces_on_name", using: :btree
