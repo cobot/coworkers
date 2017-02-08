@@ -1,57 +1,52 @@
 <%= render 'spaces/navigation', space: @space %>
 
 <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
-  <div class="action-links">
-    <ul>
-      <li><%= link_to 'Edit', [:edit, @space, @membership], class: 'btn' %><li>
-    </ul>
-  </div>
+  <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn_edit f--right' %>
 <% end %>
-
-<div class="path"><%= link_to @space.name, @space %> » <%= @membership.name %></div>
-
-<p><%= image_tag membership_picture_url(@membership) %></p>
-
-<div class="profile_info">
-  <h2>General Information</h2>
-  <% unless @space.hide_default_fields? %>
-    <%= markdown @membership.bio %>
-    <dl>
+<h2 class="heading--special"><%= @membership.name %></h2>
+<div class="grid grid--reverseDirection grid--full tablet-grid--1of2">
+  <div class="grid-cell">
+    <p class="img--avatar img--avatar-center"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
+  </div>
+  <div class="grid-cell">
+    <% unless @space.hide_default_fields? %>
+      <% if @membership.bio? %>
+        <span class="admin-label">Bio</span>
+        <%= markdown @membership.bio %>
+      <% end %>
       <% if @membership.website? %>
-        <dt>Website</dt>
-        <dd class="website"><%= link_to @membership.website, add_scheme(@membership.website), target: '_blank' %></dd>
+        <span class="admin-label">Website</span>
+        <p class="website"><%= link_to @membership.website, add_scheme(@membership.website), target: '_blank' %></p>
       <% end %>
       <% [:profession, :industry, :skills].each do |attribute| %>
         <% if @membership.send("#{attribute}?") %>
-          <dt class="<%= attribute %>"><%= attribute.to_s.humanize %></dt>
-          <dd class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></dd>
+          <span class="admin-label <%= attribute %>"><%= attribute.to_s.humanize %></span>
+          <p class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></p>
         <% end %>
       <% end %>
       <% if @membership.messenger_account? && @membership.messenger_type? %>
-        <dt class="messenger"><%= @membership.messenger_type %></dt>
-        <dd class="messenger">
+        <span class="messenger"><%= @membership.messenger_type %></span>
+        <p class="messenger">
           <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
-        </dd>
+        </p>
       <% end %>
-    </dl>
-  <% end %>
-
-  <% if @membership.answers.any? %>
-    <% unless @space.hide_default_fields? %>
-      <h2>Additional information</h2>
     <% end %>
-    <dl>
+
+    <% if @membership.answers.any? %>
+      <% unless @space.hide_default_fields? %>
+        <h3>Additional information</h3>
+      <% end %>
       <% @membership.answers.each do |answer| %>
         <% if answer.text? %>
-          <dt class="question"><%= answer.question %></dt>
-          <dd class="answer"><%= answer.text %></dd>
+          <span class="admin-label"><%= answer.question %></span>
+          <p><%= answer.text %></p>
         <% end %>
       <% end %>
-    </dl>
-  <% elsif @membership.user == current_user && @space.questions.any? %>
-    <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
-  <% end %>
+    <% elsif @membership.user == current_user && @space.questions.any? %>
+      <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
+    <% end %>
+
+  </div>
 </div>
-<div class="clear"></div>
 
 <p><%= link_to 'back', space_memberships_path(@space), class: 'link--back' %></p>

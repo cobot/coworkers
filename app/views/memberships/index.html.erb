@@ -1,23 +1,14 @@
 <%= render 'spaces/navigation', space: @space %>
 
 <% if current_user %>
-  <div class="action-links">
-    <ul>
-      <% if current_user.admin_of?(@space) %>
-        <li><%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn' %></li>
-      <% end %>
-      <% if membership = current_user.membership_for(@space) %>
-        <li><%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn' %></li>
-      <% end %>
-    </ul>
-  </div>
+  <p class="text--right">
+    <% if current_user.admin_of?(@space) %>
+      <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn btn_edit' %>
+    <% end %>
+    <% if membership = current_user.membership_for(@space) %>
+      <%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn btn_show' %>
+    <% end %>
+  </p>
 <% end %>
 
-<div class="path"><%= link_to @space.name, @space %> » Members</div>
-
-<div class="page-header">
-  <h2>Coworkers</h2>
-</div>
-
 <%= render 'memberships/memberships', memberships: @memberships, edit_links: true, space: @space %>
-

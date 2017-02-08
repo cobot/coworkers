@@ -2,7 +2,6 @@ class SpacesController < ApplicationController
   skip_before_filter :require_authentication, only: :show
   before_filter :load_space
   before_filter :check_access, except: :show
-  before_filter :new_variant
 
   def show
     respond_to do |f|

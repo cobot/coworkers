@@ -1,58 +1,75 @@
 <%= render 'spaces/navigation', space: @space %>
-<div class="path"><%= link_to @space.name, @space %> » Settings</div>
 
-<% if @embedded %>
-  <div class="page-header">
-    <h2>Coworker Profiles</h2>
-  </div>
-<% end %>
+<h2 class="heading--special">Settings</h2>
 
-<h2>Fields</h2>
+<div class="grid grid--gutters--huge grid--full tablet-grid--1of2">
+  <div class="grid-cell">
+    <h3>Fields</h3>
+    <p>Here you can add additional fields to the member profiles of your space.</p>
 
-<p>Here you can add additional fields to the member profiles of your space.</p>
-
-<% if @questions.any? %>
-  <ol>
-    <% @questions.each do |question| %>
-      <li class="buttons">
-        <%= link_to 'Remove', [@space, question], data: {method: 'delete'}, confirm: 'Really remove that question?', class: 'right btn' %>
-        <%= link_to 'Edit', [:edit, @space, question], class: 'right btn' %>
-        <%= question.text %>
-
-      </li>
+    <% if @questions.any? %>
+      <ul class="admin-list">
+        <% @questions.each do |question| %>
+          <li class="admin-item">
+            <div class="actions-right">
+              <%= link_to 'Remove', [@space, question],
+                data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn_x' %>
+              <%= link_to 'Edit', [:edit, @space, question], class: 'btn_edit' %>
+            </div>
+            <div class="admin-item__title"><%= question.text %></div>
+          </li>
+        <% end %>
+      </ul>
+    <% else %>
+      <p>No fields set up at the moment.</p>
     <% end %>
-  </ol>
-<% else %>
-  <p>No fields set up at the moment.</p>
-<% end %>
 
-<h2>Add Field</h2>
-<%= simple_form_for @question, url: [@space, @question] do |f| %>
-  <%= f.input :text %>
-  <%= f.input :question_type, collection: {'Short Text' => 'short_text', 'Long Text' => 'long_text'}, prompt: false %>
-  <%= f.submit 'Add Field', class: 'btn' %>
-<% end %>
+    <h3 class="pad-top--default">Add Field</h3>
 
-<% unless @embedded %>
-  <h2>Visibility</h2>
+    <%= form_for @question, url: [@space, @question] do |f| %>
+      <div class="form-block--wide">
+        <p>
+          <%= f.label :text, 'Text' %>
+          <%= f.text_field :text, class: 'input--stretch' %>
+        </p>
+        <p>
+          <%= f.select :question_type, {'Short Text' => 'short_text', 'Long Text' => 'long_text'},
+            {prompt: false}, class: 'input--stretch' %>
+        </p>
+        <p class="pad-bottom--big">
+          <%= f.submit 'Add Field', class: 'btn btn--full btn--primary btn--stretch' %>
+        </p>
+      </div>
+    <% end %>
 
-  <%= simple_form_for @space do |f| %>
-    <div class="check-box input">
-      <%= f.check_box :members_only %>
-      <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
-    </div>
-    <div>
-      <%= f.submit 'Save', class: 'btn' %>
-    </div>
-  <% end %>
-<% end %>
+    <% unless @embedded %>
+      <h3 class="pad-top--default">Visibility</h3>
 
-<h2>Embed on your website</h2>
+      <%= form_for @space do |f| %>
+        <div class="form-block--wide">
+          <p>
+            <%= f.check_box :members_only %>
+            <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
+          </p>
+          <p>
+            <%= f.submit 'Save', class: 'btn btn--full btn--primary btn--stretch' %>
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+  <div class="grid-cell">
+    <h3>Embed on your website</h3>
 
-<p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
+    <p>To add the list of coworkers to your website please paste the following embed code into your site:</p>
 
-<textarea class="embed" rows="12">
-<%= render('embed_link') %>
-</textarea>
+    <textarea class="embed input--stretch" rows="12">
+      <%= render('embed_link') %>
+    </textarea>
 
-<p>To change the look of the member list just change the CSS/HTML in the embed code.</p>
+    <p class="pad-bottom--big">
+      To change the look of the member list just change the CSS/HTML in the embed code.
+    </p>
+
+  </div>
+</div>

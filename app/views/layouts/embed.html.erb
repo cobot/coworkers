@@ -2,33 +2,28 @@
 <html>
 <head>
   <title>Coworkers</title>
-  <%= stylesheet_link_tag 'application' %>
-  <% if @space %>
-    <%= stylesheet_link_tag space_path(@space, format: 'css') %>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <link rel="shortcut icon" type="image/x-icon" href="<%= image_path 'cobot_assets/favicon.ico' %>" />
+  <link rel="icon" type="image/ico" href="<%= image_path 'cobot_assets/favicon.ico' %>" />
+  <% if @space && (css_url = space_css_url(@space)) %>
+    <%= stylesheet_link_tag css_url %>
+  <% else %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
   <% end %>
-  <%= csrf_meta_tag %>
-  <style>
-    .path {
-      display: none;
-    }
-    .container {
-      width: 705px;
-    }
-    .main {
-      background: none;
-      padding: 0;
-      border: none;
-    }
-  </style>
+  <%= csrf_meta_tags %>
 </head>
 <body class="embed">
-  <div class="container">
-    <div class="main">
-      <% if flash[:notice] %>
-        <p class="flash notice"><%= flash[:notice] %></p>
-      <% end %>
-      <%= yield %>
-    </div>
+  <% [:notice, :success, :failure].each do |flash_type| %>
+    <% if flash[flash_type] %>
+      <div id="flash" class="cb-top-notice <%= flash_type %>">
+        <div class="cb-container">
+          <p><%== flash[flash_type] %></p>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+  <div class="cb-site-main">
+    <%= yield %>
   </div>
   <%= javascript_include_tag 'application' %>
   <%= render 'cobot_client/resize_script' %>

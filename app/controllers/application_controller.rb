@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
   before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded,
-    :set_variant, :set_p3p_header
+    :set_p3p_header
 
   helper_method :current_user
 
@@ -16,21 +16,6 @@ class ApplicationController < ActionController::Base
 
   def set_p3p_header
     response.headers['P3P'] = 'CP="ALL ADM DEV PSAi COM OUR OTRo STP IND ONL"'
-  end
-
-  def set_variant
-    if params[:cobot_layout_version] == '2'
-      session[:new_variant] = true
-    elsif params[:cobot_layout_version] == '1'
-      session[:new_variant] = false
-    end
-    if session[:new_variant] || !@embedded
-      new_variant
-    end
-  end
-
-  def new_variant
-    request.variant = :new
   end
 
   def match_user_against_cobot_iframe
@@ -103,5 +88,4 @@ class ApplicationController < ActionController::Base
       end
     end
   end
-
 end
