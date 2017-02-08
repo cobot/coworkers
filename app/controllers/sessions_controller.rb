@@ -30,7 +30,7 @@ class SessionsController < ApplicationController
   private
 
   def access_token
-    @access_token ||= OAuth2::AccessToken.new(oauth_client, request.env['omniauth.auth']['credentials']['token'])
+    request.env['omniauth.auth']['credentials']['token']
   end
 
   def sign_up(user_attributes)

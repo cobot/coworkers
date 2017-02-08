@@ -12,7 +12,8 @@ describe 'cancel membership', type: :request do
   it 'sets up a cancellation webhook when adding a space' do
     expect(a_request(:post, 'https://co-up.cobot.me/api/subscriptions')
       .with(body: {event: 'canceled_membership',
-                   callback_url: "http://www.example.com/spaces/#{@space.webhook_secret}/member_cancellation_webhook"}))
+                   callback_url: "http://www.example.com/spaces/#{@space.webhook_secret}/member_cancellation_webhook"},
+            headers: {'Authorization' => 'Bearer test_token'}))
       .to have_been_made
   end
 
