@@ -12,18 +12,6 @@ class Space < ActiveRecord::Base
     cobot_id
   end
 
-  def admin_access_token
-    default_admin.access_token
-  end
-
-  def default_admin
-    admins.first
-  end
-
-  def admins
-    User.where('(admin_of -> :cobot_id) is not null', cobot_id: cobot_id)
-  end
-
   def new_memberships
     @new_memberships ||= memberships.active.limit(3).order('memberships.created_at DESC')
   end

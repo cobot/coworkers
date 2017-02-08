@@ -3,7 +3,7 @@ require 'spec_helper'
 describe MembershipImportsController, 'create', type: :controller do
   before(:each) do
     allow(Space).to receive_message_chain(:by_cobot_id, :first!) {
-      double(:space, id: 'space-1', subdomain: 'co-up')
+      double(:space, id: 'space-1', subdomain: 'co-up').as_null_object
     }
     @client = double(:api_client).as_null_object
     allow(CobotClient::ApiClient).to receive_messages(new: @client)

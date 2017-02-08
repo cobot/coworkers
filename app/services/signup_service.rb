@@ -27,14 +27,12 @@ class SignupService
     if user
       user.email = user_attributes[:email]
       user.admin_of = admin_spaces(user_attributes)
-      user.access_token = access_token
       user.save if user.changed?
     else
       user = User.new(
         cobot_id: user_attributes[:id],
         email: user_attributes[:email],
-        admin_of: admin_spaces(user_attributes),
-        access_token: access_token
+        admin_of: admin_spaces(user_attributes)
       )
       user.save
     end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170208161146) do
+ActiveRecord::Schema.define(version: 20170208172750) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -80,10 +80,9 @@ ActiveRecord::Schema.define(version: 20170208161146) do
   add_index "spaces", ["webhook_secret"], name: "index_spaces_on_webhook_secret", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string "cobot_id",     limit: 255
-    t.string "email",        limit: 255
-    t.string "access_token", limit: 255
-    t.jsonb  "admin_of",                 default: {}
+    t.string "cobot_id", limit: 255
+    t.string "email",    limit: 255
+    t.jsonb  "admin_of",             default: {}
   end
 
   add_index "users", ["cobot_id"], name: "index_users_on_cobot_id", using: :btree

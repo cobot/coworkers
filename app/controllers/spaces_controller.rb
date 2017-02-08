@@ -20,7 +20,7 @@ class SpacesController < ApplicationController
   end
 
   def cobot_client
-    CobotClient::ApiClient.new current_user.access_token
+    CobotClient::ApiClient.new @space.access_token
   end
 
   def install
