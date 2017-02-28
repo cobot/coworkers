@@ -6,6 +6,7 @@ Feature: Sign in
 Scenario: sign up as member, space doesn't exist yet
   Given on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
   When I sign in
+  And I publish my profile
   Then "Joe Doe" should be listed as a member of the space "co.up"
 
 Scenario: sign up as member, space already exists
@@ -15,6 +16,7 @@ Scenario: sign up as member, space already exists
     And I follow "Sign in"
     And I follow "co.up"
     And I fill in my profile info
+    And I publish my profile
   Then "Joe Doe" should be listed as a member of the space "co.up"
 
  Scenario: sign in as member using the email

@@ -18,7 +18,7 @@ Given /^on cobot I'm a member of the space "([^"]+)" with the name "([^"]+)"(?: 
   WebMock.stub_request(:get, "https://#{space_id}.cobot.me/api/memberships/#{membership_id}").to_return(
   headers: {'Content-Type' => 'application/json'},
   body: {
-    id: member_name.gsub(/\W+/, '-'),
+    id: 'my-mem-id',
     name: member_name,
     confirmed_at: '2010-01-01'
   }.to_json)

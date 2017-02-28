@@ -17,6 +17,7 @@ RSpec.configure do |config|
   config.include SpaceHelpers
   config.include CobotHelpers
   config.include IdGenerators
+  config.include MembershipHelpers
   config.mock_with :rspec
 
   config.before(:each) do

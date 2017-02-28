@@ -13,7 +13,7 @@ class Space < ActiveRecord::Base
   end
 
   def new_memberships
-    @new_memberships ||= memberships.active.limit(3).order('memberships.created_at DESC')
+    @new_memberships ||= memberships.active.published.limit(3).order('memberships.created_at DESC')
   end
 
   def member?(user)

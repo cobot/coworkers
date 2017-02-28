@@ -12,6 +12,7 @@ describe 'managing questions' do
     add_question 'What can you contribute?'
     stub_user_membership subdomain: 'co-up'
     sign_in
+    set_up_membership_profile
     answer_question 'What can you contribute?', with: 'i can cook'
     visit space_membership_path(Space.last, Membership.last)
 
@@ -36,7 +37,7 @@ describe 'managing questions' do
     expect(page).to have_no_content('What can you contribute?')
   end
 
-  def answer_question(text, with: raise)
+  def answer_question(_text, with: raise)
     visit account_path
     find('.space a').click
     click_link 'Edit Profile'

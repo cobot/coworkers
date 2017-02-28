@@ -10,11 +10,13 @@ end
 When 'I complete my profile' do
   visit account_path
   find('.space a').click
+  click_link 'Set up Profile'
   fill_in 'Bio', with: '-'
   click_button 'Update Profile'
 end
 
 When /^I fill in my profile info$/ do
+  click_link 'Set up Profile'
   fill_in 'Bio', with: 'i work all the time'
   click_button 'Update Profile'
 end

@@ -6,6 +6,7 @@ class Membership < ActiveRecord::Base
 
   scope :by_space_id_and_user_id, ->(space_id, user_id) { where(space_id: space_id, user_id: user_id) }
   scope :active, ->() { where('memberships.canceled_to IS NULL or memberships.canceled_to > ?', Date.current) }
+  scope :published, ->() { where(public: true) }
 
   def profile_completed?
     bio?

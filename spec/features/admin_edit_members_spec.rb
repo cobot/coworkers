@@ -7,7 +7,7 @@ describe 'editing members as admin' do
     sign_in
 
     space = space_by_name 'co.up'
-    Membership.create!(name: 'Jane', space_id: space.id)
+    Membership.create!(public: true, name: 'Jane', space_id: space.id)
     click_link 'co.up'
     within('#menu') { click_link 'Members' }
     first(:link, 'Jane').click
@@ -24,7 +24,7 @@ describe 'editing members as admin' do
     stub_cobot_admin 'co.up', 'joe'
     sign_in
     space = space_by_name 'co.up'
-    membership = Membership.create!(name: 'Jane', space_id: space.id)
+    membership = Membership.create!(public: true, name: 'Jane', space_id: space.id)
     Question.create!(text: 'Hobbies', space_id: space.id, question_type: 'short_text')
 
     click_link 'co.up'

@@ -18,13 +18,12 @@ describe Api::SpacesController, 'show', type: :controller do
          picture: 'http://example.com/pic.jpg',
          messenger_type: 'Twitter',
          messenger_account: 'cobot_me',
-         user: @user
-    ).as_null_object
+         user: @user).as_null_object
     @space = double(:space, class: Space,
       name: 'space 1',
       id: 'space-1',
       to_param: 'space-1').as_null_object
-    allow(@space).to receive_message_chain(:memberships, :active, :includes) { [@membership] }
+    allow(@space).to receive_message_chain(:memberships, :active, :published, :includes) { [@membership] }
     allow(Space).to receive_message_chain(:by_cobot_id, :first!) { @space }
 
     answer = double(:answer, question: 'achievements', text: 'ran 5k', membership_id: 'member-1')
@@ -36,11 +35,11 @@ describe Api::SpacesController, 'show', type: :controller do
 
     expect(response.code).to eql('200')
     expect(response.body).to eql({
-      id: "space-1", name: "space 1", url: "http://test.host/spaces/space-1",
+      id: 'space-1', name: 'space 1', url: 'http://test.host/spaces/space-1',
       memberships: [
-        {id: "member-1", name: "member 1", url:"http://test.host/spaces/space-1/memberships/member-1",
-          image_url: "http://example.com/pic.jpg", website:"http://member1.test/", bio: nil, profession:"Web",
-          industry: "Web", skills:"all", messenger: {'Twitter' => 'cobot_me'},
+        {id: 'member-1', name: 'member 1', url: 'http://test.host/spaces/space-1/memberships/member-1',
+          image_url: 'http://example.com/pic.jpg', website: 'http://member1.test/', bio: nil, profession: 'Web',
+          industry: 'Web', skills: 'all', messenger: {'Twitter' => 'cobot_me'},
           questions: [{'achievements' => 'ran 5k'}]}]}.to_json)
   end
 
@@ -59,7 +58,7 @@ describe Api::SpacesController, 'show', type: :controller do
   end
 
   it 'returns 403 if the space is not viewable' do
-    allow(@space).to receive(:viewable_by?).with(nil) {false}
+    allow(@space).to receive(:viewable_by?).with(nil) { false }
 
     get :show, id: 'space-1', format: :json
 
@@ -67,8 +66,8 @@ describe Api::SpacesController, 'show', type: :controller do
   end
 
   it 'returns 200 if the space is not viewable but the secret matches' do
-    allow(@space).to receive(:viewable_by?).with(nil) {false}
-    allow(@space).to receive(:secret) {'123'}
+    allow(@space).to receive(:viewable_by?).with(nil) { false }
+    allow(@space).to receive(:secret) { '123' }
 
     get :show, id: 'space-1', secret: '123', format: :json
 

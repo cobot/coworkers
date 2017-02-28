@@ -27,7 +27,7 @@ describe 'installing coworkers on cobot' do
 
     expect(current_url).to eql('https://co-up.cobot.me/navigation_links/link-1')
 
-    space.memberships.create! name: 'joe doe'
+    space.memberships.create! name: 'joe doe', public: true
     visit 'http://www.example.com/spaces/co-up/memberships'
     expect(page).to have_content('joe doe')
   end

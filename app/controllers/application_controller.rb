@@ -55,12 +55,9 @@ class ApplicationController < ActionController::Base
   def oauth_client
     @oath_client ||= OAuth2::Client.new(Coworkers::Conf.app_id,
       Coworkers::Conf.app_secret,
-      site: {
-         url: Coworkers::Conf.app_site
-      },
+      site: {url: Coworkers::Conf.app_site},
       authorize_url: '/oauth2/authorize',
-      token_url: '/oauth2/access_token'
-    )
+      token_url: '/oauth2/access_token')
   end
 
   def require_authentication

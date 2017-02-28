@@ -7,6 +7,7 @@ Scenario: I sign in and my membership name has changed
   Given a space "co.up"
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe"
     And I sign in
+    And I publish my profile
   Then "Joe Doe" should be listed as a member of the space "co.up"
   When I follow "Sign out"
    Given on cobot I'm a member of the space "co.up" with the name "John Doe"

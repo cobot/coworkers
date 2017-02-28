@@ -21,7 +21,7 @@ describe 'cancel membership', type: :request do
     stub_request(:get, 'https://co-up.cobot.me/api/memberships/m1')
       .to_return(body: {id: 'm1', canceled_to: '2016/10/01'}.to_json)
 
-    @space.memberships.create! cobot_id: 'm1', name: 'jane dane'
+    @space.memberships.create! cobot_id: 'm1', name: 'jane dane', public: true
 
     post space_member_cancellation_webhook_path(@space.webhook_secret),
       url: 'https://co-up.cobot.me/api/memberships/m1'

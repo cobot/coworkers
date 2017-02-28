@@ -15,6 +15,7 @@ describe 'editing my own profile' do
     click_link 'My Profile'
     click_link 'Edit'
     fill_in 'Profession', with: 'Senor Programmer'
+    check 'Publish Profile'
     click_button 'Update Profile'
     click_link 'Members'
 

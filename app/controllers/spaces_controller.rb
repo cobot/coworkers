@@ -8,10 +8,6 @@ class SpacesController < ApplicationController
       f.html do
         if !@space.viewable_by?(current_user)
           not_allowed
-        elsif current_user && !current_user.admin_of?(@space) &&
-          (membership = current_user.membership_for(@space)) && !membership.profile_completed?
-          flash[:notice] = 'Please fill in your profile first.'
-          redirect_to edit_space_membership_path(@space, membership)
         else
           @new_memberships = load_new_memberships
         end
@@ -30,7 +26,7 @@ class SpacesController < ApplicationController
       CobotClient::NavigationLink.new(section: 'admin/setup', label: 'Coworker Profiles', iframe_url: space_questions_url(@space)),
       CobotClient::NavigationLink.new(section: 'members', label: 'Coworkers', iframe_url: space_url)
     ]
-    redirect_to links.find{|l| l.section == 'admin/manage'}.user_url
+    redirect_to links.find {|l| l.section == 'admin/manage' }.user_url
   end
 
   def update

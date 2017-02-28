@@ -8,7 +8,7 @@ class MembershipsController < ApplicationController
     if !@space.viewable_by?(current_user)
       not_allowed
     else
-      @memberships = @space.memberships.active.includes(:user).sort_by {|m| m.name.to_s.downcase }
+      @memberships = @space.memberships.active.published.includes(:user).sort_by {|m| m.name.to_s.downcase }
     end
   end
 
@@ -61,6 +61,6 @@ class MembershipsController < ApplicationController
   def membership_params
     params[:membership].permit(:name, :website, :picture,
       :messenger_type, :messenger_account, :bio,
-      :profession, :industry, :skills)
+      :profession, :industry, :skills, :public)
   end
 end

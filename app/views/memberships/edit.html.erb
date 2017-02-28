@@ -58,6 +58,10 @@
             <% end %>
           <% end %>
           <p>
+            <%= f.check_box :public %>
+            <%= f.label :public, 'Publish Profile' %>
+          </p>
+          <p>
             <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--primary btn--stretch' %>
           </p>
           <p>

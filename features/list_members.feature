@@ -8,10 +8,12 @@ Feature: List members
       And "co.up" has a member "Jane Doe" with email "janedoe@cobot.me"
       And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
     When I sign in
+      And I publish my profile
     Then I should see "Joe Doe" and "Jane Doe" as members of "co.up"
 
   Scenario: enter and see more details
     Given on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
     When I sign in
+      And I publish my profile
       And I add my website "facebook.com" to my profile
     Then "Joe Doe" should have listed the website "facebook.com" on his "co.up" profile
