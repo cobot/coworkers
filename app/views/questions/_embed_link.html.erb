@@ -80,7 +80,7 @@
       </ul>
     </div>
   </script>
-  <script src="http://<%= request.host_with_port %>/javascripts/dug.js"></script>
+  <script src="https://<%= request.host_with_port %>/javascripts/dug.js"></script>
   <script>
     dug({
       endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil) %>',
