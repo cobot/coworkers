@@ -3,12 +3,6 @@ Feature: Sign in
   As a coworker
   I want to sign in
 
-Scenario: sign up as member, space doesn't exist yet
-  Given on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
-  When I sign in
-  And I publish my profile
-  Then "Joe Doe" should be listed as a member of the space "co.up"
-
 Scenario: sign up as member, space already exists
   Given a space "co.up"
     And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"

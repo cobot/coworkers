@@ -18,7 +18,7 @@ class SignupService
 
   def create_spaces(links)
     links.each do |link|
-      find_or_create_space link, create_webhooks: true
+      find_space link, create_webhooks: true, create_if_missing: true
     end
   end
 
@@ -43,9 +43,10 @@ class SignupService
     memberships_attributes.each do |membership_attributes|
       membership_details = oauth_get(membership_attributes[:link])
       membership = Membership.where(cobot_id: membership_details[:id]).first
-      if !membership_details[:confirmed_at].nil? && !membership_details[:canceled_to] && !membership
+      if membership_details[:confirmed_at].present? && !membership_details[:canceled_to] && !membership
+        space = find_space(membership_attributes[:space_link]) || next
         Membership.create user_id: user.id, cobot_id: membership_details[:id],
-          space_id: find_or_create_space(membership_attributes[:space_link]).id,
+          space_id: space.id,
           picture: membership_details[:picture],
           name: membership_details[:name]
       elsif membership
@@ -58,12 +59,11 @@ class SignupService
     end
   end
 
-  def find_or_create_space(space_url, create_webhooks: false)
+  def find_space(space_url, create_webhooks: false, create_if_missing: false)
     space_attributes = oauth_get(space_url)
     if (space = Space.where(cobot_id: space_attributes[:id]).first)
-      space.cobot_url = space_attributes[:url] # for old spaces who don't have it set yet
-      space.save validate: false
-    else
+      space
+    elsif create_if_missing
       space = Space.create name: space_attributes[:name], cobot_id: space_attributes[:id],
         cobot_url: space_attributes[:url], access_token: space_access_token(space_attributes[:id])
       if create_webhooks
@@ -71,8 +71,8 @@ class SignupService
           event: 'canceled_membership',
           callback_url: @routes.space_member_cancellation_webhook_url(space.webhook_secret)
       end
+      space
     end
-    space
   end
 
   def space_access_token(space_id)

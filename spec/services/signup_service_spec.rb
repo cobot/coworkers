@@ -29,7 +29,7 @@ describe SignupService, '#run' do
         space_id: 'space-some-space') { {token: 'space-token-some-space'} }
   end
 
-  it 'creates a space for a member' do
+  it 'does not creates a space for a member (no way to get a space access token as member. only admins can set up new spaces)' do
     attributes = {
       id: 'user-langalex',
       memberships: [
@@ -43,31 +43,30 @@ describe SignupService, '#run' do
       admin_of: []
     }
 
-    expect(Space).to receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
-      cobot_url: 'https://some-space.cobot.me',
-      access_token: 'space-token-some-space') { double.as_null_object }
+    expect(Space).to_not receive(:create)
 
     SignupService.new(attributes, 'token-1', nil).run
   end
 
   it 'creates a space for an admin' do
+    allow(cobot_client).to receive(:post).with(anything, '/subscriptions', anything)
     attributes = {
       id: 'user-langalex',
-      memberships: [
+      memberships: [],
+      admin_of: [
         {
           space_subdomain: 'some-space',
           space_name: 'Some Space',
           space_link: 'https://www.cobot.me/api/spaces/some-space',
           link: 'https://some-space.cobot.me/api/memberships/some-membership'
         }
-      ],
-      admin_of: []
+      ]
     }
 
     expect(Space).to receive(:create).with(name: 'Some Space', cobot_id: 'space-some-space',
       cobot_url: 'https://some-space.cobot.me',
       access_token: 'space-token-some-space') { double.as_null_object }
 
-    SignupService.new(attributes, 'token-1', nil).run
+    SignupService.new(attributes, 'token-1', double(:routes).as_null_object).run
   end
 end

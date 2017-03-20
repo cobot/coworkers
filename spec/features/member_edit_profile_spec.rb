@@ -2,11 +2,11 @@ require 'spec_helper'
 
 describe 'editing my own profile' do
   before(:each) do
+    @space = Space.create subdomain: 'co-up', cobot_id: 'co-up', name: 'co.up'
     stub_user_membership subdomain: 'co-up', membership_id: 'mem-1'
     stub_cobot_membership 'co.up', 'joe', 'mem-1'
     stub_space 'co-up', 'co.up'
     sign_in
-    @space = space_by_name 'co.up'
     click_link 'co.up'
     within('#menu') { click_link 'Members' }
   end

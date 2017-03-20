@@ -12,7 +12,8 @@ Feature: List members
     Then I should see "Joe Doe" and "Jane Doe" as members of "co.up"
 
   Scenario: enter and see more details
-    Given on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
+    Given a space "co.up"
+      And on cobot I'm a member of the space "co.up" with the name "Joe Doe" and email "joedoe@cobot.me"
     When I sign in
       And I publish my profile
       And I add my website "facebook.com" to my profile
