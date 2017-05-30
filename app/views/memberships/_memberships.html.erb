@@ -7,6 +7,9 @@
             class: :member), [space, membership], title: membership.name %>
           <div class="caption">
             <h4 class="margin-bottom--0 margin-top--small"><%= link_to membership.name, [space, membership], class:"heading--special heading--special-noborder" %></h4>
+            <% unless membership.public? %>
+              <p class="font--smaller btn_lock">private</p>
+            <% end %>
             <p class="font--small"><%= truncate membership.profession, length: 20 %></p>
           </div>
         </div>

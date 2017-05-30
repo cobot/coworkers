@@ -8,7 +8,9 @@ class MembershipsController < ApplicationController
     if !@space.viewable_by?(current_user)
       not_allowed
     else
-      @memberships = @space.memberships.active.published.includes(:user).sort_by {|m| m.name.to_s.downcase }
+      scope = @space.memberships.active.includes(:user)
+      scope  = scope.published unless current_user.admin_of?(@space)
+      @memberships = scope.sort_by {|m| m.name.to_s.downcase }
     end
   end
 

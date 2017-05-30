@@ -37,4 +37,21 @@ describe 'editing members as admin' do
     visit space_membership_path(space, membership)
     expect(page).to have_content('sailing')
   end
+
+  it 'lets admins edit unpublished profiles' do
+    stub_cobot_admin 'co.up', 'joe'
+
+    sign_in
+
+    space = space_by_name 'co.up'
+    Membership.create!(public: false, name: 'Jane', space_id: space.id)
+    click_link 'co.up'
+    within('#menu') { click_link 'Members' }
+    first(:link, 'Jane').click
+    click_link 'Edit'
+    fill_in 'Name', with: 'Jane Doe'
+    click_button 'Update Profile'
+
+    expect(page).to have_content('Jane Doe')
+  end
 end

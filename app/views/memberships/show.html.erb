@@ -4,7 +4,7 @@
   <span class="f--right">
     <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn_edit' %>
     <% unless @membership.public? %>
-      <%= link_to 'Publish', [@space, @membership, :'membership[public]' => true], class: 'btn',
+      <%= link_to 'Publish', [@space, @membership, :'membership[public]' => true], class: 'btn btn_lock',
         method: :patch  %>
     <% end %>
   </span>
@@ -12,7 +12,7 @@
 <h2 class="heading--special">
   <%= @membership.name %>
   <% unless @membership.public? %>
-    (not published)
+    <span class="font--small btn_lock">private</span>
   <% end %>
 </h2>
 <div class="grid grid--reverseDirection grid--full tablet-grid--1of2">
