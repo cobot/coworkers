@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20170225161219) do
     t.text     "text"
     t.integer  "membership_id"
     t.integer  "question_id"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "answers", ["created_at"], name: "index_answers_on_created_at", using: :btree
@@ -32,20 +32,20 @@ ActiveRecord::Schema.define(version: 20170225161219) do
   create_table "memberships", force: :cascade do |t|
     t.integer  "space_id"
     t.integer  "user_id"
-    t.string   "name",              limit: 255
-    t.string   "website",           limit: 255
-    t.string   "messenger_type",    limit: 255
-    t.string   "messenger_account", limit: 255
-    t.string   "picture",           limit: 255
-    t.string   "cobot_id",          limit: 255
+    t.string   "name"
+    t.string   "website"
+    t.string   "messenger_type"
+    t.string   "messenger_account"
+    t.string   "picture"
+    t.string   "cobot_id"
     t.text     "bio"
     t.text     "profession"
     t.text     "industry"
     t.text     "skills"
-    t.datetime "created_at",                                    null: false
-    t.datetime "updated_at",                                    null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.date     "canceled_to"
-    t.boolean  "public",                        default: false
+    t.boolean  "public",            default: false
   end
 
   add_index "memberships", ["created_at"], name: "index_memberships_on_created_at", using: :btree
@@ -54,23 +54,23 @@ ActiveRecord::Schema.define(version: 20170225161219) do
 
   create_table "questions", force: :cascade do |t|
     t.text     "text"
-    t.string   "question_type", limit: 255
+    t.string   "question_type"
     t.integer  "space_id"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "questions", ["space_id"], name: "index_questions_on_space_id", using: :btree
 
   create_table "spaces", force: :cascade do |t|
-    t.string   "name",                limit: 255
-    t.string   "secret",              limit: 255
-    t.string   "cobot_url",           limit: 255
-    t.string   "cobot_id",            limit: 255
-    t.string   "subdomain",           limit: 255
+    t.string   "name"
+    t.string   "secret"
+    t.string   "cobot_url"
+    t.string   "cobot_id"
+    t.string   "subdomain"
     t.boolean  "members_only"
-    t.datetime "created_at",                      null: false
-    t.datetime "updated_at",                      null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
     t.boolean  "hide_default_fields"
     t.string   "webhook_secret"
     t.string   "access_token"
@@ -81,9 +81,9 @@ ActiveRecord::Schema.define(version: 20170225161219) do
   add_index "spaces", ["webhook_secret"], name: "index_spaces_on_webhook_secret", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string "cobot_id", limit: 255
-    t.string "email",    limit: 255
-    t.jsonb  "admin_of",             default: {}
+    t.string "cobot_id"
+    t.string "email"
+    t.jsonb  "admin_of", default: {}
   end
 
   add_index "users", ["cobot_id"], name: "index_users_on_cobot_id", using: :btree
