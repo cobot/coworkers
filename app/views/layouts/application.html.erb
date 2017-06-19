@@ -31,7 +31,7 @@
     <div class="cb-container">
       <nav id="menu">
         <%= yield :menu %>
-        <div class="f--right">
+        <div class="fr">
           <% if current_user %>
             <%= link_to 'Account', account_path, class: 'link--nav' %>
             <%= link_to 'Sign out', session_path, data: {method: :delete}, class: 'link--nav' %>
@@ -44,13 +44,8 @@
     </div>
   </div>
 
-  <div class="cb-site-main">
-    <div class="cb-section">
-      <div class="cb-container">
-        <%= yield %>
-      </div>
-    </div>
-  </div>
+  <%= yield %>
+
   <%= javascript_include_tag 'application' %>
 </body>
 </html>

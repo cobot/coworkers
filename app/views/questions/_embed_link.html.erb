@@ -1,106 +1,122 @@
-    <style>
-      #coworkers_widget {
-        -moz-border-radius: 3px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
-        background: #f3f2ee;
-        vertical-align: top;
-        line-height: 15px;
-        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
-        font-size: 12pt;
-        border: 1px solid #d5d4d1;
-      }
-      #coworkers_widget ul {
-        padding: 5px 10px;
-        margin: 0;
-      }
-      #coworkers_widget ul li {
-        list-style: none;
-        background-color: rgb(255, 255, 255);
-        padding: 10px;
-        width: 500px;
-        margin: 5px auto;
-      }
-      #coworkers_widget ul, #coworkers_widget li, #coworkers_widget p,
-        #coworkers_widget dd, #coworkers_widget dt {
-        font-size: 14px;
-      }
-      #coworkers_widget img {
-        width: 100px;
-        height: 100px;
-        margin: 0 10px 0 0;
-        display: inline-block;
-      }
-      #coworkers_widget ul li a, #coworkers_widget ul li a:link, #coworkers_widget ul li a:visited {
-        text-decoration: none;
-        vertical-align: top;
-        margin: 0 10px 0 0;
-        color: #3a6180;
-        font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
-      }
-      #coworkers_widget ul li a:hover, #coworkers_widget ul li a:active, #coworkers_widget ul li a:focus {  color: #476d92 }
+<style>
+  #coworkers_widget {
+    overflow-x: hidden;
+    font-size: 100%;
+    line-height: 1.5;
+    font-family: 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    color: #191d2f;
+    background-color: #f7fafc;
+  }
+  #coworkers_widget a,
+  #coworkers_widget a:link,
+  #coworkers_widget a:visited {
+    text-decoration: none;
+    color: #207abb;
+  }
+  #coworkers_widget a:hover,
+  #coworkers_widget a:active,
+  #coworkers_widget a:focus {
+    color: #0b3c66
+  }
+  #coworkers_widget ul {
+    padding: .5rem;
+    margin: 0;
+  }
+  #coworkers_widget ul li {
+    list-style: none;
+    margin: 0 auto .5rem auto;
+    padding: .5rem;
+    overflow: hidden;
+    background-color: #FFF;
+  }
+  #coworkers_widget ul li > a  {
+    float: left;
+  }
+  #coworkers_widget img {
+    width: 3rem;
+    height: 3rem;
+    margin: 0 1rem 0 0;
+    display: block;
+  }
 
-      #coworkers_widget span {
-        display: block;
-        width: 100%;
-        min-height: 15px;
-        vertical-align: top;
-        font-size: 9pt;
-        color: #9a978b;
-      }
-      .description {
-        display: inline-block;
-        vertical-align: top;
-      }
-  </style>
-  <script type="text/x-template" id="coworkers-template">
-    <div id="coworkers_widget">
-      <ul>
-        {{#memberships}}
-          <li>
-            <a href="{{url}}"><img src="{{image_url}}"/></a>
-            <div class="description">
-              <a href="{{url}}">{{name}}</a>
-              {{#website}}
-                <p>{{website}}</p>
-              {{/website}}
-              <p>{{profession}}</p>
-              <p>{{bio}}</p>
-              <dl>
-              {{#questions}}
-                {{#answer}}
-                  <dt>{{question}}</dt>
-                  <dd class="pre">{{answer}}</dd>
-                {{/answer}}
-              {{/questions}}
-              </dl>
-            </div>
-          </li>
-        {{/memberships}}
-      </ul>
-    </div>
-  </script>
-  <script src="https://<%= request.host_with_port %>/javascripts/dug.js"></script>
-  <script>
-    dug({
-      endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil) %>',
-      error: function( data ){
-        document.getElementById('error-dug').innerHTML = 'Error loading member profiles, sorry.';
-      },
-      beforeRender: function(data) {
-        data.memberships.forEach(function(m) {
-          if(m.questions) {
-            m.questions.forEach(function(q) {
-              for(var key in q) {
-                if(q.hasOwnProperty(key)) {
-                  q.question = key;
-                  q.answer = q[key];
-                }
+  #coworkers_widget .description {
+    float: left;
+  }
+
+  #coworkers_widget .description p,
+  #coworkers_widget .description dl {
+    font-size: .875rem;
+  }
+
+  #coworkers_widget .pagination {
+    text-align: center;
+  }
+  #coworkers_widget .pagination a {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    margin: 4px 6px;
+    line-height: 24px;
+    text-decoration: none;
+    font-size: .75rem;
+  }
+  #coworkers_widget span {
+    display: block;
+    width: 100%;
+    min-height: 15px;
+    vertical-align: top;
+    font-size: .75rem;
+    color: #5c6072;
+  }
+</style>
+<script type="text/x-template" id="coworkers-template">
+  <div id="coworkers_widget">
+    <ul>
+      {{#memberships}}
+        <li>
+          <a href="{{url}}"><img src="{{image_url}}"/></a>
+          <div class="description">
+            <a href="{{url}}">{{name}}</a>
+            {{#website}}
+              <p>{{website}}</p>
+            {{/website}}
+            <p>{{profession}}</p>
+            <p>{{bio}}</p>
+            <dl>
+            {{#questions}}
+              {{#answer}}
+                <dt>{{question}}</dt>
+                <dd class="pre">{{answer}}</dd>
+              {{/answer}}
+            {{/questions}}
+            </dl>
+          </div>
+        </li>
+      {{/memberships}}
+    </ul>
+  </div>
+</script>
+<script src="https://<%= request.host_with_port %>/javascripts/dug.js"></script>
+<script>
+  dug({
+    endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil) %>',
+    error: function( data ){
+      document.getElementById('error-dug').innerHTML = 'Error loading member profiles, sorry.';
+    },
+    beforeRender: function(data) {
+      data.memberships.forEach(function(m) {
+        if(m.questions) {
+          m.questions.forEach(function(q) {
+            for(var key in q) {
+              if(q.hasOwnProperty(key)) {
+                q.question = key;
+                q.answer = q[key];
               }
-            });
-          }
-        });
-      },
-      template: '#coworkers-template'
-    });
-  </script>
+            }
+          });
+        }
+      });
+    },
+    template: '#coworkers-template'
+  });
+</script>

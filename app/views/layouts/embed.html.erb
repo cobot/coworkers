@@ -22,9 +22,9 @@
       </div>
     <% end %>
   <% end %>
-  <div class="cb-site-main">
-    <%= yield %>
-  </div>
+
+  <%= yield %>
+
   <%= javascript_include_tag 'application' %>
   <%= render 'cobot_client/resize_script' %>
 </body>

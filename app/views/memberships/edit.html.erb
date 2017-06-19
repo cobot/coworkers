@@ -1,80 +1,89 @@
 <%= render 'spaces/navigation', space: @space %>
 
-<h2 class="heading--special">Edit Profile</h2>
-<%= form_for [@space, @membership] do |f| %>
-  <div class="grid grid--reverseDirection grid--full tablet-grid--1of2">
-    <div class="grid-cell">
-      <p class="img--avatar img--avatar-center"><%= image_tag membership_picture_url(@membership, size: :large) %></p>
-      <p class="text--center font--smaller">
-        You can change your picture in your <a target="_TOP" href="https://<%= @space.subdomain %>.cobot.me/account/edit">account settings</a>.
-      </p>
-    </div>
-    <div class="grid-cell">
-      <div class="form-block--wide">
-        <div class="admin-form">
-          <%= f.label :name, 'Name' %>
-          <%= f.text_field :name, class: 'input--stretch' %>
+<div class="inner">
 
-          <% unless @space.hide_default_fields? %>
-            <h4>Profile</h4>
+  <h2 class="heading--special">Edit Profile</h2>
+  <%= form_for [@space, @membership] do |f| %>
+    <div class="grid grid--reverseDirection grid--full tablet-grid--1of2">
+      <div class="grid-cell">
+        <p class="img--avatar img--avatar-center">
+          <%= image_tag membership_picture_url(@membership, size: :large) %>
+        </p>
+        <p class="text--center font--smaller">
+          You can change your picture in your
+          <a target="_TOP" href="https://<%= @space.subdomain %>.cobot.me/account/edit">
+            Account Settings
+          </a>.
+        </p>
+      </div>
+      <div class="grid-cell">
+        <div class="form-block--wide">
+          <div class="admin-form">
             <div class="form__text-field">
-              <%= f.label :profession %>
-              <%= f.text_field :profession, class: 'input--stretch' %>
+              <%= f.label :name, 'Name' %>
+              <%= f.text_field :name, class: 'input--stretch' %>
             </div>
-            <div class="form__text-field">
-              <%= f.label :industry %>
-              <%= f.text_field :industry, class: 'input--stretch' %>
-            </div>
-            <div class="form__text-field">
-              <%= f.label :website %>
-              <%= f.text_field :website, placeholder: 'http://…', class: 'input--stretch' %>
-            </div>
-            <div class="form__text-field">
-              <%= f.label :skills %>
-              <%= f.text_area :skills, class: 'input--stretch' %>
-            </div>
-            <div class="form__text-field">
-              <%= f.label :bio %>
-              <%= f.text_area :bio, placeholder: 'A few lines about you.', class: 'input--stretch' %>
-            </div>
-
-            <h4>Messenger</h4>
-            <div class="form__text-field">
-              <%= f.label :messenger_type, 'Type' %>
-              <%= f.select :messenger_type, ['Skype', 'Twitter', 'Jabber'], {}, class: 'input--stretch'  %>
-            </div>
-            <div class="form__text-field">
-              <%= f.label :messenger_account, 'Account' %>
-              <%= f.text_field :messenger_account, class: 'input--stretch' %>
-            </div>
-          <% end %>
-
-          <% if @questions.any? %>
-            <h4>Additional</h4>
-            <% @questions.each.with_index do |question, i| %>
+            <% unless @space.hide_default_fields? %>
               <div class="form__text-field">
-                <%= question_input_tags question, i, @answers %>
+                <%= f.label :profession %>
+                <%= f.text_field :profession, class: 'input--stretch' %>
+              </div>
+              <div class="form__text-field">
+                <%= f.label :industry %>
+                <%= f.text_field :industry, class: 'input--stretch' %>
+              </div>
+              <div class="form__text-field">
+                <%= f.label :website %>
+                <%= f.text_field :website, placeholder: 'http://…', class: 'input--stretch' %>
+              </div>
+              <div class="form__text-field">
+                <%= f.label :skills %>
+                <%= f.text_area :skills, class: 'input--stretch' %>
+              </div>
+              <div class="form__text-field">
+                <%= f.label :bio %>
+                <%= f.text_area :bio, placeholder: 'A few lines about you.', class: 'input--stretch' %>
+              </div>
+
+              <h4>Messenger</h4>
+              <div class="form__text-field">
+                <%= f.label :messenger_type, 'Type' %>
+                <%= f.select :messenger_type, ['Skype', 'Twitter', 'Jabber'], {}, class: 'input--stretch'  %>
+              </div>
+              <div class="form__text-field">
+                <%= f.label :messenger_account, 'Account' %>
+                <%= f.text_field :messenger_account, class: 'input--stretch' %>
               </div>
             <% end %>
-          <% end %>
-          <p>
-            <%= f.check_box :public %>
-            <%= f.label :public, 'Publish Profile' %>
-          </p>
-          <p>
-            <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--primary btn--stretch' %>
-          </p>
-          <p>
-            <%= link_to 'Remove Profile', [@space, @membership], data: {method: 'delete'}, confirm: 'Really remove that membership?', class: 'font--smaller f--right link--hl btn_x' %>
-          </p>
+
+            <% if @questions.any? %>
+              <h4>Additional</h4>
+              <% @questions.each.with_index do |question, i| %>
+                <div class="form__text-field">
+                  <%= question_input_tags question, i, @answers %>
+                </div>
+              <% end %>
+            <% end %>
+            <p>
+              <%= f.check_box :public %>
+              <%= f.label :public, 'Publish Profile' %>
+            </p>
+            <p>
+              <%= f.submit 'Update Profile', data: {disable_with: 'Saving...'}, class: 'btn btn--full btn--primary btn--stretch' %>
+            </p>
+            <p>
+              <%= link_to 'Remove Profile', [@space, @membership], data: {method: 'delete'}, confirm: 'Really remove that membership?', class: 'font--smaller fr link--hl btn_x' %>
+            </p>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-<% end %>
+  <% end %>
 
-<p class="pad-top--default font--small">
-  Note: This information will be visible to your coworkers and every user of this application.
-</p>
+  <p class="pt3 f7">
+    Note: This information will be visible to your coworkers and every user of this application.
+  </p>
+
+</div>
 
 <p><%= link_to 'back', space_membership_path(@space, @membership), class: 'link--back' %></p>

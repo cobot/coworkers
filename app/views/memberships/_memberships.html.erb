@@ -1,19 +1,29 @@
 <% if memberships.any? %>
-  <div class="grid grid--gutters grid--1of2 tablet-grid--1of4">
+  <div class="grid-container">
     <% memberships.each do |membership| %>
-      <div class="grid-cell test-member">
-        <div class="img--avatar img--avatar-center img--avatar-small">
-          <%= link_to image_tag(membership_picture_url(membership, size: :large), size: '150x150',
-            class: :member), [space, membership], title: membership.name %>
-          <div class="caption">
-            <h4 class="margin-bottom--0 margin-top--small"><%= link_to membership.name, [space, membership], class:"heading--special heading--special-noborder" %></h4>
+      <%= link_to [space, membership], class: 'test-member db pa2 pa3-m bg-white shadow-hover' do %>
+        <div class="media media--full">
+          <div class="media__figure">
+            <%= image_tag(membership_picture_url(membership, size: :large), size: '90x90',
+                class: 'br-100') %>
+          </div>
+          <div class="media__body">
             <% unless membership.public? %>
-              <p class="font--smaller btn_lock">private</p>
+              <p class="f7 fr btn_lock">private</p>
             <% end %>
-            <p class="font--small"><%= truncate membership.profession, length: 20 %></p>
+            <h4 class="f5 mb0 mt0">
+              <%= truncate membership.name, length: 60 %>
+            </h4>
+            <div class="f7 tc--text-05">
+              <%= truncate membership.profession, length: 20 %>
+            </div>
+            <hr class="clear">
+            <p class="f6 mb0">
+              <%= truncate membership.bio, length: 80 %>
+            </p>
           </div>
         </div>
-      </div>
+      <% end %>
     <% end %>
   </div>
 <% else %>
