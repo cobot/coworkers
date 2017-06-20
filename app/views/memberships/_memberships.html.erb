@@ -1,7 +1,7 @@
 <% if memberships.any? %>
   <div class="grid-container">
     <% memberships.each do |membership| %>
-      <%= link_to [space, membership], class: 'test-member db pa2 pa3-m bg-white shadow-hover' do %>
+      <%= link_to [space, membership], class: 'test-member db pa3 bg--custom-white shadow-hover' do %>
         <div class="media media--full">
           <div class="media__figure">
             <%= image_tag(membership_picture_url(membership, size: :large), size: '90x90',
@@ -17,7 +17,7 @@
             <div class="f7 tc--text-05">
               <%= truncate membership.profession, length: 20 %>
             </div>
-            <hr class="clear">
+            <hr class="clear hr--light">
             <p class="f6 mb0">
               <%= truncate membership.bio, length: 80 %>
             </p>
