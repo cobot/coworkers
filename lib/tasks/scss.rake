@@ -5,7 +5,7 @@ namespace :cobot_scss do
     assets = scss_imports(root).map do |hash|
       import = hash.keys.first
       path = hash[import]
-      {name: import, body: Base64.encode64(exclude_file?(path) ? '' : File.read(path))}
+      {name: import, body: Base64.encode64(File.read(path))}
     end
     if (bundle_url = ENV['SCSS_BUNDLE_URL'])
       puts 'Updating SCSS bundle…'
@@ -17,7 +17,7 @@ namespace :cobot_scss do
         puts "Error posting SCSS: #{JSON.parse(e.response)['error']}"
       end
     else
-      fail 'ENV[SCSS_BUNDLE_URL] not set. Run the create_scss_bundle task to create a bundle.'
+      raise 'ENV[SCSS_BUNDLE_URL] not set. Run the create_scss_bundle task to create a bundle.'
     end
   end
 
@@ -32,10 +32,6 @@ namespace :cobot_scss do
     rescue RestClient::BadRequest => e
       puts "Error: #{JSON.parse(e.response)['error']}"
     end
-  end
-
-  def exclude_file?(path)
-    path.include?('/_colors.scss') || path.include?('default_color_shades.scss')
   end
 
   def scss_imports(file)
