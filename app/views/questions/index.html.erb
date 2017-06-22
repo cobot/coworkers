@@ -9,12 +9,14 @@
     <ul class="admin-list">
       <% @questions.each do |question| %>
         <li class="admin-item">
-          <div class="actions-right">
-            <%= link_to 'Remove', [@space, question],
-              data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn_x' %>
-            <%= link_to 'Edit', [:edit, @space, question], class: 'btn_edit' %>
+          <div class="admin-item__title">
+            <%= question.text %>
           </div>
-          <div class="admin-item__title"><%= question.text %></div>
+          <div class="admin-item__controls">
+            <%= link_to 'Remove', [@space, question],
+              data: {method: 'delete', confirm: 'Really remove that question?'}, class: 'btn btn--plain btn_x' %>
+            <%= link_to 'Edit', [:edit, @space, question], class: 'btn btn--plain btn_edit' %>
+          </div>
         </li>
       <% end %>
     </ul>
@@ -22,7 +24,7 @@
     <p>No fields set up at the moment.</p>
   <% end %>
 
-  <h3 class="pad-top--default">Add Field</h3>
+  <h3 class="pt3">Add Field</h3>
 
   <%= form_for @question, url: [@space, @question] do |f| %>
     <div class="form-block--wide">
