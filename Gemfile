@@ -41,4 +41,5 @@ group :test do
   gem 'launchy'
   gem 'database_cleaner'
   gem 'test-unit'
+  gem 'dotenv-rails'
 end

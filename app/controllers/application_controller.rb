@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   before_filter :match_user_against_cobot_iframe, :require_authentication, :set_embedded,
     :set_p3p_header
 
-  helper_method :current_user
+  helper_method :current_user, :in_cobot_admin_section?
 
   layout :current_layout
 
@@ -30,10 +30,17 @@ class ApplicationController < ActionController::Base
     if params[:cobot_embed] == 'true'
       session[:embedded] = true
     end
+    if params[:cobot_section]
+      session[:cobot_section] = params[:cobot_section]
+    end
     if session[:embedded]
       @embedded = true
       response.headers.except! 'X-Frame-Options'
     end
+  end
+
+  def in_cobot_admin_section?
+    session[:cobot_section].to_s.include?('admin')
   end
 
   def current_layout
