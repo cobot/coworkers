@@ -24,3 +24,13 @@ $fa-font-path: "https://opensource.keycdn.com/fontawesome/4.6.2/";
     }
   }
 }
+
+// override for MS Edge (should not be necessary after Edge lte 16, but needs verification. – @kriesse Sept 4 2017)
+@supports(display: -ms-grid) {
+  .grid-container {
+    display: block;
+    > a {
+      margin-bottom: 1rem;
+    }
+  }
+}
