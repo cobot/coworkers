@@ -7,22 +7,11 @@ $fa-font-path: "https://opensource.keycdn.com/fontawesome/4.6.2/";
 @import "cobot_assets/imports";
 
 .grid-container {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr) );
   padding-left: .75rem;
   padding-right: .75rem;
-  > a {
-    margin-bottom: 1rem;
-  }
-}
-
-@supports (display: grid) {
-  .grid-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr) );
-    grid-gap: 1rem;
-    > a {
-      margin-bottom: 0;
-    }
-  }
 }
 
 // override for MS Edge (should not be necessary after Edge lte 16, but needs verification. – @kriesse Sept 4 2017)
