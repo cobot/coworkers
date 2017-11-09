@@ -13,7 +13,15 @@ describe MembershipsHelper, '#format_messenger' do
     expect(remove_target(helper.format_messenger('Twitter', '@test'))).to eql('<a href="http://twitter.com/test">@test</a>')
   end
 
-  it 'leaves jabber untouched' do
+  it 'returns a tel link' do
+    expect(remove_target(helper.format_messenger('Phone', '123 456'))).to eql('<a href="tel:123456">123 456</a>')
+  end
+
+  it 'returns a mailto link' do
+    expect(remove_target(helper.format_messenger('Email', 'joe@example.com'))).to eql('<a href="mailto:joe@example.com">joe@example.com</a>')
+  end
+
+  it 'leaves others untouched' do
     expect(helper.format_messenger('Jabber', 'test')).to eql('test')
   end
 

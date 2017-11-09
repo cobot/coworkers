@@ -30,19 +30,21 @@
           <span class="admin-label">Website</span>
           <p class="website"><%= link_to @membership.website, add_scheme(@membership.website), target: '_blank' %></p>
         <% end %>
+        <% if @membership.messenger_account? %>
+          <% if @membership.messenger_type? %>
+            <span class="admin-label messenger">
+              <%= @membership.messenger_type %>
+            </span>
+          <% end %>
+          <p class="messenger">
+            <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
+          </p>
+        <% end %>
         <% [:profession, :industry, :skills].each do |attribute| %>
           <% if @membership.send("#{attribute}?") %>
             <span class="admin-label <%= attribute %>"><%= attribute.to_s.humanize %></span>
             <p class="<%= attribute %>"><%= auto_link @membership.send(attribute).to_s, :all, target: '_blank' %></p>
           <% end %>
-        <% end %>
-        <% if @membership.messenger_account? && @membership.messenger_type? %>
-          <span class="admin-label messenger">
-            <%= @membership.messenger_type %>
-          </span>
-          <p class="messenger">
-            <%= format_messenger @membership.messenger_type, @membership.messenger_account %>
-          </p>
         <% end %>
       <% end %>
 

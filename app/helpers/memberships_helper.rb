@@ -6,6 +6,10 @@ module MembershipsHelper
     when 'Twitter'
       name = account.sub('@', '')
       link_to "@#{name}", "http://twitter.com/#{name}", target: '_blank'
+    when 'Phone'
+      link_to account, "tel:#{account.to_s.gsub(/\s+/, '')}"
+    when 'Email'
+      mail_to account, account
     else
       account
     end

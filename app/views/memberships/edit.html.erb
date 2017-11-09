@@ -43,13 +43,13 @@
                 <%= f.text_area :bio, placeholder: 'A few lines about you.', class: 'input--stretch' %>
               </div>
 
-              <h4>Messenger</h4>
+              <h4>Contact</h4>
               <div class="form__text-field">
                 <%= f.label :messenger_type, 'Type' %>
-                <%= f.select :messenger_type, ['Skype', 'Twitter', 'Jabber'], {}, class: 'input--stretch'  %>
+                <%= f.select :messenger_type, ['Email', 'Phone', 'Twitter', 'Skype', ['Other', '']], {}, class: 'input--stretch'  %>
               </div>
               <div class="form__text-field">
-                <%= f.label :messenger_account, 'Account' %>
+                <%= f.label :messenger_account, 'Account/Username/Address' %>
                 <%= f.text_field :messenger_account, class: 'input--stretch' %>
               </div>
             <% end %>
