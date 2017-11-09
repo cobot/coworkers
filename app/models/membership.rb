@@ -15,4 +15,12 @@ class Membership < ActiveRecord::Base
   def last_name
     name.to_s.split(' ').last
   end
+
+  def self.create_from_cobot(cobot_membership, space, attributes = {})
+    create attributes.merge(cobot_id: cobot_membership[:id],
+      space_id: space.id,
+      messenger_account: cobot_membership[:email],
+      messenger_type: 'Email',
+      name: cobot_membership[:name])
+  end
 end

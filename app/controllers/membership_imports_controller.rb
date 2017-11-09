@@ -15,8 +15,7 @@ class MembershipImportsController < ApplicationController
     if ids
       ids.each do |id|
         membership_details = cobot_client.get(@space.subdomain, "/memberships/#{id}")
-        @space.memberships.create cobot_id: membership_details[:id],
-          name: membership_details[:name], public: true
+        Membership.create_from_cobot membership_details, @space
       end
       flash[:notice] = 'Members successfully imported.'
     end
