@@ -9,12 +9,10 @@
         <p class="img--avatar img--avatar-center">
           <%= image_tag membership_picture_url(@membership, size: :large) %>
         </p>
-        <p class="tc font--smaller">
-          You can change your picture in your
-          <a target="_TOP" href="https://<%= @space.subdomain %>.cobot.me/account/edit">
-            Account Settings
-          </a>.
-        </p>
+        <div class="form__file-field">
+          <%= f.label :picture, 'Picture' %>
+          <%= f.file_field :picture, class: 'input--stretch' %>
+        </div>
       </div>
       <div class="grid-cell">
         <div class="form-block--wide">

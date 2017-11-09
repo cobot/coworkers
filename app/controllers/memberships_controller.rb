@@ -25,6 +25,10 @@ class MembershipsController < ApplicationController
     @membership = @space.memberships.find params[:id]
     return not_allowed unless check_access @membership
     @membership.attributes = membership_params
+    if (picture = params.dig(:membership, :picture))
+      cobot_client(@space.access_token).put(@space.subdomain,
+        "/memberships/#{@membership.cobot_id}/picture", data: "data:#{picture.content_type};base64,#{Base64.encode64(picture.read)}")
+    end
     if @membership.save
       (params[:answers] || {}).values.each do |answer_params|
         question = Question.where(id: answer_params[:question]).first
@@ -53,15 +57,15 @@ class MembershipsController < ApplicationController
 
   def check_access(membership)
     current_user&.admin_of?(@space) ||
-      (current_user&.member_of?(@space) && current_user&.membership_for(@space).id == membership.id)
+      (current_user&.member_of?(@space) && current_user&.membership_for(@space)&.id == membership.id)
   end
 
   def cobot_client(access_token)
-    @cobot_client ||= OAuth2::AccessToken.new oauth_client, access_token
+    @cobot_client ||= CobotClient::ApiClient.new access_token
   end
 
   def membership_params
-    params[:membership].permit(:name, :website, :picture,
+    params[:membership].permit(:name, :website,
       :messenger_type, :messenger_account, :bio,
       :profession, :industry, :skills, :public)
   end
