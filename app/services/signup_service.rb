@@ -47,11 +47,9 @@ class SignupService
         space = find_space(membership_attributes[:space_link]) || next
         Membership.create user_id: user.id, cobot_id: membership_details[:id],
           space_id: space.id,
-          picture: membership_details[:picture],
           name: membership_details[:name]
       elsif membership
         membership.name = membership_details[:name]
-        membership.picture = membership_details[:picture]
         membership.user_id = user.id
         membership.canceled_to = membership_details[:canceled_to]
         membership.save!

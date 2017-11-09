@@ -2,6 +2,7 @@ require 'digest/md5'
 
 module Api
   class SpacesController < ApplicationController
+    include ApplicationHelper
     skip_before_filter :require_authentication, only: :show
     skip_before_filter :verify_authenticity_token, only: :show
 
@@ -43,7 +44,7 @@ module Api
         id: membership.id,
         name: membership.name,
         url: space_membership_url(space, membership),
-        image_url: membership.picture,
+        image_url: membership_picture_url(membership),
         website: membership.website,
         bio: membership.bio,
         profession: membership.profession,

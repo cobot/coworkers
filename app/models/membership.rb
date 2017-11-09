@@ -15,8 +15,4 @@ class Membership < ActiveRecord::Base
   def last_name
     name.to_s.split(' ').last
   end
-
-  def picture
-    "https://#{space.subdomain}.cobot.me/api/memberships/#{cobot_id}/picture"
-  end
 end

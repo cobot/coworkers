@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170225161219) do
+ActiveRecord::Schema.define(version: 20171109201108) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,6 @@ ActiveRecord::Schema.define(version: 20170225161219) do
     t.string   "website"
     t.string   "messenger_type"
     t.string   "messenger_account"
-    t.string   "picture"
     t.string   "cobot_id"
     t.text     "bio"
     t.text     "profession"

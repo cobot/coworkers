@@ -5,8 +5,14 @@ describe Api::SpacesController, 'show', type: :controller do
     @user = double(:user, id: 'user-1', email: 'member1@cobot.me')
     allow(User).to receive_messages(find: @user)
 
+    @space = double(:space, class: Space,
+      name: 'space 1',
+      id: 'space-1',
+      subdomain: 'space-1',
+      to_param: 'space-1').as_null_object
     @membership = double(:membership, class: Membership,
          id: 'member-1',
+         cobot_id: 'mem-1',
          to_param: 'member-1',
          name: 'member 1',
          user_id: 'user-1',
@@ -15,14 +21,11 @@ describe Api::SpacesController, 'show', type: :controller do
          profession: 'Web',
          industry: 'Web',
          skills: 'all',
-         picture: 'http://example.com/pic.jpg',
          messenger_type: 'Twitter',
          messenger_account: 'cobot_me',
+         space: @space,
          user: @user).as_null_object
-    @space = double(:space, class: Space,
-      name: 'space 1',
-      id: 'space-1',
-      to_param: 'space-1').as_null_object
+
     allow(@space).to receive_message_chain(:memberships, :active, :published, :includes) { [@membership] }
     allow(Space).to receive_message_chain(:by_cobot_id, :first!) { @space }
 
@@ -38,7 +41,8 @@ describe Api::SpacesController, 'show', type: :controller do
       id: 'space-1', name: 'space 1', url: 'http://test.host/spaces/space-1',
       memberships: [
         {id: 'member-1', name: 'member 1', url: 'http://test.host/spaces/space-1/memberships/member-1',
-          image_url: 'http://example.com/pic.jpg', website: 'http://member1.test/', bio: nil, profession: 'Web',
+          image_url: 'https://space-1.cobot.me/api/memberships/mem-1/picture?picture_size=small',
+          website: 'http://member1.test/', bio: nil, profession: 'Web',
           industry: 'Web', skills: 'all', messenger: {'Twitter' => 'cobot_me'},
           questions: [{'achievements' => 'ran 5k'}]}]}.to_json)
   end
