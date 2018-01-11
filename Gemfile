@@ -1,8 +1,8 @@
 source 'https://rubygems.org'
 
-ruby '2.3.3'
+ruby '2.3.5'
 
-gem 'rails', '~>4.2.5'
+gem 'rails', '~>4.2.10'
 gem 'pg'
 gem 'omniauth'
 gem 'omniauth_cobot', '~>0.0.3'
@@ -21,9 +21,9 @@ gem 'font-awesome-sass'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'lograge'
+gem 'rspec-rails', '~> 3.2', groups: [:development, :test]
 
 group :development do
-  gem 'rspec-rails', '~> 3.2.0'
   gem 'dotenv-rails'
 end
 
@@ -33,7 +33,6 @@ group :production do
 end
 
 group :test do
-  gem 'rspec-rails', '~> 3.2.0'
   gem 'cucumber-rails', require: false
   gem 'capybara'
   gem 'webmock'

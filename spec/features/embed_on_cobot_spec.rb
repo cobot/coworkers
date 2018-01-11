@@ -9,7 +9,7 @@ describe 'embed on cobot' do
 
     visit space_memberships_path(space, cobot_embed: true, cobot_section: 'admin/manage')
 
-    expect(page).to have_css_link('/assets/application.css')
+    expect(page).to have_css_link('/assets/application')
   end
 
   it 'uses custom css in the member secton' do
@@ -20,6 +20,6 @@ describe 'embed on cobot' do
 
     visit space_memberships_path(space, cobot_embed: true, cobot_section: 'members')
 
-    expect(page).not_to have_css_link('/assets/application.css')
+    expect(page).not_to have_css_link('/assets/application')
   end
 end
