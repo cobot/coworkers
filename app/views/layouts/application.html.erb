@@ -44,8 +44,14 @@
     </div>
   </div>
 
-  <%= yield %>
-
+  <div class="cb-site-main">
+    <div class="cb-section">
+      <div class="cb-container">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+  
   <%= javascript_include_tag 'application' %>
 </body>
 </html>
