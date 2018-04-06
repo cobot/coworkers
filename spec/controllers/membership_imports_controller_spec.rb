@@ -19,7 +19,7 @@ describe MembershipImportsController, 'create', type: :controller do
 
   it 'assigns the memberships that have not been imported already' do
     log_in double(:user, admin_of?: true).as_null_object
-    allow(Membership).to receive(:where) { [double(:membership, cobot_id: '123')] }
+    allow(Membership).to receive_message_chain(:active, :where) { [double(:membership, cobot_id: '123')] }
 
     allow(@client).to receive(:get).with('co-up', '/memberships', attributes: 'name,id') {
       [

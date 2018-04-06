@@ -1,8 +1,9 @@
 class MembershipImportsController < ApplicationController
-  include RequireAdmin, LoadSpace
+  include LoadSpace
+  include RequireAdmin
 
   def new
-    existing_memberships = Membership.where(space_id: @space.id)
+    existing_memberships = Membership.active.where(space_id: @space.id)
     @memberships =
       cobot_memberships
       .reject {|m| existing_memberships.map(&:cobot_id).include?(m[:id]) }
