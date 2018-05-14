@@ -98,8 +98,9 @@
 </script>
 <script src="https://<%= request.host_with_port %>/javascripts/dug.js"></script>
 <script>
+  // picture_size: thumb, small, large, xlarge, hd
   dug({
-    endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil) %>',
+    endpoint: '<%= api_space_url(@space, format: :json, secret: @space.secret, cobot_embed: nil, picture_size: 'small') %>',
     error: function( data ){
       document.getElementById('error-dug').innerHTML = 'Error loading member profiles, sorry.';
     },

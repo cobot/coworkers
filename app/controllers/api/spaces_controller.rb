@@ -18,42 +18,41 @@ module Api
     private
 
     def render_space(space)
-      unless params[:callback].blank?
-        render js: "#{params[:callback]}(#{space_hash(space).to_json});"
-      else
+      if params[:callback].blank?
         render json: space_hash(space)
+      else
+        render js: "#{params[:callback]}(#{space_hash(space).to_json});"
       end
     end
 
     def space_hash(space)
-      memberships = space.memberships.active.published.includes(:user, :answers)
+      memberships = space.memberships.active.published.includes(:answers)
       {
         id: space.id,
         name: space.name,
         url: space_url(space),
-        memberships: memberships.map {|membership|
+        memberships: memberships.map do |membership|
           membership_hash(space, membership,
-            membership.user,
-            membership.answers
-        )}
+            membership.answers)
+        end
       }
     end
 
-    def membership_hash(space, membership, user, answers)
+    def membership_hash(space, membership, answers)
       {
         id: membership.id,
         name: membership.name,
         url: space_membership_url(space, membership),
-        image_url: membership_picture_url(membership),
+        image_url: membership_picture_url(membership, size: (params[:picture_size] || :small)),
         website: membership.website,
         bio: membership.bio,
         profession: membership.profession,
         industry: membership.industry,
         skills: membership.skills,
         messenger: ({membership.messenger_type => membership.messenger_account} if membership.messenger_type.present?),
-        questions: answers.map{|answer|
+        questions: answers.map do |answer|
           {answer.question => answer.text}
-        }
+        end
       }
     end
   end
