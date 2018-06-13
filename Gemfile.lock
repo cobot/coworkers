@@ -48,7 +48,7 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    cobot_assets (12.0.0)
+    cobot_assets (16.3.0)
     cobot_client (1.4.1)
       json (~> 1.8)
       oauth2 (~> 1.0)
@@ -251,7 +251,7 @@ PLATFORMS
 
 DEPENDENCIES
   capybara
-  cobot_assets (~> 12.0.0)
+  cobot_assets (~> 16.3.0)
   cobot_client (~> 1.4.1)
   cucumber-rails
   database_cleaner
