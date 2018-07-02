@@ -3,7 +3,7 @@
 <% if current_user %>
   <div class="pb3 pb4-m tr">
     <% if current_user.admin_of?(@space) %>
-      <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn btn--small btn--full' %>
+      <%= link_to 'Set up Profiles', new_space_membership_import_path(@space), class: 'btn btn--small btn--full btn--primary' %>
     <% end %>
     <% if membership = current_user.membership_for(@space) %>
       <%= link_to 'My Profile', space_membership_path(@space, membership), class: 'btn btn--small btn--full btn--primary' %>
