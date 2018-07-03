@@ -1,5 +1,5 @@
 Feature: List members
-  In order to get to know the others coworkers in my space
+  In order to get to know the others members in my space
   As a coworker
   I want to see a list of them
 

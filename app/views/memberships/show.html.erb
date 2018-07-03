@@ -3,7 +3,7 @@
 <div class="inner">
   <div class="media media--full">
     <div class="media__figure">
-      <%= image_tag membership_picture_url(@membership, size: :large), class: 'br-100 center mb4 mw5' %>
+      <%= image_tag membership_picture_url(@membership, size: :large), class: 'avatar mb4' %>
     </div>
     <div class="media__body">
       <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
