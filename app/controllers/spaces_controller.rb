@@ -10,9 +10,9 @@ class SpacesController < ApplicationController
   def install
     space_url = space_memberships_url(@space)
     links = CobotClient::NavigationLinkService.new(cobot_client, @space.subdomain).install_links [
-      CobotClient::NavigationLink.new(section: 'admin/manage', label: 'Coworker Profiles', iframe_url: space_url),
-      CobotClient::NavigationLink.new(section: 'admin/setup', label: 'Coworker Profiles', iframe_url: space_questions_url(@space)),
-      CobotClient::NavigationLink.new(section: 'members', label: 'Coworkers', iframe_url: space_url)
+      CobotClient::NavigationLink.new(section: 'admin/manage', label: 'Member Directory', iframe_url: space_url),
+      CobotClient::NavigationLink.new(section: 'admin/setup', label: 'Member Directory', iframe_url: space_questions_url(@space)),
+      CobotClient::NavigationLink.new(section: 'members', label: 'Member Directory', iframe_url: space_url)
     ]
     redirect_to links.find {|l| l.section == 'admin/manage' }.user_url
   end
