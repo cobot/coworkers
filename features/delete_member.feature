@@ -7,6 +7,5 @@ Scenario: I'm an admin and delete a member
   When I sign in
   Then "Jane Doe" should be listed as a member of the space "co.up"
   When I follow the first "Jane Doe" link
-    And I follow "Edit"
     And I follow "Remove Profile"
   Then I should see "The profile was removed."

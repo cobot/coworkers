@@ -2,6 +2,8 @@ class MembershipImportsController < ApplicationController
   include LoadSpace
   include RequireAdmin
 
+  layout 'embed'
+
   def new
     existing_memberships = Membership.active.where(space_id: @space.id)
     @memberships =

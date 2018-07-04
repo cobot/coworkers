@@ -14,7 +14,7 @@
     <tbody>
     <% @spaces.each do |space| %>
       <tr>
-        <td class="space"><%= link_to space.name, space %></td>
+        <td class="space"><%= space.name %></td>
         <td><%= space.memberships.length %></td>
         <td>
           <% if current_user.admin_of?(space) %>

@@ -17,11 +17,9 @@ Given(/^"([^"]*)" has a member "([^"]*)" with cobot id "([^"]*)"$/) do |space_na
 end
 
 When /I publish my profile/ do
-  visit account_path
-  find('.space a').click
-  click_link 'Set up Profile'
-  check 'Publish Profile'
-  click_button 'Update Profile'
+  visit space_memberships_path(Space.first!)
+  click_link 'My Profile'
+  click_link 'Publish'
 end
 
 Then(/^"([^"]+)" should be listed as a member of the space "([^"]+)"(?: once)?$/) do |membership_name, space_name|
