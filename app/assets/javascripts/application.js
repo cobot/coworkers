@@ -3,17 +3,13 @@
 
 //= require jquery
 //= require jquery_ujs
-//= require facebox
 //= require_self
 
 jQuery(function($) {
-  $('a[rel*=facebox]').facebox();
-
-  $('.embed').live('focus', function(e) {
+  $(document).on('focus', '.embed', function(e) {
     var $input = $(this);
     window.setTimeout(function() {
       $input.select();
     }, 1);
   });
-
 });
