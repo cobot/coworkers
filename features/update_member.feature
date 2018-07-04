@@ -9,9 +9,7 @@ Scenario: I sign in and my membership name has changed
     And I sign in
     And I publish my profile
   Then "Joe Doe" should be listed as a member of the space "co.up"
-  When I follow "Sign out"
-   Given on cobot I'm a member of the space "co.up" with the name "John Doe"
+  Given on cobot I'm a member of the space "co.up" with the name "John Doe"
   When I sign in
-    And follow "co.up"
   Then "John Doe" should be listed as a member of the space "co.up"
     And "Joe Doe" should not be listed as a member of the space "co.up"

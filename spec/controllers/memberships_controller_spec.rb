@@ -6,9 +6,11 @@ describe MembershipsController, 'create', type: :controller do
 
   before(:each) do
     allow(Space).to receive_message_chain(:by_cobot_id, :first!) { space }
+    allow(controller).to receive(:redirect_to)
   end
 
   it 'allows admins to update any member' do
+    allow(controller).to receive(:render)
     log_in double(:user, admin_of?: true)
     allow(space).to receive_message_chain(:memberships, :find) { membership }
 
@@ -18,6 +20,7 @@ describe MembershipsController, 'create', type: :controller do
   end
 
   it 'allows members to update themselves' do
+    allow(controller).to receive(:render)
     log_in double(:user, admin_of?: false, member_of?: true, membership_for: membership)
     allow(space).to receive_message_chain(:memberships, :find) { membership }
 

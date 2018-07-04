@@ -1,5 +1,3 @@
-<%= render 'spaces/navigation', space: @space %>
-
 <div class="inner">
   <h2>Fields</h2>
 
@@ -41,22 +39,6 @@
         <%= f.submit 'Add Field', class: 'btn btn--full btn--primary btn--stretch btn_add' %>
       </p>
     </div>
-  <% end %>
-
-  <% unless @embedded %>
-    <h3>Visibility</h3>
-
-    <%= form_for @space do |f| %>
-      <div class="form-block--wide">
-        <p>
-          <%= f.check_box :members_only %>
-          <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
-        </p>
-        <p>
-          <%= f.submit 'Save', class: 'btn btn--full btn--primary btn--stretch' %>
-        </p>
-      </div>
-    <% end %>
   <% end %>
 </div>
 

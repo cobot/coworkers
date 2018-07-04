@@ -13,9 +13,6 @@ module NavigationHelpers
     when /the list of members for "([^\"]+)"/
       space = space_by_name $1
       space_memberships_path(space)
-    when /the "([^\"]+)" dashboard/
-      space = space_by_name $1
-      space_path(space)
     else
       begin
         page_name =~ /^the (.*) page$/

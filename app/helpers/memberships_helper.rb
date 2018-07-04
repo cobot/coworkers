@@ -14,4 +14,12 @@ module MembershipsHelper
       account
     end
   end
+
+  def edit_profile_url(space, membership)
+    if current_user.admin_of?(space)
+      "https://#{space.subdomain}.cobot.me/admin/memberships/#{membership.cobot_id}/profile/edit"
+    elsif current_user == membership.user
+      "https://#{space.subdomain}.cobot.me/membership/profile/edit"
+    end
+  end
 end

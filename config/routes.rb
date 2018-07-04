@@ -5,12 +5,12 @@ Coworkers::Application.routes.draw do
   get '/auth/failure', to: 'sessions#failure'
 
   resource :account, only: :show
-  resources :spaces, only: [:show, :update] do
+  resources :spaces, only: [] do
     member do
       put :install
     end
     resource :membership_import, only: [:new, :create]
-    resources :memberships, only: [:index, :show, :destroy, :edit, :update]
+    resources :memberships, only: [:index, :show, :destroy, :update]
     resources :questions, only: [:index, :create, :destroy, :edit, :update]
     resource :member_cancellation_webhook, only: :create
   end
