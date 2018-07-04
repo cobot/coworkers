@@ -6,7 +6,7 @@ describe 'space api' do
     user = User.create!
     Membership.create! space_id: space.id, user_id: user.id, name: 'joe doe', public: true
 
-    visit api_space_path(space)
+    visit api_space_path(space, secret: space.secret)
 
     expect(page.source).to include('joe doe')
   end

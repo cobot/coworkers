@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Coworkers</title>
+  <title>Member Directory</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <link rel="shortcut icon" type="image/x-icon" href="<%= image_path 'cobot_assets/favicon.ico' %>" />
   <link rel="icon" type="image/ico" href="<%= image_path 'cobot_assets/favicon.ico' %>" />
@@ -23,7 +23,7 @@
     <div class="cb-container pt0 pb0 cf">
       <div class="nav__logo">
         <%= link_to image_tag('cobot_assets/cobot-logo.svg'), root_url, class: 'space-logo' %>
-        <%= link_to 'Coworkers', root_url, class: 'space-logo-placeholder' %>
+        <%= link_to 'Member Directory', root_url, class: 'space-logo-placeholder' %>
       </div>
     </div>
   </div>
@@ -51,7 +51,7 @@
       </div>
     </div>
   </div>
-  
+
   <%= javascript_include_tag 'application' %>
 </body>
 </html>

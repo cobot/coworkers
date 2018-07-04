@@ -5,8 +5,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user, :in_cobot_admin_section?
 
-  layout :current_layout
-
   def append_info_to_payload(payload)
     super
     payload[:params] = params if Rails.application.config.lograge.enabled
@@ -43,14 +41,6 @@ class ApplicationController < ActionController::Base
     session[:cobot_section].to_s.include?('admin')
   end
 
-  def current_layout
-    if params[:cobot_embed] == 'true'
-      'embed'
-    else
-      'application'
-    end
-  end
-
   def default_url_options
     if params[:cobot_embed]
       {cobot_embed: params[:cobot_embed]}
@@ -81,14 +71,10 @@ class ApplicationController < ActionController::Base
   def not_allowed
     respond_to do |format|
       format.html do
-        if current_user
-          render file: Rails.root.join('public', '403.html'), status: 403, layout: false
-        else
-          redirect_to new_session_path
-        end
+        render file: Rails.root.join('public', '403.html'), status: 403, layout: false
       end
       format.json do
-        head 403
+        render json: {error: 'not allowed'}, status: 403
       end
     end
   end

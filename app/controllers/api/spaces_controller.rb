@@ -8,7 +8,7 @@ module Api
 
     def show
       space = Space.by_cobot_id(params[:id]).first!
-      if space.viewable_by?(nil) || space.secret == params[:secret]
+      if space.secret == params[:secret]
         render_space(space)
       else
         not_allowed
@@ -30,7 +30,7 @@ module Api
       {
         id: space.id,
         name: space.name,
-        url: space_url(space),
+        url: space_memberships_url(space),
         memberships: memberships.map do |membership|
           membership_hash(space, membership,
             membership.answers)

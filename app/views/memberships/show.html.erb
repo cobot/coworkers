@@ -1,18 +1,26 @@
-<%= render 'spaces/navigation', space: @space %>
-
 <div class="inner">
   <div class="media media--full">
     <div class="media__figure">
-      <%= image_tag membership_picture_url(@membership, size: :large), class: 'br-100 center mb4 mw5' %>
+      <%= image_tag membership_picture_url(@membership, size: :large), class: 'avatar mb4' %>
     </div>
     <div class="media__body">
       <% if current_user && (current_user.admin_of?(@space) || current_user == @membership.user) %>
         <span class="fr">
-          <%= link_to 'Edit', [:edit, @space, @membership], class: 'btn btn--small btn--full btn--primary btn_edit' %>
-          <% unless @membership.public? %>
-            <%= link_to 'Publish', [@space, @membership, :'membership[public]' => true], class: 'btn btn--small  btn--full btn_lock',
+          <%= link_to 'Edit', edit_profile_url(@space, @membership),
+            class: 'btn btn--small btn--full btn--primary btn_edit' %>
+          <% if @membership.public? %>
+            <%= link_to 'Unpublish', [@space, @membership, :'membership[public]' => false],
+              class: 'btn btn--small btn--full btn_lock',
+              method: :patch  %>
+          <% else %>
+            <%= link_to 'Publish', [@space, @membership, :'membership[public]' => true],
+              class: 'btn btn--small btn--full btn_lock',
               method: :patch  %>
           <% end %>
+          <%= link_to 'Remove Profile', [@space, @membership],
+            data: {method: 'delete'},
+            confirm: 'Really remove that membership?',
+            class: 'btn btn--small btn_x' if current_user.admin_of?(@space) %>
         </span>
       <% end %>
       <h2 class="heading--special mt0">
@@ -59,7 +67,7 @@
           <% end %>
         <% end %>
       <% elsif @membership.user == current_user && @space.questions.any? %>
-        <p>Please <%= link_to 'add more information', edit_space_membership_path(@space, @membership) %></p>
+        <p>Please <%= link_to 'add more information', edit_profile_url(@space, @membership) %></p>
       <% end %>
 
     </div>

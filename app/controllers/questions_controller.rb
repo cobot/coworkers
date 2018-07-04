@@ -1,6 +1,8 @@
 class QuestionsController < ApplicationController
   include RequireAdmin, LoadSpace
 
+  layout 'embed'
+
   def index
     @questions = @space.questions
     @question = Question.new

@@ -1,5 +1,3 @@
-<%= render 'spaces/navigation', space: @space %>
-
 <div class="inner">
   <h2>Fields</h2>
 
@@ -42,28 +40,12 @@
       </p>
     </div>
   <% end %>
-
-  <% unless @embedded %>
-    <h3>Visibility</h3>
-
-    <%= form_for @space do |f| %>
-      <div class="form-block--wide">
-        <p>
-          <%= f.check_box :members_only %>
-          <%= f.label :members_only, 'Profiles are only visible for members, not publicly.' %>
-        </p>
-        <p>
-          <%= f.submit 'Save', class: 'btn btn--full btn--primary btn--stretch' %>
-        </p>
-      </div>
-    <% end %>
-  <% end %>
 </div>
 
 <div class="inner">
   <h3>Embed on your Website</h3>
 
-  <p>To add the list of coworkers to your website please paste the following embed code into your site.</p>
+  <p>To add the list of members to your website please paste the following embed code into your site.</p>
 
   <textarea class="embed w6 f7 courier" rows="12">
     <%= render('embed_link') %>

@@ -5,7 +5,7 @@
         <div class="media media--full">
           <div class="media__figure">
             <%= image_tag(membership_picture_url(membership, size: :large), size: '90x90',
-                class: 'br-100') %>
+                class: 'avatar avatar--thumb') %>
           </div>
           <div class="media__body">
             <% unless membership.public? %>
@@ -18,7 +18,7 @@
               <%= truncate membership.profession, length: 20 %>
             </div>
             <hr class="clear hr--light">
-            <p class="f6 mb0">
+            <p class="f6 tc--text mb0">
               <%= truncate membership.bio, length: 80 %>
             </p>
           </div>

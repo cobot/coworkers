@@ -26,7 +26,7 @@ class Space < ActiveRecord::Base
   end
 
   def viewable_by?(user)
-    !members_only? || member?(user) || (user && user.admin_of?(self))
+    member?(user) || (user && user.admin_of?(self))
   end
 
   private

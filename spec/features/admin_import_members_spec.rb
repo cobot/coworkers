@@ -6,8 +6,7 @@ describe 'importing members as admins' do
     stub_cobot_membership 'co.up', 'Jane'
     sign_in
     space = space_by_name('co.up')
-    click_link 'co.up'
-    within('#menu') { click_link 'Members' }
+    visit space_memberships_path(space)
     click_link 'Set up Profiles'
     check 'Jane'
     click_button 'Create Member Profiles'
